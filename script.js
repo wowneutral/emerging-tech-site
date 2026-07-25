@@ -169,14 +169,28 @@
   if(mc){ mc.addEventListener('click', function(){ mm.classList.remove('open'); }); }
   if(mm){ mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ mm.classList.remove('open'); }); }); }
 
-  /* contact form -> mailto */
+  /* contact form -> FormSubmit (submits directly, no email client needed) */
   var cf = document.getElementById('contactForm');
   if(cf){
+    var cfStatus = document.getElementById('cfStatus');
+    var cfBtn = cf.querySelector('button[type="submit"]');
     cf.addEventListener('submit', function(ev){
       ev.preventDefault();
+      if(cfBtn){ cfBtn.disabled = true; cfBtn.style.opacity = '.6'; }
+      if(cfStatus){ cfStatus.textContent = 'Sending…'; cfStatus.style.color = 'var(--slate-2)'; }
       var f = new FormData(cf);
-      var body = 'Name: '+f.get('name')+'%0AOrganization: '+(f.get('org')||'—')+'%0AReason: '+f.get('reason')+'%0A%0A'+encodeURIComponent(f.get('msg'));
-      location.href = 'mailto:collaborate@emergingtech.co?subject='+encodeURIComponent('['+f.get('reason')+'] Inquiry from '+f.get('name'))+'&body='+body;
+      fetch(cf.action, { method: 'POST', body: f, headers: { 'Accept': 'application/json' } })
+        .then(function(res){ if(!res.ok) throw new Error('bad status'); return res.json(); })
+        .then(function(){
+          if(cfStatus){ cfStatus.textContent = 'Thanks — your message was sent. We\'ll be in touch soon.'; cfStatus.style.color = 'var(--blue-2)'; }
+          cf.reset();
+        })
+        .catch(function(){
+          if(cfStatus){ cfStatus.textContent = 'Something went wrong sending your message — please email us directly at collaborate@emergingtech.co.'; cfStatus.style.color = '#B3452C'; }
+        })
+        .finally(function(){
+          if(cfBtn){ cfBtn.disabled = false; cfBtn.style.opacity = '1'; }
+        });
     });
   }
 

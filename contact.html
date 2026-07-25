@@ -126,7 +126,10 @@
 <section>
   <div class="wrap contact-grid">
     <div class="reveal-l">
-      <form class="cf" id="contactForm">
+      <form class="cf" id="contactForm" action="https://formsubmit.co/ajax/armaan.law@outlook.com" method="POST">
+        <input type="hidden" name="_subject" value="New inquiry from Emerging Tech website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
         <div class="row2">
           <div><label for="cfn">Name</label><input id="cfn" name="name" required autocomplete="name"></div>
           <div><label for="cfe">Email</label><input id="cfe" name="email" type="email" required autocomplete="email"></div>
@@ -145,7 +148,7 @@
         </div>
         <div><label for="cfm">Message</label><textarea id="cfm" name="msg" required></textarea></div>
         <div><button class="btn btn-navy" type="submit">Send message <span class="ar">&rarr;</span></button></div>
-        <p style="margin:0;font-size:12.5px;color:var(--slate-2)">Submitting opens your email client addressed to collaborate@emergingtech.co.</p>
+        <p id="cfStatus" style="margin:0;font-size:12.5px;color:var(--slate-2)" aria-live="polite">Sent directly &mdash; no email client needed.</p>
       </form>
     </div>
     <div class="reveal-r">
