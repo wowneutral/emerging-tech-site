@@ -96,10 +96,11 @@
   .phero{position:relative;background:var(--navy);color:#fff;overflow:hidden}
   .phero .bgimg{position:absolute;inset:-6% 0;background-size:cover;background-position:center;opacity:.20;transform:scale(1.08);animation:kb 20s var(--ease) forwards;will-change:transform}
   @keyframes kb{to{transform:scale(1.01)}}
-  .phero .weave{position:absolute;inset:0;opacity:.5;background:
-    radial-gradient(70% 120% at 85% 10%,rgba(41,169,197,.35),transparent 55%),
-    radial-gradient(50% 90% at 10% 95%,rgba(163,190,195,.16),transparent 60%)}
-  .phero .gridbg{position:absolute;inset:-60px;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:52px 52px;animation:drift 26s linear infinite}
+  .phero .weave{position:absolute;inset:0;opacity:.85;background:
+    radial-gradient(70% 120% at 85% 10%,rgba(41,169,197,.55),transparent 55%),
+    radial-gradient(55% 95% at 8% 100%,rgba(41,169,197,.28),transparent 62%),
+    radial-gradient(40% 70% at 50% 40%,rgba(163,190,195,.22),transparent 65%)}
+  .phero .gridbg{position:absolute;inset:-60px;background-image:linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px);background-size:52px 52px;animation:drift 26s linear infinite}
   @keyframes drift{to{transform:translate(52px,52px)}}
   .phero::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,rgba(84,97,110,.5) 30%,rgba(84,97,110,0) 100%)}
   .phero .wrap{position:relative;z-index:2;padding:96px 30px 88px}

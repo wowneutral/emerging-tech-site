@@ -32,12 +32,10 @@
   /* intro shutter (home) */
   var intro = document.getElementById('intro');
   if(intro){
-    var seen = false;
-    try{ seen = sessionStorage.getItem('et_intro') === '1'; }catch(e){}
-    if(reduce || seen){ intro.remove(); }
+    if(reduce){ intro.remove(); }
     else{
       requestAnimationFrame(function(){ intro.classList.add('go'); });
-      setTimeout(function(){ intro.classList.add('open'); try{ sessionStorage.setItem('et_intro','1'); }catch(e){} }, 300);
+      setTimeout(function(){ intro.classList.add('open'); }, 300);
       setTimeout(function(){ intro.remove(); }, 2700);
     }
   }
