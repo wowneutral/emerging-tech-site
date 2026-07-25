@@ -126,10 +126,42 @@
 
 <section>
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">Open Positions</span><h2>Current openings.</h2></div>
-    <div id="jazzhr-jobs-widget" class="reveal"></div>
-    <script type="text/javascript" src="https://app.jazz.co/widgets/basic/create/emergingtech" charset="utf-8"></script>
+    <div class="sec-head reveal"><span class="eyebrow">Open Positions</span><h2 id="jobsHeading">Current openings.</h2></div>
+    <div class="cards2" id="jobsGrid"><p style="color:var(--slate-2)">Loading current openings&hellip;</p></div>
     <p class="reveal" style="margin-top:24px;color:var(--slate-2);font-size:13px">Don&rsquo;t see your fit? <a href="contact" style="color:var(--blue-2);font-weight:700">Send us your resume</a> and we&rsquo;ll reach out when something matches.</p>
+    <script>
+    (function(){
+      var grid = document.getElementById('jobsGrid');
+      var heading = document.getElementById('jobsHeading');
+      function esc(s){
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+          return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+        });
+      }
+      fetch('jobs.json', {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(jobs){
+        if(!jobs || !jobs.length){
+          grid.innerHTML = '<p style="color:var(--slate-2)">No open positions right now &mdash; check back soon, or send us your resume below.</p>';
+          return;
+        }
+        heading.textContent = jobs.length + ' current opening' + (jobs.length === 1 ? '' : 's') + '.';
+        grid.innerHTML = jobs.map(function(j, i){
+          var loc = [j.city, j.state].filter(Boolean).join(', ');
+          var meta = [loc, j.employment_type].filter(Boolean).join(' &middot; ');
+          var side = i % 2 === 0 ? 'reveal-l' : 'reveal-r';
+          var apply = j.url || '#';
+          return ''
+            + '<div class="vcard ' + side + ' in">'
+            +   '<div class="vh"><h3>' + esc(j.title) + '</h3></div>'
+            +   (meta ? '<div class="period">' + meta + '</div>' : '')
+            +   (j.department ? '<div class="sins"><span>' + esc(j.department) + '</span></div>' : '')
+            +   '<div class="cta-row" style="margin-top:18px"><a class="btn btn-navy" href="' + esc(apply) + '" target="_blank" rel="noopener">View details &amp; apply <span class="ar">&rarr;</span></a></div>'
+            + '</div>';
+        }).join('');
+      }).catch(function(){
+        grid.innerHTML = '<p style="color:var(--slate-2)">Openings are temporarily unavailable &mdash; please check back soon, or send us your resume below.</p>';
+      });
+    })();
+    </script>
   </div>
 </section>
 

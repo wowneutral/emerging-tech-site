@@ -1,0 +1,38 @@
+name: Fetch JazzHR Jobs
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # every hour
+  workflow_dispatch: {}    # lets you trigger it manually from the Actions tab
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Fetch open jobs from JazzHR
+        env:
+          JAZZHR_API_KEY: ${{ secrets.JAZZHR_API_KEY }}
+        run: python3 scripts/fetch_jobs.py
+
+      - name: Commit jobs.json if it changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add jobs.json
+          if git diff --staged --quiet; then
+            echo "No job changes."
+          else
+            git commit -m "Update job listings from JazzHR"
+            git push
+          fi
