@@ -23,7 +23,10 @@ def fetch_jobs():
         sys.exit(1)
 
     url = f"https://api.resumatorapi.com/v1/jobs?apikey={API_KEY}"
-    req = urllib.request.Request(url, headers={"Accept": "application/json"})
+    req = urllib.request.Request(url, headers={
+        "Accept": "application/json",
+        "User-Agent": "Mozilla/5.0 (compatible; EmergingTechJobsSync/1.0; +https://github.com/wowneutral/emerging-tech-site)",
+    })
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode("utf-8"))
