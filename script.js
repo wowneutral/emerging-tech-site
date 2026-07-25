@@ -92,6 +92,25 @@
   var track = document.getElementById('sealTrack');
   if(track && !reduce){ track.innerHTML += track.innerHTML; }
 
+  /* robot speech bubble — badge pills (SDVOSB, 8(a), HUBZone, CMMI Level 3)
+     aren't links; clicking one makes the robot "explain" the acronym in a
+     speech bubble that fades itself out a few seconds later. */
+  var robotBubble = document.getElementById('robotBubble');
+  var badgeSpans = document.querySelectorAll('.robot-hero .badges span[data-msg]');
+  if(robotBubble && badgeSpans.length){
+    var bubbleTimer = null;
+    badgeSpans.forEach(function(span){
+      span.addEventListener('click', function(){
+        var msg = span.getAttribute('data-msg');
+        if(!msg) return;
+        robotBubble.textContent = msg;
+        robotBubble.classList.add('show');
+        if(bubbleTimer) clearTimeout(bubbleTimer);
+        bubbleTimer = setTimeout(function(){ robotBubble.classList.remove('show'); }, 4200);
+      });
+    });
+  }
+
   /* reveals with per-parent stagger */
   var sel = '.reveal,.reveal-l,.reveal-r,.reveal-s';
   var els = Array.prototype.slice.call(document.querySelectorAll(sel));
