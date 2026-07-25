@@ -256,7 +256,7 @@
   .plats-2{grid-template-columns:repeat(2,1fr);max-width:820px}
   .plat{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;transition:border-color .25s,box-shadow .3s,transform .3s var(--ease)}
   .plat:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(84,97,110,.35);transform:translateY(-5px)}
-  .plat img{height:32px;width:auto;max-width:130px;object-fit:contain;object-position:left;filter:grayscale(1) opacity(.65);transition:filter .3s}
+  .plat img{height:36px;width:140px;object-fit:contain;object-position:left center;filter:grayscale(1) opacity(.65);transition:filter .3s}
   .plat:hover img{filter:grayscale(0) opacity(1)}
   .plat img.broken{display:none}
   .plat .nm{font-family:var(--display);font-weight:700;font-size:15.5px;color:var(--navy)}
