@@ -29,7 +29,7 @@
   img{max-width:100%;display:block}
   ::selection{background:var(--navy);color:#fff}
   .wrap{max-width:var(--wrap);margin:0 auto;padding:0 30px}
-  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-2)}
+  .eyebrow{display:block;font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-2)}
   .code{font-family:var(--mono);letter-spacing:.02em}
   a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:3px}
 
