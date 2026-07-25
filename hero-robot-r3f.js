@@ -58,7 +58,7 @@
       map: cyberLogoTex, color: new THREE.Color(0.5, 2.6, 2.9),
       transparent: true, alphaTest: 0.35, toneMapped: false, side: THREE.DoubleSide, depthWrite: false
     });
-    var CYBER_LOGO_W = 0.15, CYBER_LOGO_H = CYBER_LOGO_W / 2.19;
+    var CYBER_LOGO_W = 0.19, CYBER_LOGO_H = CYBER_LOGO_W / 2.19;
 
     // ---------------- ResponsiveGroup ----------------
     function ResponsiveGroup(props) {
@@ -258,7 +258,7 @@
 
       var design = {
         pantallaColor: '#3d7dff', pantallaGrosor: 3.8, pantallaBrillo: 1.2,
-        separacionOjos: 0.088, tamañoOrejas: 1.3, escalaOjos: 1.1,
+        separacionOjos: 0.11, tamañoOrejas: 1.3, escalaOjos: 1.1,
         parpadeoFrecuencia: 3.0, parpadeoDuracion: 0.45,
         colorChasis: '#c9ccd3', alturaCabeza: 0.60
       };
