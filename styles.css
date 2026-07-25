@@ -260,7 +260,7 @@
   /* the VistA source SVG has built-in left whitespace baked into its own
      viewBox that object-position can't trim away, so it's nudged left here
      to line back up with the card's text below it */
-  .plat img[alt="VistA"]{margin-left:-14px}
+  .plat img[alt="VistA"]{margin-left:-30px}
   .plat:hover img{filter:grayscale(0) opacity(1)}
   .plat img.broken{display:none}
   .plat .nm{font-family:var(--display);font-weight:700;font-size:15.5px;color:var(--navy)}
