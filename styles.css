@@ -344,8 +344,7 @@
   .side-card p,.side-card address{font-style:normal;margin:0;color:var(--slate);font-size:14.5px;line-height:1.7}
   .side-card a{color:var(--blue-2);font-weight:600}
   .map{border:1px solid var(--line);border-radius:10px;overflow:hidden}
-  .map iframe{height:560px}
-  .map iframe{display:block;width:100%;height:280px;border:0;filter:saturate(.85)}
+  .map iframe{display:block;width:100%;height:640px;border:0;filter:saturate(.85)}
 
   footer{background:#1D2125;color:var(--ondark-2);padding:64px 0 30px;font-size:14.5px}
   footer .cols{display:grid;grid-template-columns:minmax(0,3.6fr) repeat(4,minmax(0,2.1fr));gap:36px}
@@ -485,7 +484,7 @@
     .robot-hero .rh-stats .l{display:block;margin-left:0;margin-top:6px}
   }
   @media (max-width:600px){
-    .map iframe{height:360px}
+    .map iframe{height:420px}
     .robot-hero .rh-visual{height:50vh;min-height:320px}
     .robot-hero .rh-visual-bar{flex-direction:column;align-items:flex-start;gap:14px;top:14px;width:calc(100% - 32px)}
     .robot-hero .rh-toolbar{width:100%}
