@@ -88,9 +88,37 @@
     }
   }
 
-  /* marquee duplicate */
+  /* Marquee loop — previously relied on CSS transform:translateX(-50%),
+     which is computed as a percentage of the track's OWN width. That width
+     can shift slightly as seal images finish loading/decoding after the
+     animation has already started (percentages in a running CSS animation
+     are relative to whatever the box measures at each frame), so the loop
+     point drifted out of sync with the actual duplicated content boundary —
+     showing up as a visible gap followed by a jump back to the start.
+     Fixing this by measuring the real, settled pixel width of one full set
+     (after images load) and animating to that exact distance instead of a
+     percentage, so the seam always lands exactly where the duplicate
+     content begins. */
   var track = document.getElementById('sealTrack');
-  if(track && !reduce){ track.innerHTML += track.innerHTML; }
+  if(track && !reduce){
+    track.innerHTML += track.innerHTML;
+    var setMarqueeDistance = function(){
+      var w = track.scrollWidth / 2;
+      if(w > 0){ track.style.setProperty('--mq-w', w + 'px'); }
+    };
+    setMarqueeDistance();
+    var imgs = track.querySelectorAll('img');
+    var pending = imgs.length;
+    if(pending){
+      imgs.forEach(function(img){
+        if(img.complete){ pending--; return; }
+        img.addEventListener('load', function(){ pending--; if(pending<=0) setMarqueeDistance(); });
+        img.addEventListener('error', function(){ pending--; if(pending<=0) setMarqueeDistance(); });
+      });
+      if(pending<=0) setMarqueeDistance();
+    }
+    addEventListener('resize', setMarqueeDistance);
+  }
 
   /* reveals with per-parent stagger */
   var sel = '.reveal,.reveal-l,.reveal-r,.reveal-s';
