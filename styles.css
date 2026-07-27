@@ -458,7 +458,7 @@
      hero — both the top visual band AND the copy/stats area below it —
      instead of stopping above the text. Text colors below are flipped to
      light-on-dark to stay legible against that darker background. */
-  .robot-hero{position:relative;background:var(--navy-3);overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08)}
+  .robot-hero{position:relative;background:var(--navy-3);overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;min-height:70vh}
   /* Replaces the old three.js/VANTA.NET WebGL animation — that ran a full
      render loop every frame on every page load just for a background
      flourish, which is exactly what was making the hero feel laggy. This
@@ -467,9 +467,9 @@
      GPU-composited, and it stops entirely under prefers-reduced-motion. */
   #heroNet{position:absolute;inset:0;z-index:0;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cg stroke='%233d7dff' stroke-opacity='.28' stroke-width='1' fill='none'%3E%3Cline x1='0' y1='0' x2='70' y2='70'/%3E%3Cline x1='140' y1='0' x2='70' y2='70'/%3E%3Cline x1='0' y1='140' x2='70' y2='70'/%3E%3Cline x1='140' y1='140' x2='70' y2='70'/%3E%3Cline x1='70' y1='70' x2='140' y2='70'/%3E%3Cline x1='70' y1='70' x2='0' y2='70'/%3E%3Cline x1='70' y1='70' x2='70' y2='140'/%3E%3Cline x1='70' y1='70' x2='70' y2='0'/%3E%3C/g%3E%3Cg fill='%233d7dff' fill-opacity='.55'%3E%3Ccircle cx='0' cy='0' r='2.4'/%3E%3Ccircle cx='140' cy='0' r='2.4'/%3E%3Ccircle cx='0' cy='140' r='2.4'/%3E%3Ccircle cx='140' cy='140' r='2.4'/%3E%3Ccircle cx='70' cy='70' r='3'/%3E%3Ccircle cx='0' cy='70' r='2.4'/%3E%3Ccircle cx='140' cy='70' r='2.4'/%3E%3Ccircle cx='70' cy='0' r='2.4'/%3E%3Ccircle cx='70' cy='140' r='2.4'/%3E%3C/g%3E%3C/svg%3E");
-    background-size:140px 140px;background-repeat:repeat;
-    -webkit-mask-image:radial-gradient(ellipse 90% 100% at 50% 30%,#000 0%,#000 55%,transparent 100%);
-    mask-image:radial-gradient(ellipse 90% 100% at 50% 30%,#000 0%,#000 55%,transparent 100%);
+    background-size:140px 140px;background-repeat:repeat;background-color:transparent;
+    -webkit-mask-image:linear-gradient(180deg,#000,#000 65%,transparent 100%);
+    mask-image:linear-gradient(180deg,#000,#000 65%,transparent 100%);
     animation:heroNetDrift 50s linear infinite}
   @keyframes heroNetDrift{from{background-position:0 0}to{background-position:280px 140px}}
   @media (prefers-reduced-motion:reduce){#heroNet{animation:none}}
@@ -477,7 +477,7 @@
      enormous and left the badges bar stranded far above the headline with
      nothing connecting them. This is just enough net-only space above the
      text now, not a separate oversized visual block. */
-  .robot-hero .rh-visual{position:relative;z-index:1;overflow:hidden;height:26vh;min-height:190px;max-height:260px}
+  .robot-hero .rh-visual{position:relative;z-index:1;overflow:hidden;height:26vh;min-height:190px;max-height:260px;flex-shrink:0}
   .robot-hero .rh-visual-bar{position:absolute;top:26px;left:50%;transform:translateX(-50%);z-index:2;display:flex;align-items:center;justify-content:space-between;gap:24px;opacity:0;filter:blur(6px);animation:rhUp 1s var(--ease-cine) .1s forwards}
   .robot-hero .rh-toolbar{display:flex;gap:10px;flex-shrink:0}
   .robot-hero .rh-pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;padding:11px 20px;border-radius:99px;transition:transform .18s var(--ease),background .2s,color .2s,border-color .2s,box-shadow .2s;font-family:var(--body);white-space:nowrap}
@@ -489,7 +489,12 @@
   .robot-hero .rh-pill-line:hover{border-color:var(--navy);color:var(--navy)}
   .robot-hero .badges{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:2}
   .robot-hero .badges span{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--navy-2);border:1px solid var(--line-2);background:var(--white);border-radius:99px;padding:6px 13px;white-space:nowrap}
-  .robot-hero .rh-content{position:relative;z-index:1;padding:56px 0 80px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:64px;align-items:end}
+  /* Vertically center the headline/stats block in the remaining hero space
+     below the badges bar, instead of hugging the bottom with a big empty
+     gap above it — .robot-hero is now a flex column and this block grows
+     to fill the leftover space, then align-content:center balances the
+     grid inside it. */
+  .robot-hero .rh-content{position:relative;z-index:1;flex:1;padding:32px 0;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:64px;align-items:end;align-content:center}
   .robot-hero h1{margin:0;color:#fff;font-size:clamp(34px,4.6vw,58px);font-weight:900;max-width:17ch;letter-spacing:-.025em;opacity:0;transform:translateY(22px);filter:blur(8px);animation:rhUp 1.15s var(--ease-cine) .28s forwards}
   .robot-hero h1 em{font-style:normal;color:var(--teal-tint,#7dd3e8)}
   .robot-hero .rh-sub{margin:22px 0 0;font-size:17.5px;color:rgba(255,255,255,.72);max-width:56ch;opacity:0;transform:translateY(20px);filter:blur(6px);animation:rhUp 1.05s var(--ease-cine) .46s forwards}
