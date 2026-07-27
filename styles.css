@@ -459,7 +459,20 @@
      instead of stopping above the text. Text colors below are flipped to
      light-on-dark to stay legible against that darker background. */
   .robot-hero{position:relative;background:var(--navy-3);overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08)}
-  #heroNet{position:absolute;inset:0;z-index:0}
+  /* Replaces the old three.js/VANTA.NET WebGL animation — that ran a full
+     render loop every frame on every page load just for a background
+     flourish, which is exactly what was making the hero feel laggy. This
+     is a tileable SVG dot/line mesh drifting via a plain CSS
+     background-position animation instead: no canvas, no per-frame JS,
+     GPU-composited, and it stops entirely under prefers-reduced-motion. */
+  #heroNet{position:absolute;inset:0;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cg stroke='%233d7dff' stroke-opacity='.28' stroke-width='1' fill='none'%3E%3Cline x1='0' y1='0' x2='70' y2='70'/%3E%3Cline x1='140' y1='0' x2='70' y2='70'/%3E%3Cline x1='0' y1='140' x2='70' y2='70'/%3E%3Cline x1='140' y1='140' x2='70' y2='70'/%3E%3Cline x1='70' y1='70' x2='140' y2='70'/%3E%3Cline x1='70' y1='70' x2='0' y2='70'/%3E%3Cline x1='70' y1='70' x2='70' y2='140'/%3E%3Cline x1='70' y1='70' x2='70' y2='0'/%3E%3C/g%3E%3Cg fill='%233d7dff' fill-opacity='.55'%3E%3Ccircle cx='0' cy='0' r='2.4'/%3E%3Ccircle cx='140' cy='0' r='2.4'/%3E%3Ccircle cx='0' cy='140' r='2.4'/%3E%3Ccircle cx='140' cy='140' r='2.4'/%3E%3Ccircle cx='70' cy='70' r='3'/%3E%3Ccircle cx='0' cy='70' r='2.4'/%3E%3Ccircle cx='140' cy='70' r='2.4'/%3E%3Ccircle cx='70' cy='0' r='2.4'/%3E%3Ccircle cx='70' cy='140' r='2.4'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:140px 140px;background-repeat:repeat;
+    -webkit-mask-image:radial-gradient(ellipse 90% 100% at 50% 30%,#000 0%,#000 55%,transparent 100%);
+    mask-image:radial-gradient(ellipse 90% 100% at 50% 30%,#000 0%,#000 55%,transparent 100%);
+    animation:heroNetDrift 50s linear infinite}
+  @keyframes heroNetDrift{from{background-position:0 0}to{background-position:280px 140px}}
+  @media (prefers-reduced-motion:reduce){#heroNet{animation:none}}
   /* Shrunk way down from the original 60vh band — that made the hero feel
      enormous and left the badges bar stranded far above the headline with
      nothing connecting them. This is just enough net-only space above the

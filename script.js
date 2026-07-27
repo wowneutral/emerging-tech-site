@@ -265,39 +265,10 @@
     });
   }
 
-  /* cinematic dark-theme backgrounds: Vanta.js NET, wired once here so every
-     page that loads three.js + vanta-net.js + script.js gets the right
-     treatment automatically — no per-page markup needed beyond the mount el. */
-  if(!reduce && typeof VANTA !== 'undefined' && VANTA.NET && typeof THREE !== 'undefined'){
-    var vantaJobs = [];
-
-    /* Hero net: client asked to zoom in (fewer, bigger shapes instead of a
-       dense small-scale weave) and make the motion more subtle — mouse/touch
-       parallax turned off here so it's just a slow ambient drift, not
-       something that visibly reacts to the cursor. */
-    var heroNetEl = document.getElementById('heroNet');
-    if(heroNetEl) vantaJobs.push({el:heroNetEl, opts:{color:0x3d7dff,backgroundAlpha:0,points:15,maxDistance:28,spacing:19,showDots:true,mouseControls:false,touchControls:false,speed:0.6}});
-
-    var serveNetEl = document.getElementById('vantaNet');
-    if(serveNetEl) vantaJobs.push({el:serveNetEl, opts:{color:0x3d7dff,backgroundColor:0x0b1f3a,backgroundAlpha:1,points:8,maxDistance:22,spacing:17,showDots:true}});
-
-    var pheroEl = document.querySelector('.phero');
-    if(pheroEl){
-      var pheroNet = document.createElement('div');
-      pheroNet.setAttribute('aria-hidden','true');
-      pheroNet.style.cssText = 'position:absolute;inset:0;z-index:0';
-      pheroEl.insertBefore(pheroNet, pheroEl.firstChild);
-      vantaJobs.push({el:pheroNet, opts:{color:0x3d7dff,backgroundAlpha:0,points:7,maxDistance:20,spacing:20,showDots:true}});
-    }
-
-    vantaJobs.forEach(function(job){
-      try{
-        VANTA.NET(Object.assign({
-          el: job.el, THREE: window.THREE, mouseControls:true, touchControls:true,
-          gyroControls:false, minHeight:200, minWidth:200, scale:1, scaleMobile:1
-        }, job.opts));
-      }catch(e){}
-    });
-  }
+  /* Note: the old cinematic net background (formerly Vanta.js/three.js — a
+     full WebGL render loop running on every page load just for a
+     background flourish) has been replaced by a plain CSS/SVG animated
+     background on #heroNet (see styles.css). No JS needed to drive it
+     anymore, which removes the main source of the reported lag. */
 
 })();
