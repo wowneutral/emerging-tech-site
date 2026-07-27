@@ -147,15 +147,26 @@
       var n = groups.get(p);
       el.style.transitionDelay = (Math.min(n,7) * 80) + 'ms';
       groups.set(p, n+1);
-      /* the inline transition-delay above was never cleared once the
-         reveal-in animation finished, so :hover transitions on the same
-         elements (cards, links) silently inherited that leftover delay —
-         later items in a row felt laggier to hover than earlier ones.
-         Clear it once the entrance transition completes so hover falls
-         back to its own (undelayed) timing. */
+      /* Two separate bugs were making hover feel "laggy," worse for cards
+         further into a row/grid:
+         1) the inline transition-delay above was never cleared once the
+            reveal-in animation finished, so hover on a still-animating (or
+            just-finished) card inherited that same stagger delay — up to
+            560ms for the 8th+ item in a row.
+         2) even after the entrance finished, the CSS rule that drives the
+            entrance fade (.reveal.in / .reveal-s.in / etc, a 2-class
+            selector) has equal-or-higher specificity than each card's own
+            hover-transition rule (.card, .mcard, .plat — 1 class), so it
+            permanently overrode hover to use its slow 1.05s entrance
+            timing instead of the card's intended ~0.3s hover timing, on
+            every page that uses reveal-in cards (i.e. nearly all of them).
+         Fixing both: clear the delay, and set an inline transition (inline
+         style always wins over any class, regardless of specificity) that
+         restores fast, correct hover timing once the entrance is done. */
       el.addEventListener('transitionend', function handler(ev){
         if(ev.propertyName === 'opacity' || ev.propertyName === 'transform'){
           this.style.transitionDelay = '';
+          this.style.transition = 'border-color .25s var(--ease), box-shadow .3s var(--ease), transform .3s var(--ease), background .25s var(--ease), padding .3s var(--ease)';
           this.removeEventListener('transitionend', handler);
         }
       });
