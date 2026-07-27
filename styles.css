@@ -448,10 +448,11 @@
      light-on-dark to stay legible against that darker background. */
   .robot-hero{position:relative;background:var(--navy-3);overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08)}
   #heroNet{position:absolute;inset:0;z-index:0}
-  .robot-hero .rh-visual{position:relative;z-index:1;overflow:hidden;height:60vh;min-height:440px;max-height:620px}
-  .robot-hero .scrollcue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:2;width:22px;height:36px;border:1.5px solid rgba(255,255,255,.3);border-radius:12px;opacity:0;animation:rhUp .9s var(--ease-cine) 1.1s forwards;pointer-events:none}
-  .robot-hero .scrollcue i{position:absolute;left:50%;top:7px;width:3px;height:8px;margin-left:-1.5px;border-radius:2px;background:rgba(255,255,255,.6);animation:scrollcue 1.8s ease infinite}
-  @keyframes scrollcue{0%{opacity:1;transform:translateY(0)}70%{opacity:0;transform:translateY(10px)}100%{opacity:0;transform:translateY(10px)}}
+  /* Shrunk way down from the original 60vh band — that made the hero feel
+     enormous and left the badges bar stranded far above the headline with
+     nothing connecting them. This is just enough net-only space above the
+     text now, not a separate oversized visual block. */
+  .robot-hero .rh-visual{position:relative;z-index:1;overflow:hidden;height:26vh;min-height:190px;max-height:260px}
   .robot-hero .rh-visual-bar{position:absolute;top:26px;left:50%;transform:translateX(-50%);z-index:2;display:flex;align-items:center;justify-content:space-between;gap:24px;opacity:0;filter:blur(6px);animation:rhUp 1s var(--ease-cine) .1s forwards}
   .robot-hero .rh-toolbar{display:flex;gap:10px;flex-shrink:0}
   .robot-hero .rh-pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;padding:11px 20px;border-radius:99px;transition:transform .18s var(--ease),background .2s,color .2s,border-color .2s,box-shadow .2s;font-family:var(--body);white-space:nowrap}
@@ -477,7 +478,7 @@
   @keyframes rhUp{to{opacity:1;transform:none;filter:blur(0)}}
 
   @media (max-width:1020px){
-    .robot-hero .rh-visual{height:52vh;min-height:360px}
+    .robot-hero .rh-visual{height:24vh;min-height:170px;max-height:240px}
     .robot-hero .rh-content{grid-template-columns:1fr;gap:36px}
     .robot-hero .rh-stats{flex-direction:row;border-left:0;border-top:2px solid var(--brass);padding-left:0;padding-top:20px;gap:34px}
     .robot-hero .rh-stats .g{border-bottom:0;padding:0}
@@ -485,7 +486,7 @@
   }
   @media (max-width:600px){
     .map iframe{height:420px}
-    .robot-hero .rh-visual{height:50vh;min-height:320px}
+    .robot-hero .rh-visual{height:34vh;min-height:240px;max-height:320px}
     .robot-hero .rh-visual-bar{flex-direction:column;align-items:flex-start;gap:14px;top:14px;width:calc(100% - 32px)}
     .robot-hero .rh-toolbar{width:100%}
     .robot-hero .rh-pill{flex:1;justify-content:center;padding:10px 14px;font-size:12.5px}
@@ -494,5 +495,5 @@
     .robot-hero .rh-stats{flex-wrap:wrap;gap:16px 28px}
   }
   @media (prefers-reduced-motion:reduce){
-    .robot-hero .badges,.robot-hero h1,.robot-hero .rh-sub,.robot-hero .glance,.robot-hero .scrollcue,.robot-hero .rh-toolbar{opacity:1;transform:none}
+    .robot-hero .badges,.robot-hero h1,.robot-hero .rh-sub,.robot-hero .glance,.robot-hero .rh-toolbar{opacity:1;transform:none}
   }
