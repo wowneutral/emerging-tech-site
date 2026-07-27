@@ -217,7 +217,7 @@
     var vantaJobs = [];
 
     var heroNetEl = document.getElementById('heroNet');
-    if(heroNetEl) vantaJobs.push({el:heroNetEl, opts:{color:0x3d7dff,backgroundAlpha:0,points:9,maxDistance:23,spacing:19,showDots:true}});
+    if(heroNetEl) vantaJobs.push({el:heroNetEl, opts:{color:0x3d7dff,backgroundAlpha:0,points:14,maxDistance:27,spacing:15,showDots:true}});
 
     var serveNetEl = document.getElementById('vantaNet');
     if(serveNetEl) vantaJobs.push({el:serveNetEl, opts:{color:0x3d7dff,backgroundColor:0x0b1f3a,backgroundAlpha:1,points:8,maxDistance:22,spacing:17,showDots:true}});
