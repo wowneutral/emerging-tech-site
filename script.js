@@ -122,6 +122,18 @@
       var n = groups.get(p);
       el.style.transitionDelay = (Math.min(n,7) * 80) + 'ms';
       groups.set(p, n+1);
+      /* the inline transition-delay above was never cleared once the
+         reveal-in animation finished, so :hover transitions on the same
+         elements (cards, links) silently inherited that leftover delay —
+         later items in a row felt laggier to hover than earlier ones.
+         Clear it once the entrance transition completes so hover falls
+         back to its own (undelayed) timing. */
+      el.addEventListener('transitionend', function handler(ev){
+        if(ev.propertyName === 'opacity' || ev.propertyName === 'transform'){
+          this.style.transitionDelay = '';
+          this.removeEventListener('transitionend', handler);
+        }
+      });
     });
   }
   var io = new IntersectionObserver(function(es){
@@ -161,6 +173,17 @@
     }, {threshold:.5});
     cio.observe(counters[0]);
   }
+
+  /* nav dropdown overlap fix — clicking a dropdown's button (e.g. "About Us")
+     gives it real keyboard focus, and :focus-within then keeps that menu
+     open indefinitely since the mouse moving away doesn't clear focus.
+     Hovering a different dropdown then opens on top of it via :hover — two
+     menus visible at once. Blurring the button on click releases the focus
+     that was keeping it stuck, without affecting keyboard Tab navigation
+     (which doesn't fire a "click" event). */
+  document.querySelectorAll('.dd > button').forEach(function(btn){
+    btn.addEventListener('click', function(){ btn.blur(); });
+  });
 
   /* mobile menu */
   var mm = document.getElementById('mobileMenu');
@@ -237,43 +260,4 @@
     });
   }
 
-  /* hero robot watchdog — hero-robot-r3f.js loads as a <script type="module">,
-     which browsers refuse to execute at all on file:// pages (a security
-     restriction on module scripts specifically; regular scripts like this one
-     are unaffected). When that happens the module's own try/catch never even
-     runs, so its fallback-to-vanilla-robot logic never fires either. This
-     watchdog lives in a normal script instead, so it always runs, and swaps
-     in the vanilla Three.js robot (hero-robot.js) if the R3F version never
-     managed to mount a <canvas> after a while — whether that's because of the
-     file:// module block, a slow/blocked CDN, or anything else.
-     Timeout is intentionally generous (9s, once): esm.sh compiles packages
-     like @react-three/drei on-demand on a cold cache, which can genuinely
-     take several seconds on first load — a short timeout here would race
-     the real robot and declare it "failed" before it ever got a chance,
-     which is exactly what happened at 2.5s. Browsers cache the compiled
-     modules after the first successful load, so repeat visits are fast. */
-  var heroRobotMount = document.getElementById('heroRobot');
-  if(heroRobotMount){
-    if(reduce){
-      /* both robot scripts intentionally skip themselves when the visitor
-         prefers reduced motion, so nothing will ever mount here — reveal
-         the static photo immediately instead of showing a loading state
-         that would otherwise spin forever */
-      heroRobotMount.classList.add('load-failed');
-    } else {
-      setTimeout(function(){
-        if(!heroRobotMount.querySelector('canvas')){
-          var fallback = document.createElement('script');
-          fallback.src = 'hero-robot.js';
-          document.body.appendChild(fallback);
-          // give the vanilla fallback a moment to mount; if even that never
-          // manages it (WebGL unsupported, script blocked), give up on the
-          // loading state entirely and reveal the original photo
-          setTimeout(function(){
-            if(!heroRobotMount.querySelector('canvas')) heroRobotMount.classList.add('load-failed');
-          }, 1500);
-        }
-      }, 9000);
-    }
-  }
 })();
