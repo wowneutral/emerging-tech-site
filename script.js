@@ -221,7 +221,7 @@
        parallax turned off here so it's just a slow ambient drift, not
        something that visibly reacts to the cursor. */
     var heroNetEl = document.getElementById('heroNet');
-    if(heroNetEl) vantaJobs.push({el:heroNetEl, opts:{color:0x3d7dff,backgroundAlpha:0,points:8,maxDistance:32,spacing:26,showDots:true,mouseControls:false,touchControls:false,speed:0.6}});
+    if(heroNetEl) vantaJobs.push({el:heroNetEl, opts:{color:0x3d7dff,backgroundAlpha:0,points:15,maxDistance:28,spacing:19,showDots:true,mouseControls:false,touchControls:false,speed:0.6}});
 
     var serveNetEl = document.getElementById('vantaNet');
     if(serveNetEl) vantaJobs.push({el:serveNetEl, opts:{color:0x3d7dff,backgroundColor:0x0b1f3a,backgroundAlpha:1,points:8,maxDistance:22,spacing:17,showDots:true}});
