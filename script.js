@@ -88,36 +88,52 @@
     }
   }
 
-  /* Marquee loop — previously relied on CSS transform:translateX(-50%),
-     which is computed as a percentage of the track's OWN width. That width
-     can shift slightly as seal images finish loading/decoding after the
-     animation has already started (percentages in a running CSS animation
-     are relative to whatever the box measures at each frame), so the loop
-     point drifted out of sync with the actual duplicated content boundary —
-     showing up as a visible gap followed by a jump back to the start.
-     Fixing this by measuring the real, settled pixel width of one full set
-     (after images load) and animating to that exact distance instead of a
-     percentage, so the seam always lands exactly where the duplicate
-     content begins. */
+  /* Marquee — two earlier approaches (CSS -50%, then a JS-measured pixel
+     distance) both still relied on animating to a fixed endpoint and then
+     resetting, which glitched at the seam no matter how precisely the
+     distance was measured. Replacing that with a continuously-running
+     scroll: every frame, nudge the track left by a small fixed amount, and
+     the instant a seal has fully scrolled past the left edge, move that
+     exact element to the end of the row and pull the offset back by
+     precisely its width. There is no "loop point" to land on anymore —
+     content just keeps recycling forever, so there's nothing left to
+     glitch at. */
   var track = document.getElementById('sealTrack');
   if(track && !reduce){
-    track.innerHTML += track.innerHTML;
-    var setMarqueeDistance = function(){
-      var w = track.scrollWidth / 2;
-      if(w > 0){ track.style.setProperty('--mq-w', w + 'px'); }
-    };
-    setMarqueeDistance();
-    var imgs = track.querySelectorAll('img');
-    var pending = imgs.length;
-    if(pending){
-      imgs.forEach(function(img){
-        if(img.complete){ pending--; return; }
-        img.addEventListener('load', function(){ pending--; if(pending<=0) setMarqueeDistance(); });
-        img.addEventListener('error', function(){ pending--; if(pending<=0) setMarqueeDistance(); });
-      });
-      if(pending<=0) setMarqueeDistance();
+    var GAP = 70; // must match .marquee .track{gap:70px} in styles.css
+    track.style.animation = 'none';
+    track.style.gap = GAP + 'px';
+    /* Recycling only works if there's always enough content on screen to
+       cover the full viewport width — otherwise the row runs out of seals
+       before the recycled one scrolls back into view, showing blank space
+       on wide screens. Duplicate the original set until the total width
+       comfortably clears twice the widest reasonable viewport. */
+    var safety = 0;
+    while(track.scrollWidth < Math.max(window.innerWidth, 1600) * 2 && safety < 10){
+      track.innerHTML += track.innerHTML;
+      safety++;
     }
-    addEventListener('resize', setMarqueeDistance);
+    var offset = 0;
+    var speed = 0.5; // px per frame, ~30px/s at 60fps
+    var raf;
+    var tick = function(){
+      offset += speed;
+      var first = track.children[0];
+      if(first){
+        var w = first.getBoundingClientRect().width + GAP;
+        if(w > 0 && offset >= w){
+          offset -= w;
+          track.appendChild(first);
+        }
+      }
+      track.style.transform = 'translateX(' + (-offset) + 'px)';
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    document.addEventListener('visibilitychange', function(){
+      if(document.hidden){ cancelAnimationFrame(raf); }
+      else { raf = requestAnimationFrame(tick); }
+    });
   }
 
   /* reveals with per-parent stagger */
