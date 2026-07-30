@@ -201,6 +201,11 @@
   .more .ar{transition:transform .2s var(--ease)}
   .photo{position:relative}
   .photo img{width:100%;height:480px;object-fit:cover;border-radius:10px}
+/* Real photographs keep their own aspect ratio. The fixed 480px height
+   above force-crops anything that is not roughly 480px tall at the
+   rendered width — on a 4:3 photo that silently cuts the top and bottom,
+   which is what was clipping heads and captions. */
+  .photo-natural img{height:auto;object-fit:contain}
   .photo::before{content:"";position:absolute;inset:18px -18px -18px 18px;border:1.5px solid var(--line-2);border-radius:10px;z-index:-1}
   .photo .est{position:absolute;top:-16px;right:22px;background:var(--navy);color:#fff;border-radius:6px;padding:10px 16px;font-family:var(--mono);font-size:12px;letter-spacing:.1em}
   .photo.broken{display:none}
