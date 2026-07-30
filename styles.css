@@ -193,9 +193,10 @@
   .split{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:70px;align-items:center}
   .split .body p{color:var(--slate);font-size:17px;margin:24px 0 0}
   .checks{list-style:none;margin:26px 0 0;padding:0}
-  .checks li{position:relative;padding:12px 0 12px 30px;border-top:1px solid var(--line);font-weight:600;color:var(--navy-2);font-size:15.5px}
+  .checks li{position:relative;padding:12px 0;border-top:1px solid var(--line);font-weight:600;color:var(--navy-2);font-size:15.5px}
   .checks li:last-child{border-bottom:1px solid var(--line)}
-  .checks li::before{content:"";position:absolute;left:2px;top:19px;width:14px;height:14px;background:var(--brass);opacity:.9;clip-path:polygon(14% 44%,0 60%,42% 100%,100% 16%,84% 2%,40% 68%)}
+  /* Check glyph removed. The list keeps its rules and spacing, which is
+     what gave it structure; the tick was decoration on top of that. */
   .more{display:inline-flex;align-items:center;gap:9px;margin-top:28px;font-weight:700;color:var(--blue-2)}
   .more:hover .ar{transform:translateX(4px)}
   .more .ar{transition:transform .2s var(--ease)}
@@ -235,6 +236,8 @@
   a.card .more{margin-top:16px;font-size:14px}
   .card .checks li{color:var(--ondark-1);border-color:rgba(255,255,255,.14)}
   .card .checks li:last-child{border-bottom-color:rgba(255,255,255,.14)}
+  .card.card-light .checks li{color:var(--navy-2);border-color:var(--line)}
+  .card.card-light .checks li:last-child{border-bottom-color:var(--line)}
 
   .vcard{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:28px;transition:.3s var(--ease)}
   .vcard:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(84,97,110,.35);transform:translateY(-4px)}
