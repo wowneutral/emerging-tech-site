@@ -287,12 +287,21 @@
   .plats-2{grid-template-columns:repeat(2,1fr);max-width:820px}
   .plat{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;transition:border-color .25s,box-shadow .3s,transform .3s var(--ease)}
   .plat:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(84,97,110,.35);transform:translateY(-5px)}
-  .plat img{height:36px;width:140px;object-fit:contain;object-position:left center;filter:grayscale(1) opacity(.65);transition:filter .3s}
+  /* Logos always in full colour. They used to be desaturated to 65% opacity
+     until hover, which is what made the row look flat and grey.
+     Sizing is normalised on HEIGHT, not a fixed 140x36 box. With a fixed box
+     and object-fit:contain, a wide wordmark (servicenow) scales down to fit
+     the width and ends up visually tiny, while a compact mark (aws) fills
+     the height and looks large. Capping height and letting width follow gives
+     every logo the same optical cap height, which is how logo rows are
+     normally balanced. */
+  .plat img{height:auto;max-height:34px;width:auto;max-width:150px;object-fit:contain;object-position:left center;
+    transition:transform .3s var(--ease)}
   /* the VistA source SVG has built-in left whitespace baked into its own
      viewBox that object-position can't trim away, so it's nudged left here
      to line back up with the card's text below it */
   .plat img[alt="VistA"]{margin-left:-30px}
-  .plat:hover img{filter:grayscale(0) opacity(1)}
+  .plat:hover img{transform:scale(1.04)}
   .plat img.broken{display:none}
   .plat .nm{font-family:var(--display);font-weight:700;font-size:15.5px;color:var(--navy)}
   .plat p{margin:0;font-size:13px;color:var(--slate);line-height:1.55}
@@ -561,3 +570,51 @@
   .robot-hero .rh-actions{gap:14px 18px;margin-top:24px}
   .robot-hero .rh-toolbar{flex-wrap:wrap}
   }
+
+/* ---- Team locations map (our-people) ------------------------------------ */
+.map-sec .sec-head{text-align:center;max-width:720px;margin:0 auto 30px}
+.map-sec .map-lede{margin:14px auto 0;max-width:620px;color:var(--slate);font-size:16px;line-height:1.65}
+.map-card{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  background:var(--wash);box-shadow:0 34px 70px -44px rgba(11,31,58,.5)}
+#teamMap{height:clamp(400px,58vh,600px);width:100%;background:#eef2f6}
+.map-card .map-legend{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;
+  padding:13px 18px;border-top:1px solid var(--line);background:var(--white);
+  font-size:12.5px;color:var(--slate)}
+.map-legend span{display:inline-flex;align-items:center;gap:8px}
+.map-legend i{width:11px;height:11px;border-radius:50%;flex:none}
+.map-legend .dot-hq{background:var(--navy,#0b1f3a);box-shadow:0 0 0 2px #fff,0 0 0 3px var(--line-2)}
+.map-legend .dot-team{background:var(--brass);box-shadow:0 0 0 1.5px rgba(11,31,58,.45)}
+.map-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px;
+  text-align:center}
+.map-stats div{padding:18px 12px;background:var(--white);border:1px solid var(--line);border-radius:10px}
+.map-stats b{display:block;font-family:var(--display);font-size:clamp(24px,3vw,32px);
+  font-weight:800;color:var(--navy-2,#0b1f3a);line-height:1.1}
+.map-stats span{display:block;margin-top:5px;font-size:11.5px;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--slate)}
+/* Leaflet's own chrome, toned down to match the site. */
+.map-card .leaflet-control-zoom a{border-radius:6px;color:var(--navy-2,#0b1f3a);
+  border-color:var(--line)}
+.map-card .leaflet-control-attribution{font-size:10px;background:rgba(255,255,255,.82)}
+.map-card .leaflet-tooltip{font-family:inherit;font-size:12px;font-weight:600;
+  color:var(--navy-2,#0b1f3a);border:1px solid var(--line);border-radius:6px;
+  box-shadow:0 10px 24px -14px rgba(11,31,58,.6)}
+@media (max-width:700px){
+  .map-stats{grid-template-columns:repeat(2,1fr)}
+  #teamMap{height:min(64vh,420px)}
+}
+
+/* ---- Client cards with agency seals ------------------------------------- */
+.client-card{display:flex;gap:16px;align-items:flex-start}
+.client-seal{flex:none;width:52px;height:52px;border-radius:50%;background:var(--white);
+  border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;
+  overflow:hidden}
+.client-seal img{width:40px;height:40px;object-fit:contain}
+.client-seal img.broken{display:none}
+.client-seal-text{font-family:var(--display);font-size:11px;font-weight:800;
+  letter-spacing:.06em;color:var(--navy-2,#0b1f3a);background:var(--wash)}
+.client-card h3{margin-bottom:6px}
+@media (max-width:520px){
+  .client-card{gap:13px}
+  .client-seal{width:44px;height:44px}
+  .client-seal img{width:34px;height:34px}
+}

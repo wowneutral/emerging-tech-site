@@ -25,17 +25,28 @@
 <meta name="twitter:image" content="https://emergingtech.co/brand/og-default.png">
 <meta name="twitter:image:alt" content="Emerging Tech">
 <style>
-  .lead-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-  .lead-card{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:26px 22px;text-align:center;transition:border-color .25s,box-shadow .3s,transform .3s var(--ease)}
-  .lead-card:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(11,31,58,.35);transform:translateY(-4px)}
-  .lead-photo{width:104px;height:104px;border-radius:50%;margin:0 auto 18px;overflow:hidden;background:var(--wash);display:flex;align-items:center;justify-content:center;border:2px solid var(--line-2)}
-  .lead-photo img{width:100%;height:100%;object-fit:cover}
-  .lead-photo .initials{font-family:var(--display);font-weight:800;font-size:28px;color:var(--navy-2)}
-  .lead-card h3{font-size:18px;font-weight:800;margin-bottom:6px}
-  .lead-card .role{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brass);margin-bottom:12px}
-  .lead-card p{margin:0;color:var(--slate);font-size:13.5px;line-height:1.6}
-  @media (max-width:1020px){.lead-grid{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:600px){.lead-grid{grid-template-columns:1fr}}
+  /* One full-width row per executive so the complete bio has room to breathe.
+     Rows alternate photo side, and the portrait is sticky on wide screens so
+     the face stays with the text on the longer bios. */
+  .lead-rows{display:flex;flex-direction:column;gap:clamp(56px,7vw,96px)}
+  .lead-row{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:clamp(32px,5vw,64px);align-items:start}
+  .lead-row-alt .lead-portrait{order:2}
+  .lead-row-alt .lead-bio{order:1}
+  .lead-portrait{position:sticky;top:110px;border-radius:12px;overflow:hidden;background:var(--wash);border:1px solid var(--line-2);box-shadow:0 30px 60px -34px rgba(11,31,58,.4)}
+  .lead-portrait img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center top}
+  .lead-bio{padding-top:4px}
+  .lead-bio h3{font-family:var(--display);font-size:clamp(26px,3vw,34px);font-weight:800;line-height:1.12;margin:0 0 8px;letter-spacing:-.01em}
+  .lead-bio .role{display:block;font-size:12.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--brass);margin-bottom:10px}
+  .lead-meta{display:inline-block;font-family:var(--mono,monospace);font-size:11.5px;letter-spacing:.04em;color:var(--slate);background:var(--wash);border:1px solid var(--line);border-radius:999px;padding:5px 12px;margin-bottom:20px}
+  .lead-bio p{color:var(--slate);font-size:15.5px;line-height:1.75;margin:0 0 16px}
+  .lead-bio p:last-child{margin-bottom:0}
+  @media (max-width:880px){
+    .lead-row{grid-template-columns:1fr;gap:26px}
+    .lead-row-alt .lead-portrait{order:1}
+    .lead-row-alt .lead-bio{order:2}
+    .lead-portrait{position:static;max-width:340px}
+    .lead-portrait img{aspect-ratio:1/1}
+  }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,8 +101,8 @@
           <a href="veteran-services">Veterans Services <small>VA &middot; SDVOSB-led</small></a>
           <a href="healthcare">Healthcare <small>Federal health IT</small></a>
           <a href="defense">Defense <small>DoD &middot; intel</small></a>
-          <a href="civilian">Civilian <small>Federal civilian agencies</small></a>
           <a href="state-local">State &amp; Local <small>Florida</small></a>
+          <a href="civilian">Civilian <small>Federal civilian agencies</small></a>
         </div>
       </div>
       <div class="dd">
@@ -137,8 +148,8 @@
   <a href="veteran-services" class="sm">Veterans Services</a>
   <a href="healthcare" class="sm">Healthcare</a>
   <a href="defense" class="sm">Defense</a>
-  <a href="civilian" class="sm">Civilian</a>
   <a href="state-local" class="sm">State &amp; Local</a>
+  <a href="civilian" class="sm">Civilian</a>
   <a href="contracts">Contract Vehicles</a>
   <a href="case-studies">Insights</a>
   <a href="case-studies" class="sm">Case Studies</a>
@@ -152,8 +163,8 @@
 <div class="phero"><div class="weave"></div><div class="gridbg"></div>
   <div class="wrap">
     <div class="crumb"><a href="./">HOME</a> / <a href="about">ABOUT US</a> / LEADERSHIP</div>
-    <h1>Meet <em>our leadership.</em></h1>
-    <p class="lede">Leadership grounded in service — accountability, operational discipline, and outcomes, centered on those we ultimately serve.</p>
+    <h1>Meet <em>Our Leadership</em></h1>
+    <p class="lede">Leadership grounded in service, accountability, operational discipline, and outcomes, centered on those we ultimately serve.</p>
     <div class="rule"></div>
   </div>
 </div>
@@ -161,10 +172,10 @@
   <div class="wrap split" style="align-items:start">
     <div class="prose reveal-l">
       <span class="eyebrow">From the Founder &amp; CEO's desk</span>
-      <h2 style="margin:16px 0 26px;font-size:clamp(26px,3vw,38px)">Service is the through-line.</h2>
+      <h2 style="margin:16px 0 26px;font-size:clamp(26px,3vw,38px)">Service Is the Through-Line</h2>
       <p>Emerging Tech was built on a simple conviction: the agencies that defend and serve this nation deserve partners who bring the same discipline to delivery that the mission demands.</p>
-      <p><b>Drawing from a background in the United States Air Force,</b> our leadership operates with a focus on accountability, operational discipline, and outcomes &mdash; always centered on those we ultimately serve: warfighters, veterans, clinicians, and the public.</p>
-      <p>Since 2015, that conviction has grown into a team of more than 85 professionals across 22 states &mdash; cleared, credentialed, and united by a purpose-driven culture. We innovate through our Centers of Excellence, we collaborate without corporate politics, and we deliver to the standard our clients' missions require.</p>
+      <p><b>Drawing from a background in the United States Air Force</b> our leadership operates with a focus on accountability, operational discipline, and outcomes, always centered on those we ultimately serve: warfighters, veterans, clinicians, and the public.</p>
+      <p>Since 2015, that conviction has grown into a team of more than 85 professionals across 22 states, cleared, credentialed, and united by a purpose-driven culture. We innovate through our Centers of Excellence, we collaborate without corporate politics, and we deliver to the standard our clients' missions require.</p>
       <p>Thank you for considering Emerging Tech as a partner in your mission. We look forward to earning your trust.</p>
       <div style="display:flex;align-items:center;gap:16px;margin-top:34px">
         <img class="avatar" src="images/leadership/gaurav-seth.jpg" alt="Gaurav Seth" loading="lazy" style="border-color:var(--brass)">
@@ -175,14 +186,14 @@
       <div class="card" style="background:var(--navy);border-color:var(--navy);margin-bottom:22px">
         <span class="k" style="color:var(--brass-2)">Leadership principles</span>
         <ul class="checks" style="margin-top:10px">
-          <li>Accountability &mdash; own the outcome, not the excuse</li>
-          <li>Operational discipline &mdash; standards-driven delivery</li>
-          <li>Outcomes &mdash; measured by mission impact</li>
+          <li>Accountability, own the outcome, not the excuse</li>
+          <li>Operational discipline, standards-driven delivery</li>
+          <li>Outcomes, measured by mission impact</li>
         </ul>
       </div>
       <div class="card">
         <span class="k">The company he leads</span>
-        <p>85+ professionals &middot; 22 states &middot; SDVOSB &middot; 8(a) &middot; HUBZone &middot; CMMI Level 3 &middot; est. 2015, Alachua FL.</p>
+        <p>85+ professionals &middot; 22 states &middot; SDVOSB &middot; 8(a) &middot; HUBZone &middot; MBE &middot; CMMI Level 3 &middot; CMMC Level 1 &middot; ISO 9001 &middot; ISO 20000-1 &middot; ISO 27001 &middot; est. 2015, Alachua FL.</p>
         <a class="more" href="about" style="font-size:14px">About Emerging Tech <span class="ar">&rarr;</span></a>
       </div>
     </div>
@@ -192,36 +203,61 @@
 <section class="caps-sec">
   <div class="wrap">
     <div class="sec-head reveal">
-      <h2>Executive team</h2>
+      <h2>Executive Team</h2>
     </div>
-    <!-- Bios supplied by ET. Condensed for the card format; each keeps the
-         specifics that establish credibility (named agencies, prior firms,
-         degrees) rather than being cut to generic summary lines. -->
-    <div class="lead-grid">
-      <div class="lead-card reveal-s">
-        <div class="lead-photo"><img src="images/leadership/gaurav-seth.jpg" alt="Gaurav Seth" loading="lazy"></div>
-        <h3>Gaurav Seth</h3>
-        <span class="role">Founder &amp; CEO</span>
-        <p>Began his career in the U.S. Air Force integrating classified systems deployed in Afghanistan and Iraq, then delivered cybersecurity engineering to the VA, FBI, DoD, White House Communications Agency, DISA, DIA, and NSA. Founded Emerging Tech in 2015.</p>
+    <!-- Full bios as supplied by ET. Previously a four-up card grid, where
+         the longer bios were visually cut off. Each person now gets a
+         full-width row with a large portrait, alternating sides. -->
+    <div class="lead-rows">
+      <div class="lead-row">
+        <div class="lead-portrait reveal-l">
+          <img src="images/leadership/gaurav-seth.jpg" alt="Gaurav Seth" loading="lazy">
+        </div>
+        <div class="lead-bio reveal-r">
+          <h3>Gaurav Seth</h3>
+          <span class="role">Founder &amp; CEO</span>
+          <span class="lead-meta">U.S. Air Force Veteran</span>
+          <p>Gaurav Seth, &ldquo;Seth&rdquo;, is the Founder and CEO of Emerging Tech. He started his career with the United States Air Force, where he integrated classified systems deployed in conflict zones including Afghanistan and Iraq. He integrated, secured, deployed, and managed National Security Systems (NSS) across federal governments&rsquo; critical infrastructure.</p>
+          <p>After leaving the USAF, he provided cybersecurity engineering services to multiple federal agencies: the Department of Veterans Affairs, Federal Bureau of Investigation, Department of Defense, White House Communications Agency, Defense Information Systems Agency, Defense Intelligence Agency, and the National Security Agency.</p>
+          <p>Seth established Emerging Tech in 2015. His vision led to the creation of ET&rsquo;s on-demand service model for System to System (SoS) consultant services, designed to assist agencies with increased productivity, more accurate and trustworthy data, faster decision making, and lower costs. As a Trusted Integrator, we are committed to engineering compliant, secure, and cost-efficient information technology solutions that exceed our customers&rsquo; expectations.</p>
+        </div>
       </div>
-      <div class="lead-card reveal-s">
-        <div class="lead-photo"><img src="images/leadership/brian-lang.jpg" alt="Brian Lang" loading="lazy"></div>
-        <h3>Brian Lang</h3>
-        <span class="role">President</span>
-        <p>Oversees day-to-day operations and corporate strategy. Previously at Booz Allen Hamilton, ManTech, and Navigant Consulting, supporting the VA, Commerce, and Energy, plus HSBC and ING. MBA, Erasmus University Rotterdam; BBA, The George Washington University.</p>
+      <div class="lead-row lead-row-alt">
+        <div class="lead-portrait reveal-l">
+          <img src="images/leadership/brian-lang.jpg" alt="Brian Lang" loading="lazy">
+        </div>
+        <div class="lead-bio reveal-r">
+          <h3>Brian Lang</h3>
+          <span class="role">President</span>
+          <span class="lead-meta">Federal &amp; commercial consulting</span>
+          <p>Brian Lang is the President of Emerging Tech, where he oversees day-to-day operations and drives corporate strategy aimed at sustainable growth. He is committed to strengthening partnerships and enhancing client relationships, ensuring that the company&rsquo;s offerings align with evolving market needs.</p>
+          <p>With extensive professional experience in the federal and commercial consulting sectors, Brian brings a blend of operational expertise, strategic foresight, and a client-centric approach. His leadership style emphasizes collaboration, innovation, and measurable results, positioning Emerging Tech as a trusted and competitive player in its industry.</p>
+          <p>He has worked at Booz Allen Hamilton, ManTech, and Navigant Consulting, supporting federal clients including the Department of Veterans Affairs, Department of Commerce and Department of Energy, and private sector companies including HSBC and ING. In addition to his consulting experience, Brian has extensive global financial services experience. He holds an MBA from Erasmus University Rotterdam School of Management and a BBA in International Business from The George Washington University.</p>
+        </div>
       </div>
-      <div class="lead-card reveal-s">
-        <div class="lead-photo"><img src="images/leadership/hee-ahn.jpg" alt="Hee Ahn" loading="lazy"></div>
-        <h3>Hee Ahn</h3>
-        <span class="role">Chief Growth Officer</span>
-        <!-- TODO: replace with Hee Ahn's supplied bio when ET provides it. -->
-        <p>Leads business development and growth strategy, expanding Emerging Tech&rsquo;s mission partnerships nationwide.</p>
+      <div class="lead-row">
+        <div class="lead-portrait reveal-l">
+          <img src="images/leadership/hee-ahn.jpg" alt="Hee Ahn" loading="lazy">
+        </div>
+        <div class="lead-bio reveal-r">
+          <h3>Hee Ahn</h3>
+          <span class="role">Chief Growth Officer</span>
+          <span class="lead-meta">Growth &amp; partnerships</span>
+          <!-- TODO: replace with Hee Ahn's full bio when ET provides it. -->
+          <p>Leads business development and growth strategy, expanding Emerging Tech&rsquo;s partnerships nationwide.</p>
+        </div>
       </div>
-      <div class="lead-card reveal-s">
-        <div class="lead-photo"><img src="images/leadership/preety-seth.jpg" alt="Preety Seth" loading="lazy"></div>
-        <h3>Preety Seth</h3>
-        <span class="role">Chief Administrative Officer</span>
-        <p>Oversees administrative, financial, human resources, and compliance operations. A background in science and an Agile certification inform an analytical, people-focused approach to building efficient, well-organized teams.</p>
+      <div class="lead-row lead-row-alt">
+        <div class="lead-portrait reveal-l">
+          <img src="images/leadership/preety-seth.jpg" alt="Preety Seth" loading="lazy">
+        </div>
+        <div class="lead-bio reveal-r">
+          <h3>Preety Seth</h3>
+          <span class="role">Chief Administrative Officer</span>
+          <span class="lead-meta">Operations, finance &amp; compliance</span>
+          <p>Preety Seth is Chief Administrative Officer of Emerging Tech, LLC, overseeing the company&rsquo;s administrative, financial, human resources, and compliance operations.</p>
+          <p>With a background in science and an Agile certification, she brings an analytical, people-focused approach to building efficient, well-organized teams. Known for being detail-oriented and approachable, Preety is committed to fostering a positive and productive work environment.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -229,8 +265,8 @@
 <section class="cta">
   <div class="wrap">
     <span class="eyebrow">Get in touch</span>
-    <h2>Want to talk directly with our leadership?</h2>
-    <p>Reach out &mdash; we&rsquo;d welcome the conversation.</p>
+    <h2>Want to Talk Directly with Our Leadership?</h2>
+    <p>Reach out, we&rsquo;d welcome the conversation.</p>
     <div class="cta-row">
       <a class="btn btn-navy" href="contact">Collaborate with us <span class="ar">&rarr;</span></a>
       <a class="btn btn-line" href="openings">See current openings</a>
@@ -245,7 +281,7 @@
           <img class="logo-cut on-dark" src="brand/logo-stacked-official.png" alt="Emerging Tech">
           <span class="fallback">Emerging Tech</span>
         </a>
-        <p class="tag">Federal IT since 2015 &mdash; cybersecurity, health IT modernization, cloud, and enterprise integration. 85+ professionals across 22 states.</p>
+        <p class="tag">Federal IT since 2015, cybersecurity, health IT modernization, cloud, and enterprise integration. 85+ professionals across 22 states.</p>
       </div>
       <div>
         <h4>Capabilities</h4>
@@ -277,8 +313,8 @@
           <li><a href="veteran-services">Veterans Services</a></li>
           <li><a href="healthcare">Healthcare</a></li>
           <li><a href="defense">Defense</a></li>
-          <li><a href="civilian">Civilian</a></li>
           <li><a href="state-local">State &amp; Local</a></li>
+          <li><a href="civilian">Civilian</a></li>
         </ul>
       </div>
       <div>

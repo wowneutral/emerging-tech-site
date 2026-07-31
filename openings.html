@@ -77,8 +77,8 @@
           <a href="veteran-services">Veterans Services <small>VA &middot; SDVOSB-led</small></a>
           <a href="healthcare">Healthcare <small>Federal health IT</small></a>
           <a href="defense">Defense <small>DoD &middot; intel</small></a>
-          <a href="civilian">Civilian <small>Federal civilian agencies</small></a>
           <a href="state-local">State &amp; Local <small>Florida</small></a>
+          <a href="civilian">Civilian <small>Federal civilian agencies</small></a>
         </div>
       </div>
       <div class="dd">
@@ -124,8 +124,8 @@
   <a href="veteran-services" class="sm">Veterans Services</a>
   <a href="healthcare" class="sm">Healthcare</a>
   <a href="defense" class="sm">Defense</a>
-  <a href="civilian" class="sm">Civilian</a>
   <a href="state-local" class="sm">State &amp; Local</a>
+  <a href="civilian" class="sm">Civilian</a>
   <a href="contracts">Contract Vehicles</a>
   <a href="case-studies">Insights</a>
   <a href="case-studies" class="sm">Case Studies</a>
@@ -139,15 +139,15 @@
 <div class="phero"><div class="weave"></div><div class="gridbg"></div>
   <div class="wrap">
     <div class="crumb"><a href="./">HOME</a> / <a href="careers">CAREERS</a> / CURRENT OPENINGS</div>
-    <h1>Find your next mission. <em>Join a team that delivers.</em></h1>
-    <p class="lede">Browse our current openings &mdash; or send us your resume directly if you don't see a fit. We hire across cybersecurity, healthcare IT, cloud, and consulting.</p>
+    <h1>Find Your Next Mission <em>Join a Team that Delivers</em></h1>
+    <p class="lede">Browse our current openings, or send us your resume directly if you don't see a fit. We hire across cybersecurity, healthcare IT, cloud, and consulting.</p>
     <div class="rule"></div>
   </div>
 </div>
 
 <section>
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">Open Positions</span><h2 id="jobsHeading">Current openings.</h2></div>
+    <div class="sec-head reveal"><span class="eyebrow">Open Positions</span><h2 id="jobsHeading">Current Openings</h2></div>
     <div class="cards2" id="jobsGrid"><p style="color:var(--slate-2)">Loading current openings&hellip;</p></div>
     <p class="reveal" style="margin-top:24px;color:var(--slate-2);font-size:13px">Don&rsquo;t see your fit? <a href="contact" style="color:var(--blue-2);font-weight:700">Send us your resume</a> and we&rsquo;ll reach out when something matches.</p>
     <script>
@@ -161,7 +161,7 @@
       }
       fetch('jobs.json', {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(jobs){
         if(!jobs || !jobs.length){
-          grid.innerHTML = '<p style="color:var(--slate-2)">No open positions right now &mdash; check back soon, or send us your resume below.</p>';
+          grid.innerHTML = '<p style="color:var(--slate-2)">No open positions right now, check back soon, or send us your resume below.</p>';
           return;
         }
         heading.textContent = jobs.length + ' current opening' + (jobs.length === 1 ? '' : 's') + '.';
@@ -172,14 +172,14 @@
           var apply = j.url || '#';
           return ''
             + '<div class="vcard ' + side + ' in">'
-            +   '<div class="vh"><h3>' + esc(j.title) + '</h3></div>'
+            +   '<div class="vh"><h3>' + Esc(J.title) + '</h3></div>'
             +   (meta ? '<div class="period">' + meta + '</div>' : '')
             +   (j.department ? '<div class="sins"><span>' + esc(j.department) + '</span></div>' : '')
             +   '<div class="cta-row" style="margin-top:18px"><a class="btn btn-navy" href="' + esc(apply) + '" target="_blank" rel="noopener">View details &amp; apply <span class="ar">&rarr;</span></a></div>'
             + '</div>';
         }).join('');
       }).catch(function(){
-        grid.innerHTML = '<p style="color:var(--slate-2)">Openings are temporarily unavailable &mdash; please check back soon, or send us your resume below.</p>';
+        grid.innerHTML = '<p style="color:var(--slate-2)">Openings are temporarily unavailable, please check back soon, or send us your resume below.</p>';
       });
     })();
     </script>
@@ -188,20 +188,20 @@
 
 <section class="caps-sec">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">Why Emerging Tech</span><h2>What you can expect.</h2></div>
+    <div class="sec-head reveal"><span class="eyebrow">Why Emerging Tech</span><h2>What You Can Expect</h2></div>
     <div class="cards3">
-      <div class="card reveal"><span class="k">Mission</span><h3>Work that matters</h3><p>Mission-driven work supporting federal customers across 22 states.</p></div>
-      <div class="card reveal"><span class="k">Team</span><h3>Cleared &amp; credentialed</h3><p>Join cleared, credentialed colleagues at an SDVOSB and 8(a) HUBZone certified firm.</p></div>
-      <div class="card reveal"><span class="k">Growth</span><h3>Built to develop you</h3><p>Certification, training, and leadership development support at every level.</p></div>
-      <div class="card reveal"><span class="k">Flexibility</span><h3>Remote-friendly</h3><p>Competitive benefits and remote-friendly engagements where the mission allows.</p></div>
+      <div class="card reveal"><span class="k">Mission</span><h3>Work that Matters</h3><p>Mission-driven work supporting federal customers across 22 states.</p></div>
+      <div class="card reveal"><span class="k">Team</span><h3>Cleared &amp; Credentialed</h3><p>Join cleared, credentialed colleagues at an SDVOSB, 8(a), and HUBZone certified firm.</p></div>
+      <div class="card reveal"><span class="k">Growth</span><h3>Built to Develop You</h3><p>Certification, training, and leadership development support at every level.</p></div>
+      <div class="card reveal"><span class="k">Flexibility</span><h3>Remote-Friendly</h3><p>Competitive benefits and remote-friendly engagements where the mission allows.</p></div>
     </div>
   </div>
 </section>
 
 <section>
   <div class="wrap" style="max-width:900px">
-    <div class="sec-head reveal"><span class="eyebrow">Equal opportunity</span><h2>Our commitment to fair hiring.</h2>
-    <p>Emerging Tech is a federal contractor and an Equal Employment Opportunity employer. As part of our online application, you may be voluntarily asked to self-identify demographic information &mdash; including a disability self-identification form (CC-305) &mdash; to comply with federal EEO and OFCCP reporting requirements. This information is confidential, entirely optional, and is never used in hiring decisions. <a href="https://www.eeoc.gov/employees-job-applicants" target="_blank" rel="noopener" style="color:var(--blue-2);font-weight:700">Learn more about your rights as an applicant &rarr;</a></p>
+    <div class="sec-head reveal"><span class="eyebrow">Equal opportunity</span><h2>Our Commitment to Fair Hiring</h2>
+    <p>Emerging Tech is a federal contractor and an Equal Employment Opportunity employer. As part of our online application, you may be voluntarily asked to self-identify demographic information, including a disability self-identification form (CC-305), to comply with federal EEO and OFCCP reporting requirements. This information is confidential, entirely optional, and is never used in hiring decisions. <a href="https://www.eeoc.gov/employees-job-applicants" target="_blank" rel="noopener" style="color:var(--blue-2);font-weight:700">Learn more about your rights as an applicant &rarr;</a></p>
     </div>
   </div>
 </section>
@@ -209,7 +209,7 @@
 <section class="cta">
   <div class="wrap">
     <span class="eyebrow">Can&rsquo;t find what you&rsquo;re looking for?</span>
-    <h2>Connect with us &mdash; <span class="hl">we&rsquo;d love to hear from you.</span></h2>
+    <h2>Connect with Us, <span class="hl">We&rsquo;D Love to Hear from You</span></h2>
     <p>We&rsquo;re always interested in hearing from talented professionals, even when there isn&rsquo;t an open role that fits today.</p>
     <div class="cta-row">
       <a class="btn btn-navy" href="contact">Contact us <span class="ar">&rarr;</span></a>
@@ -225,7 +225,7 @@
           <img class="logo-cut on-dark" src="brand/logo-stacked-official.png" alt="Emerging Tech">
           <span class="fallback">Emerging Tech</span>
         </a>
-        <p class="tag">Federal IT since 2015 &mdash; cybersecurity, health IT modernization, cloud, and enterprise integration. 85+ professionals across 22 states.</p>
+        <p class="tag">Federal IT since 2015, cybersecurity, health IT modernization, cloud, and enterprise integration. 85+ professionals across 22 states.</p>
       </div>
       <div>
         <h4>Capabilities</h4>
@@ -257,8 +257,8 @@
           <li><a href="veteran-services">Veterans Services</a></li>
           <li><a href="healthcare">Healthcare</a></li>
           <li><a href="defense">Defense</a></li>
-          <li><a href="civilian">Civilian</a></li>
           <li><a href="state-local">State &amp; Local</a></li>
+          <li><a href="civilian">Civilian</a></li>
         </ul>
       </div>
       <div>

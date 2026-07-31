@@ -28,6 +28,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 </head>
 <body>
 <div id="progress"></div>
@@ -77,8 +78,8 @@
           <a href="veteran-services">Veterans Services <small>VA &middot; SDVOSB-led</small></a>
           <a href="healthcare">Healthcare <small>Federal health IT</small></a>
           <a href="defense">Defense <small>DoD &middot; intel</small></a>
-          <a href="civilian">Civilian <small>Federal civilian agencies</small></a>
           <a href="state-local">State &amp; Local <small>Florida</small></a>
+          <a href="civilian">Civilian <small>Federal civilian agencies</small></a>
         </div>
       </div>
       <div class="dd">
@@ -124,8 +125,8 @@
   <a href="veteran-services" class="sm">Veterans Services</a>
   <a href="healthcare" class="sm">Healthcare</a>
   <a href="defense" class="sm">Defense</a>
-  <a href="civilian" class="sm">Civilian</a>
   <a href="state-local" class="sm">State &amp; Local</a>
+  <a href="civilian" class="sm">Civilian</a>
   <a href="contracts">Contract Vehicles</a>
   <a href="case-studies">Insights</a>
   <a href="case-studies" class="sm">Case Studies</a>
@@ -139,7 +140,7 @@
 <div class="phero"><div class="weave"></div><div class="gridbg"></div>
   <div class="wrap">
     <div class="crumb"><a href="./">HOME</a> / <a href="about">ABOUT US</a> / OUR PEOPLE</div>
-    <h1>United by a <em>single purpose.</em></h1>
+    <h1>United by A <em>Single Purpose</em></h1>
     <p class="lede">Across 22 states and 85 cities, the Emerging Tech team is united by a single purpose: creating work that truly changes lives. Despite distance and differing projects, our efforts funnel together to produce lasting impacts on our community and country.</p>
     <div class="rule"></div>
   </div>
@@ -148,8 +149,8 @@
   <div class="wrap split">
     <div class="body reveal-l">
       <span class="eyebrow">Mission partners</span>
-      <h2>More than employees.</h2>
-      <p>Our team members are more than employees &mdash; they are mission partners. From cybersecurity analysts to healthcare IT specialists, every professional at Emerging Tech brings a commitment to integrity, collaboration, and continuous growth.</p>
+      <h2>More than Employees</h2>
+      <p>Our team members are more than employees, they are mission partners. From cybersecurity analysts to healthcare IT specialists, every professional at Emerging Tech brings a commitment to integrity, collaboration, and continuous growth.</p>
       <ul class="checks">
         <li>Certification and professional development support</li>
         <li>Leadership pathways across technical and management tracks</li>
@@ -165,22 +166,37 @@
   </div>
 </section>
 
-<section class="caps-sec">
+<section class="caps-sec map-sec">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">Where we work</span><h2>85 Cities. One Team.</h2></div>
-    <div class="map reveal" style="max-width:860px;margin:0 auto">
-      <iframe src="https://www.google.com/maps/d/embed?mid=12VuzFqwwfbTxbmH1H7ZmvS_btgjpCLk&amp;ehbc=2E312F&amp;noprof=1" width="100%" height="640" style="border:0" loading="lazy" title="Emerging Tech team locations"></iframe>
+    <div class="sec-head reveal"><span class="eyebrow">Where We Work</span><h2>85 Cities &middot; One Team</h2>
+      <p class="map-lede">Our people work from 24 states, from the Alachua home base to teams supporting programs coast to coast.</p>
+    </div>
+    <!-- Replaces a raw Google My Maps iframe, which shipped its own title bar
+         and control chrome and could not be styled. Same underlying location
+         data, rendered directly so it fits the section. -->
+    <div class="map-card reveal">
+      <div id="teamMap" role="img" aria-label="Map of the United States showing Emerging Tech team locations across 24 states"></div>
+      <div class="map-legend">
+        <span><i class="dot-hq"></i> Home base, Alachua FL</span>
+        <span><i class="dot-team"></i> Team locations</span>
+      </div>
+    </div>
+    <div class="map-stats reveal">
+      <div><b>73</b><span>Cities</span></div>
+      <div><b>24</b><span>States</span></div>
+      <div><b>85+</b><span>Professionals</span></div>
+      <div><b>2015</b><span>Established</span></div>
     </div>
   </div>
 </section>
 
 <section class="caps-sec">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">Voices from the team</span><h2>What our people say.</h2></div>
+    <div class="sec-head reveal"><span class="eyebrow">Voices from the team</span><h2>What Our People Say</h2></div>
     <div class="cards3">
       <div class="tq reveal"><p>&ldquo;The team is very supportive and wants to see you do well. The CEO is very involved even with the interns, and I always felt appreciated.&rdquo;</p><span>Talent Acquisition Analyst, former intern &middot; Glassdoor review</span></div>
       <div class="tq reveal"><p>&ldquo;The supportive management allows the team to focus on delivering high-quality work, handle client expectations effectively, and complete projects successfully.&rdquo;</p><span>Subject Matter Expert, 5+ years &middot; Glassdoor review</span></div>
-      <div class="tq reveal"><p>&ldquo;Management is interested in employee career paths and always looking for future opportunities to grow into &mdash; from 20-year veterans to college interns just starting out.&rdquo;</p><span>Former employee &middot; Glassdoor review</span></div>
+      <div class="tq reveal"><p>&ldquo;Management is interested in employee career paths and always looking for future opportunities to grow into, from 20-year veterans to college interns just starting out.&rdquo;</p><span>Former employee &middot; Glassdoor review</span></div>
     </div>
   </div>
 </section>
@@ -189,7 +205,7 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Growing our people</span>
-      <h2>We invest in every team member.</h2>
+      <h2>We Invest in Every Team Member</h2>
       <p>From certification programs to leadership mentoring, our people have the tools and support to grow their careers while delivering on the nation's most important missions.</p>
     </div>
     <div class="cta-row reveal">
@@ -201,7 +217,7 @@
 <section class="cta">
   <div class="wrap">
     <span class="eyebrow">Get in touch</span>
-    <h2>Want to join a team like this one?</h2>
+    <h2>Want to Join a Team Like This One?</h2>
     <p>See open roles or reach out to learn more about life at Emerging Tech.</p>
     <div class="cta-row">
       <a class="btn btn-navy" href="contact">Collaborate with us <span class="ar">&rarr;</span></a>
@@ -217,7 +233,7 @@
           <img class="logo-cut on-dark" src="brand/logo-stacked-official.png" alt="Emerging Tech">
           <span class="fallback">Emerging Tech</span>
         </a>
-        <p class="tag">Federal IT since 2015 &mdash; cybersecurity, health IT modernization, cloud, and enterprise integration. 85+ professionals across 22 states.</p>
+        <p class="tag">Federal IT since 2015, cybersecurity, health IT modernization, cloud, and enterprise integration. 85+ professionals across 22 states.</p>
       </div>
       <div>
         <h4>Capabilities</h4>
@@ -249,8 +265,8 @@
           <li><a href="veteran-services">Veterans Services</a></li>
           <li><a href="healthcare">Healthcare</a></li>
           <li><a href="defense">Defense</a></li>
-          <li><a href="civilian">Civilian</a></li>
           <li><a href="state-local">State &amp; Local</a></li>
+          <li><a href="civilian">Civilian</a></li>
         </ul>
       </div>
       <div>
@@ -290,5 +306,8 @@
   </div>
 </footer>
 <script src="script.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="team-map.js"></script>
+<script src="team-map-init.js"></script>
 </body>
 </html>
