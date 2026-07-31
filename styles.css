@@ -295,8 +295,14 @@
      the height and looks large. Capping height and letting width follow gives
      every logo the same optical cap height, which is how logo rows are
      normally balanced. */
-  .plat img{height:auto;max-height:34px;width:auto;max-width:150px;object-fit:contain;object-position:left center;
-    transition:transform .3s var(--ease)}
+  /* A single max-height cannot balance logos of different proportions: a
+     square mark (AWS, 3:2) reads tiny at the same cap height a long wordmark
+     (ServiceNow, 6.8:1) reads huge. Each logo carries its own max-height set
+     from its aspect ratio, and a fixed-height rail keeps every card's logo
+     sitting on the same baseline regardless. */
+  .plat img{height:auto;max-height:37px;width:auto;max-width:168px;object-fit:contain;object-position:left center;
+    align-self:flex-start;transition:transform .3s var(--ease)}
+  .plat .plat-rail{display:flex;align-items:center;height:50px;flex:none}
   /* the VistA source SVG has built-in left whitespace baked into its own
      viewBox that object-position can't trim away, so it's nudged left here
      to line back up with the card's text below it */
@@ -619,3 +625,38 @@
   .client-seal{width:44px;height:44px}
   .client-seal img{width:34px;height:34px}
 }
+
+/* ---- Dark feature panel -------------------------------------------------
+   Previously a .card with a .k kicker acting as the title, which rendered the
+   heading smaller than the list under it. The title now leads at heading
+   scale and the box carries real padding. */
+.panel{background:var(--navy);border:1px solid var(--navy);border-radius:14px;
+  padding:clamp(28px,3.4vw,44px);box-shadow:0 34px 70px -46px rgba(71,82,94,.6)}
+.panel-title{font-family:var(--display);font-size:clamp(21px,2.3vw,27px);font-weight:800;
+  line-height:1.22;color:#fff;margin:0 0 6px;letter-spacing:-.005em}
+.panel-title::after{content:"";display:block;width:42px;height:3px;border-radius:2px;
+  background:var(--blue);margin:16px 0 4px}
+.panel-list{list-style:none;margin:18px 0 0;padding:0}
+.panel-list li{position:relative;padding:15px 0 15px 26px;font-size:16px;line-height:1.6;
+  color:rgba(255,255,255,.9);border-bottom:1px solid rgba(255,255,255,.14)}
+.panel-list li:last-child{border-bottom:0;padding-bottom:2px}
+.panel-list li::before{content:"";position:absolute;left:2px;top:23px;width:7px;height:7px;
+  border-radius:50%;background:var(--blue)}
+@media (max-width:600px){
+  .panel{padding:26px 22px}
+  .panel-list li{font-size:15px;padding:13px 0 13px 22px}
+  .panel-list li::before{top:21px}
+}
+
+/* ---- Reseller vendor cards ---------------------------------------------
+   Logo files are not on the server yet, so each slot renders the wordmark
+   until brand/platforms/<vendor>.svg exists; script.js flags the broken image
+   and the rail swaps to the text mark. */
+.vendor-grid{align-items:stretch}
+.vendor .plat-rail{position:relative}
+.vendor-name{display:none;font-family:var(--display);font-size:21px;font-weight:800;
+  color:var(--navy-2);letter-spacing:-.01em}
+.plat-rail.broken .vendor-name{display:block}
+.vendor-offer{font-size:13px;color:var(--navy-2);margin:0 0 2px !important}
+.vendor-offer span{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--blue-2);display:block;margin-bottom:3px}
