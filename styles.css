@@ -604,6 +604,7 @@
 }
 
 /* ---- Client cards with agency seals ------------------------------------- */
+.client-grid{align-items:stretch}
 .client-card{display:flex;gap:16px;align-items:flex-start}
 .client-seal{flex:none;width:52px;height:52px;border-radius:50%;background:var(--white);
   border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;
