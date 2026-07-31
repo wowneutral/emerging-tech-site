@@ -235,7 +235,7 @@
   .card .k{font-family:var(--mono);font-size:11.5px;color:var(--brass);font-weight:600;letter-spacing:.06em;display:block;margin-bottom:10px;text-transform:uppercase}
   a.card{display:block}
   a.card .more{margin-top:16px;font-size:14px}
-  .card .checks li{color:var(--ondark-1);border-color:rgba(255,255,255,.14)}
+  .card .checks li,.panel .panel-list li{color:var(--ondark-1);border-color:rgba(255,255,255,.14)}
   .card .checks li:last-child{border-bottom-color:rgba(255,255,255,.14)}
   .card.card-light .checks li{color:var(--navy-2);border-color:var(--line)}
   .card.card-light .checks li:last-child{border-bottom-color:var(--line)}
@@ -479,8 +479,8 @@
     .marquee .track{animation:none;flex-wrap:wrap;width:auto;justify-content:center}
   }
 
-  .card .sealrow .s b{color:var(--ondark-1)}
-  .card .sealrow .s img{filter:drop-shadow(0 3px 10px rgba(0,0,0,.4))}
+  .card .sealrow .s b,.panel .sealrow .s b{color:var(--ondark-1)}
+  .card .sealrow .s img,.panel .sealrow .s img{filter:drop-shadow(0 3px 10px rgba(0,0,0,.4))}
 
   /* ============================================================
      ROBOT HERO — version 3: the robot IS the homepage.
