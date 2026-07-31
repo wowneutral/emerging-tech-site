@@ -891,6 +891,7 @@
 .tabs{border:1px solid var(--line-2);border-radius:14px;overflow:hidden;background:var(--white)}
 .tab-bar{display:flex;flex-wrap:wrap;gap:2px;background:var(--wash);
   border-bottom:1px solid var(--line-2);padding:8px 8px 0}
+.tab-btn{min-height:44px}
 .tab-btn{background:none;border:0;border-bottom:2px solid transparent;cursor:pointer;
   padding:13px 18px;font-family:var(--body);font-size:14.5px;font-weight:700;
   color:var(--slate);border-radius:8px 8px 0 0;transition:color .2s,background .2s,border-color .2s}
@@ -901,7 +902,7 @@
 .tab-panel p{margin:0;color:var(--slate);font-size:16.5px;line-height:1.72;max-width:70ch}
 
 /* ---- Stepper ------------------------------------------------------------ */
-.stepper{--dot:34px}
+.stepper{--dot:44px}
 .step-rail{position:relative;padding-bottom:8px}
 .step-track{position:absolute;left:0;right:0;top:calc(var(--dot)/2);height:2px;
   background:var(--line-2)}
@@ -911,7 +912,7 @@
   font-family:var(--body);display:flex;flex-direction:column;align-items:center;gap:11px}
 .step-dot i{width:var(--dot);height:var(--dot);border-radius:50%;background:var(--paper);
   border:2px solid var(--line-2);display:grid;place-items:center;font-style:normal;
-  font-family:var(--mono);font-size:11.5px;color:var(--slate-2);
+  font-family:var(--mono);font-size:12px;color:var(--slate-2);flex:none;
   transition:background .25s,border-color .25s,color .25s,transform .25s var(--ease)}
 .step-dot span{font-size:13px;font-weight:700;color:var(--slate-2);line-height:1.35;
   max-width:15ch;transition:color .25s}
@@ -928,8 +929,9 @@
 .filter-bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:22px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;flex:1}
 .chip{background:var(--white);border:1px solid var(--line-2);border-radius:999px;
-  padding:8px 15px;font-family:var(--body);font-size:13px;font-weight:600;color:var(--slate);
-  cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .2s var(--ease)}
+  min-height:44px;padding:8px 17px;font-family:var(--body);font-size:13.5px;font-weight:600;
+  color:var(--slate);cursor:pointer;
+  transition:background .2s,color .2s,border-color .2s,transform .2s var(--ease)}
 .chip:hover{border-color:var(--navy-3);transform:translateY(-1px)}
 .chip.is-active{background:var(--navy);border-color:var(--navy);color:#fff}
 .filter-count{font-family:var(--mono);font-size:11.5px;color:var(--slate-2);letter-spacing:.05em}
@@ -945,7 +947,7 @@
   .acc-inner{padding:0 6px 22px 34px}
   .step-dots{flex-direction:column;align-items:flex-start;gap:16px}
   .step-track{left:calc(var(--dot)/2);right:auto;top:0;bottom:0;width:2px;height:auto}
-  .step-fill{width:2px !important;height:100%}
+  .step-fill{width:2px !important;height:var(--progress,0%);transition:height .45s var(--ease)}
   .step-dot{flex-direction:row;gap:14px;text-align:left;width:100%}
   .step-dot span{max-width:none}
 }

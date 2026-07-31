@@ -73,7 +73,12 @@
         d.setAttribute('aria-selected', n === i ? 'true' : 'false');
       });
       panes.forEach(function (p, n) { p.hidden = n !== i; });
-      if (fill) fill.style.width = dots.length > 1 ? (i / (dots.length - 1)) * 100 + '%' : '0';
+      if (fill) {
+        var pct = dots.length > 1 ? (i / (dots.length - 1)) * 100 : 0;
+        fill.style.width = pct + '%';
+        // the mobile rail is vertical and reads this instead
+        fill.style.setProperty('--progress', pct + '%');
+      }
     }
     dots.forEach(function (d, i) { d.addEventListener('click', function () { show(i); }); });
     show(0);
