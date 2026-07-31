@@ -7,9 +7,15 @@
   var el = document.getElementById('teamMap');
   if (!el || typeof L === 'undefined' || !window.ET_LOCATIONS) return;
 
-  var NAVY = '#0b1f3a';
-  var BRASS = getComputedStyle(document.documentElement)
-    .getPropertyValue('--brass').trim() || '#b98b3d';
+  // Pull the palette from the stylesheet rather than hardcoding it. This theme
+  // recolored --brass to a pale blue-gray, which is too low-contrast for a
+  // marker on a light basemap, so team dots use the brand accent instead.
+  var cs = getComputedStyle(document.documentElement);
+  function v(name, fallback) {
+    return cs.getPropertyValue(name).trim() || fallback;
+  }
+  var NAVY = v('--navy-2', '#47525E');
+  var DOT = v('--blue-2', '#228BA2');
 
   var map = L.map(el, {
     scrollWheelZoom: false,
@@ -32,11 +38,11 @@
     bounds.push([lat, lon]);
     L.circleMarker([lat, lon], {
       radius: 5,
-      color: NAVY,
+      color: '#fff',
       weight: 1.5,
-      opacity: 0.55,
-      fillColor: BRASS,
-      fillOpacity: 0.85
+      opacity: 0.9,
+      fillColor: DOT,
+      fillOpacity: 0.9
     })
       .addTo(map)
       .bindTooltip(name, { direction: 'top', offset: [0, -6] });
@@ -48,7 +54,7 @@
     L.circleMarker([hq[1], hq[2]], {
       radius: 9,
       color: '#fff',
-      weight: 2.5,
+      weight: 3,
       fillColor: NAVY,
       fillOpacity: 1
     })
