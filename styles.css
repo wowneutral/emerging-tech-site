@@ -44,7 +44,7 @@
   #intro{position:fixed;inset:0;z-index:250;pointer-events:none}
   #intro .panel{position:absolute;left:0;right:0;height:50.5%;background:var(--paper);transition:transform .85s var(--ease) 1.35s}
   #intro .panel.t{top:0} #intro .panel.b{bottom:0}
-  #intro.open .panel.t{transform:translateY(-101%)} #intro.open .panel.b{transform:translateY(101%)}
+  #intro.open .fpanel.t{transform:translateY(-101%)} #intro.open .fpanel.b{transform:translateY(101%)}
   #intro .lockup{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .4s ease 1.15s}
   #intro.open .lockup{opacity:0}
   #intro img{height:56px;margin:0 auto 26px;opacity:0;transform:translateY(12px) scale(.96);transition:opacity .8s var(--ease) .1s,transform .8s var(--ease) .1s}
@@ -235,7 +235,7 @@
   .card .k{font-family:var(--mono);font-size:11.5px;color:var(--brass);font-weight:600;letter-spacing:.06em;display:block;margin-bottom:10px;text-transform:uppercase}
   a.card{display:block}
   a.card .more{margin-top:16px;font-size:14px}
-  .card .checks li,.panel .panel-list li{color:var(--ondark-1);border-color:rgba(255,255,255,.14)}
+  .card .checks li,.fpanel .fpanel-list li{color:var(--ondark-1);border-color:rgba(255,255,255,.14)}
   .card .checks li:last-child{border-bottom-color:rgba(255,255,255,.14)}
   .card.card-light .checks li{color:var(--navy-2);border-color:var(--line)}
   .card.card-light .checks li:last-child{border-bottom-color:var(--line)}
@@ -479,8 +479,8 @@
     .marquee .track{animation:none;flex-wrap:wrap;width:auto;justify-content:center}
   }
 
-  .card .sealrow .s b,.panel .sealrow .s b{color:var(--ondark-1)}
-  .card .sealrow .s img,.panel .sealrow .s img{filter:drop-shadow(0 3px 10px rgba(0,0,0,.4))}
+  .card .sealrow .s b,.fpanel .sealrow .s b{color:var(--ondark-1)}
+  .card .sealrow .s img,.fpanel .sealrow .s img{filter:drop-shadow(0 3px 10px rgba(0,0,0,.4))}
 
   /* ============================================================
      ROBOT HERO — version 3: the robot IS the homepage.
@@ -630,22 +630,22 @@
    Previously a .card with a .k kicker acting as the title, which rendered the
    heading smaller than the list under it. The title now leads at heading
    scale and the box carries real padding. */
-.panel{background:var(--navy);border:1px solid var(--navy);border-radius:14px;
+.fpanel{background:var(--navy);border:1px solid var(--navy);border-radius:14px;
   padding:clamp(28px,3.4vw,44px);box-shadow:0 34px 70px -46px rgba(71,82,94,.6)}
-.panel-title{font-family:var(--display);font-size:clamp(21px,2.3vw,27px);font-weight:800;
+.fpanel-title{font-family:var(--display);font-size:clamp(21px,2.3vw,27px);font-weight:800;
   line-height:1.22;color:#fff;margin:0 0 6px;letter-spacing:-.005em}
-.panel-title::after{content:"";display:block;width:42px;height:3px;border-radius:2px;
+.fpanel-title::after{content:"";display:block;width:42px;height:3px;border-radius:2px;
   background:var(--blue);margin:16px 0 4px}
-.panel-list{list-style:none;margin:18px 0 0;padding:0}
-.panel-list li{position:relative;padding:15px 0 15px 26px;font-size:16px;line-height:1.6;
+.fpanel-list{list-style:none;margin:18px 0 0;padding:0}
+.fpanel-list li{position:relative;padding:15px 0 15px 26px;font-size:16px;line-height:1.6;
   color:rgba(255,255,255,.9);border-bottom:1px solid rgba(255,255,255,.14)}
-.panel-list li:last-child{border-bottom:0;padding-bottom:2px}
-.panel-list li::before{content:"";position:absolute;left:2px;top:23px;width:7px;height:7px;
+.fpanel-list li:last-child{border-bottom:0;padding-bottom:2px}
+.fpanel-list li::before{content:"";position:absolute;left:2px;top:23px;width:7px;height:7px;
   border-radius:50%;background:var(--blue)}
 @media (max-width:600px){
-  .panel{padding:26px 22px}
-  .panel-list li{font-size:15px;padding:13px 0 13px 22px}
-  .panel-list li::before{top:21px}
+  .fpanel{padding:26px 22px}
+  .fpanel-list li{font-size:15px;padding:13px 0 13px 22px}
+  .fpanel-list li::before{top:21px}
 }
 
 /* ---- Reseller vendor cards ---------------------------------------------
@@ -852,7 +852,7 @@
 .page-job .card{border:0;border-left:2px solid var(--line-2);border-radius:0;
   padding:4px 0 4px 22px;background:none;box-shadow:none}
 .page-job .card:hover{border-left-color:var(--blue);transform:none;box-shadow:none;background:none}
-.page-job .checks li,.page-job .panel-list li{font-size:15.5px}
+.page-job .checks li,.page-job .fpanel-list li{font-size:15.5px}
 
 /* ==== Per-page interactive modules =======================================
    Different pages convert their card grid into a different component so the
