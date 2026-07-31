@@ -176,6 +176,19 @@
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {threshold:.12, rootMargin:'0px 0px -36px 0px'});
   els.forEach(function(el){ io.observe(el); });
+  /* Pause decorative background animations once they scroll out of view.
+     The hero net and the grid drift run on infinite loops; off screen they
+     still cost compositing every frame for something nobody can see. This
+     also stops the sticky nav's backdrop-filter from re-blurring animated
+     content once the hero is gone. */
+  var bgAnimated = document.querySelectorAll('#heroNet, .gridbg');
+  if(bgAnimated.length && 'IntersectionObserver' in window){
+    var bgio = new IntersectionObserver(function(es){
+      es.forEach(function(e){ e.target.classList.toggle('is-paused', !e.isIntersecting); });
+    }, {threshold:0});
+    bgAnimated.forEach(function(el){ bgio.observe(el); });
+  }
+
   /* headline underline draw */
   var hio = new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); hio.unobserve(e.target); } });

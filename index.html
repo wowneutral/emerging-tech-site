@@ -176,26 +176,29 @@
 </div>
 <main>
 
+<!-- The certification badges and the two buttons used to float in a
+     separate 26vh band above the headline, pinned to the top-right. That
+     band was otherwise empty, which is what pushed the copy so far down
+     the screen. They now sit directly beneath the copy and share its left
+     edge, and the empty band is gone. -->
 <section class="robot-hero" aria-label="Emerging Tech">
   <div id="heroNet" aria-hidden="true"></div>
-  <div class="rh-visual">
-    <div class="wrap rh-visual-bar">
-      <div class="badges">
-        <span>SDVOSB</span>
-        <span>8(a)</span>
-        <span>HUBZone</span>
-        <span>CMMI Level 3</span>
-      </div>
-      <div class="rh-toolbar">
-        <a class="rh-pill rh-pill-line" href="careers">Join the ET team</a>
-        <a class="rh-pill rh-pill-solid" href="cybersecurity">Our capabilities <span class="ar">&rarr;</span></a>
-      </div>
-    </div>
-  </div>
   <div class="wrap rh-content">
     <div class="rh-copy">
       <h1>Mission&#8209;Focused. People&#8209;Centered. <em>Innovation&#8209;Driven.</em></h1>
-      <p class="rh-sub">Since 2015, Emerging Tech has delivered secure, standards-driven IT solutions to federal agencies and mission partners &mdash; cybersecurity, healthcare modernization, cloud, and enterprise integration.</p>
+      <p class="rh-sub">Since 2015, Emerging Tech has delivered secure, standards-driven IT solutions to federal agencies and their partners &mdash; cybersecurity, healthcare modernization, cloud, and enterprise integration.</p>
+      <div class="rh-actions">
+        <div class="badges">
+          <span>SDVOSB</span>
+          <span>8(a)</span>
+          <span>HUBZone</span>
+          <span>CMMI Level 3</span>
+        </div>
+        <div class="rh-toolbar">
+          <a class="rh-pill rh-pill-line" href="careers">Join the ET team</a>
+          <a class="rh-pill rh-pill-solid" href="cybersecurity">Our capabilities <span class="ar">&rarr;</span></a>
+        </div>
+      </div>
     </div>
     <div class="rh-stats">
       <div class="g"><div class="n">10<sup>+</sup></div><div class="l">Years of business</div></div>
@@ -206,9 +209,11 @@
 </section>
 
 <div class="serve" aria-label="Agencies we have supported">
+  <!-- The supporting paragraph was removed: it repeated what the seals
+       below already show, and the agencies are named in the Markets
+       section further down. -->
   <div class="wrap head">
     <h2>Proud to serve</h2>
-    <p>Our team has supported some of the nation's most vital organizations &mdash; from combatant commands to intelligence agencies &mdash; with integrity, expertise, and commitment.</p>
   </div>
   <div class="marquee"><div class="track" id="sealTrack">
     <div class="seal"><img src="https://emergingtech.co/seals/seal-dod.svg" alt="Department of Defense seal"><span>DOD</span></div>
@@ -227,7 +232,7 @@
     <div class="body reveal-l">
       <span class="eyebrow">We are Emerging Tech</span>
       <h2>Mission driven, standards guided, client focused.</h2>
-      <p>Emerging Tech was founded to deliver standards-based, end-to-end IT consultancy to federal agencies and mission partners. Our team of over 85 professionals is located across the United States, bringing deep domain expertise to the programs that matter most.</p>
+      <p>Emerging Tech was founded to deliver standards-based, end-to-end IT consultancy to federal agencies and their partners. Our team of over 85 professionals is located across the United States, bringing deep domain expertise to the programs that matter most.</p>
       <ul class="checks">
         <li>SDVOSB and 8(a) HUBZone certified</li>
         <li>Cleared, credentialed professionals across 22 states</li>
@@ -288,7 +293,7 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Markets we serve</span>
-      <h2>Delivering mission-focused IT across federal, defense, and state government.</h2>
+      <h2>Delivering IT across federal, defense, and state government.</h2>
     </div>
     <div class="mcards">
       <a class="mcard reveal-s" href="veteran-services">
@@ -309,16 +314,27 @@
         <p>Cleared engineering for DoD, intel, and national-security missions.</p>
         <span class="more">Learn more <span class="ar">&rarr;</span></span>
       </a>
-      <a class="mcard reveal-s" href="civilian">
-        <div class="seals"></div>
-        <h3>Civilian</h3>
-        <p>Modernization across federal civilian agencies and shared services.</p>
-        <span class="more">Learn more <span class="ar">&rarr;</span></span>
-      </a>
       <a class="mcard reveal-s" href="state-local">
         <div class="seals"><img src="https://emergingtech.co/seals/seal-florida.svg" alt="Florida seal" loading="lazy"></div>
         <h3>State &amp; Local</h3>
         <p>Cybersecurity and modernization for state and municipal missions.</p>
+        <span class="more">Learn more <span class="ar">&rarr;</span></span>
+      </a>
+      <!-- Civilian sits last and uses a generic icon rather than an agency
+           seal. Its .seals div was previously empty, which left the card
+           visibly shorter than the four beside it. A single agency logo
+           would also misrepresent the market, which spans many agencies. -->
+      <a class="mcard reveal-s" href="civilian">
+        <div class="seals">
+          <span class="mkt-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21h18"/><path d="M12 3 3 8h18L12 3Z"/>
+              <path d="M6 11v7M10 11v7M14 11v7M18 11v7"/>
+            </svg>
+          </span>
+        </div>
+        <h3>Civilian</h3>
+        <p>Modernization across federal civilian agencies and shared services.</p>
         <span class="more">Learn more <span class="ar">&rarr;</span></span>
       </a>
     </div>
@@ -332,11 +348,16 @@
     <div class="reveal">
       <span class="eyebrow">A message from our founder</span>
       <blockquote>&ldquo;Drawing from my background in the United States Air Force, I operate with a focus on <span class="hl">accountability, operational discipline, and outcomes</span> &mdash; centered on those we ultimately serve.&rdquo;</blockquote>
+      <!-- The small circular avatar was replaced by the full photo in the
+           right-hand column; repeating his face at thumbnail size next to
+           it added nothing. -->
       <div class="attr">
-        <img class="avatar" src="images/leadership/gaurav-seth.jpg" alt="Gaurav Seth" loading="lazy">
         <div class="who"><b>Gaurav Seth</b><span>Founder &amp; CEO &middot; U.S. Air Force Veteran</span></div>
       </div>
       <a class="readmore" href="leadership">Meet our leadership <span class="ar">&rarr;</span></a>
+    </div>
+    <div class="pres-photo reveal-r">
+      <img width="1200" height="1800" src="images/photos/seth-speaking.jpg" alt="Gaurav Seth speaking at the PS27 Veteran Founders Forum" loading="lazy">
     </div>
   </div>
 </section>
@@ -345,7 +366,7 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Technology partners</span>
-      <h2>Trusted platforms powering mission-critical environments.</h2>
+      <h2>The platforms we build and deliver on.</h2>
       <p>Commercial-off-the-shelf products, cloud services, AI and automation, and custom development &mdash; integrated to address complex operational needs.</p>
     </div>
     <div class="plats">
@@ -385,7 +406,7 @@
     </div><div class="plat reveal-s">
       <img src="https://emergingtech.co/brand/platforms/aws.png" alt="Amazon Web Services" loading="lazy">
       <div class="nm">Amazon Web Services</div>
-      <p>Secure, scalable cloud environments supporting federal and commercial workloads &mdash; migration, DevSecOps pipelines, and FedRAMP-aligned architectures.</p>
+      <p>Secure cloud environments supporting federal and commercial workloads &mdash; migration, DevSecOps pipelines, and FedRAMP-aligned architectures.</p>
       <div class="tags"><span>Cloud Migration</span><span>DevSecOps</span><span>FedRAMP</span></div>
     </div>
     </div>
@@ -395,7 +416,7 @@
 <section class="cta">
   <div class="wrap">
     <span class="eyebrow">Get in touch</span>
-    <h2>Ready to modernize your mission-critical systems?</h2>
+    <h2>Ready to modernize the systems your people depend on?</h2>
     <p>Tell us about your program &mdash; we&rsquo;ll follow up within one business day.</p>
     <div class="cta-row">
       <a class="btn btn-navy" href="contact">Collaborate with us <span class="ar">&rarr;</span></a>
@@ -411,7 +432,7 @@
           <img class="logo-cut on-dark" src="brand/logo-stacked-official.png" alt="Emerging Tech">
           <span class="fallback">Emerging Tech</span>
         </a>
-        <p class="tag">Mission driven, standards guided, client focused. Delivering innovative IT solutions to federal agencies.</p>
+        <p class="tag">Federal IT since 2015 &mdash; cybersecurity, health IT modernization, cloud, and enterprise integration. 85+ professionals across 22 states.</p>
       </div>
       <div>
         <h4>Capabilities</h4>
@@ -479,7 +500,7 @@
     </div>
     <div class="footcopy">
       <span>&copy; 2026 Emerging Tech, LLC. All Rights Reserved.</span>
-      <span class="mono">MISSION-DRIVEN IT &middot; ALACHUA, FL</span>
+      <span class="mono">FEDERAL IT &middot; ALACHUA, FL</span>
     </div>
   </div>
 </footer>

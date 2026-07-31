@@ -63,7 +63,7 @@
   .util .code{font-size:11px;color:var(--ondark-3)}
   .util .code b{color:var(--ondark-1);font-weight:500}
 
-  header.nav{position:sticky;top:0;z-index:90;background:rgba(250,250,248,.92);backdrop-filter:blur(12px) saturate(130%);border-bottom:1px solid var(--line)}
+  header.nav{position:sticky;top:0;z-index:90;background:rgba(250,250,248,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   header.nav .wrap{display:flex;align-items:center;gap:30px;height:78px}
   .brandlink{display:flex;align-items:center}
   .brandlink img{height:50px;width:auto}
@@ -102,6 +102,7 @@
     radial-gradient(55% 95% at 8% 100%,rgba(41,169,197,.28),transparent 62%),
     radial-gradient(40% 70% at 50% 40%,rgba(163,190,195,.22),transparent 65%)}
   .phero .gridbg{position:absolute;inset:-60px;background-image:linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px);background-size:52px 52px;animation:drift 26s linear infinite}
+  .gridbg.is-paused{animation-play-state:paused}
   @keyframes drift{to{transform:translate(52px,52px)}}
   .phero::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,rgba(84,97,110,.5) 30%,rgba(84,97,110,0) 100%)}
   .phero .wrap{position:relative;z-index:2;padding:96px 30px 88px}
@@ -151,7 +152,7 @@
   .hero-visual .contract .p{font-family:var(--mono);font-size:11px;color:var(--slate-2);margin-top:3px}
   .serve{background:var(--navy);padding:40px 0 46px;overflow:hidden;position:relative}
   #vantaNet{position:absolute;inset:0;z-index:0}
-  .serve .head{position:relative;z-index:1;display:flex;align-items:baseline;gap:20px;justify-content:space-between;flex-wrap:wrap;margin-bottom:30px}
+  .serve .head{position:relative;z-index:1;margin-bottom:26px}
   .serve h2{color:#fff;font-size:clamp(22px,2.6vw,30px);font-weight:700}
   .serve .head p{margin:0;color:var(--ondark-2);font-size:14.5px;max-width:56ch}
   .marquee{position:relative;z-index:1;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
@@ -252,11 +253,18 @@
 
   .pres{background:var(--navy);color:#fff;position:relative;overflow:hidden}
   .pres .gridbg{position:absolute;inset:-60px;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:52px 52px;animation:drift 26s linear infinite}
-  .pres .wrap{position:relative}
+  .pres .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,5vw,72px);align-items:center}
+  .pres .pres-photo img{width:100%;height:auto;max-height:520px;object-fit:cover;object-position:center top;border-radius:12px;display:block}
+  /* Single column below the two-column breakpoint; the photo is capped so a
+     tall portrait does not dominate a narrow screen. */
+  @media (max-width:900px){
+    .pres .wrap{grid-template-columns:1fr;gap:30px}
+    .pres .pres-photo img{max-height:420px;object-position:center 20%}
+  }
   .pres .eyebrow{color:var(--brass-2)}
   .pres blockquote{margin:26px 0 0;font-family:var(--display);font-weight:600;font-size:clamp(24px,3.2vw,38px);line-height:1.28;color:#F4F7FA;max-width:26ch}
   .pres blockquote .hl{color:var(--brass-2)}
-  .pres .attr{margin-top:34px;display:flex;align-items:center;gap:16px}
+  .pres .attr{margin-top:30px}
   .avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center 20%;border:2px solid rgba(217,174,85,.5);flex-shrink:0}
   .avatar.broken{display:none}
   .pres .attr .who b{display:block;font-size:16px;font-weight:700;color:#fff}
@@ -300,6 +308,11 @@
   .mcard{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:24px 20px;display:flex;flex-direction:column;transition:border-color .25s,box-shadow .3s,transform .3s var(--ease)}
   .mcard:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(84,97,110,.35);transform:translateY(-5px)}
   .mcard .seals{display:flex;gap:6px;margin-bottom:16px;min-height:34px}
+    /* Generic market icon, used where an agency seal would either be
+     missing or misrepresent a market that spans many agencies.
+     Sized to match the seal images so card heights stay equal. */
+  .mcard .mkt-icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--line-2);background:var(--white);color:var(--navy-2)}
+  .mcard .mkt-icon svg{width:18px;height:18px}
   .mcard .seals img{height:34px;width:34px;object-fit:contain}
   .mcard .seals img.broken{display:none}
   .mcard h3{font-size:17.5px;font-weight:800;margin-bottom:9px}
@@ -482,18 +495,25 @@
   #heroNet{position:absolute;inset:0;z-index:0;overflow:hidden;
     -webkit-mask-image:linear-gradient(180deg,#000,#000 65%,transparent 100%);
     mask-image:linear-gradient(180deg,#000,#000 65%,transparent 100%)}
-  #heroNet::before{content:"";position:absolute;top:0;left:0;width:200%;height:200%;
+  #heroNet::before{content:"";position:absolute;top:0;left:0;width:calc(100% + 140px);height:calc(100% + 140px);
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cg stroke='%233d7dff' stroke-opacity='.28' stroke-width='1' fill='none'%3E%3Cline x1='0' y1='0' x2='70' y2='70'/%3E%3Cline x1='140' y1='0' x2='70' y2='70'/%3E%3Cline x1='0' y1='140' x2='70' y2='70'/%3E%3Cline x1='140' y1='140' x2='70' y2='70'/%3E%3Cline x1='70' y1='70' x2='140' y2='70'/%3E%3Cline x1='70' y1='70' x2='0' y2='70'/%3E%3Cline x1='70' y1='70' x2='70' y2='140'/%3E%3Cline x1='70' y1='70' x2='70' y2='0'/%3E%3C/g%3E%3Cg fill='%233d7dff' fill-opacity='.55'%3E%3Ccircle cx='0' cy='0' r='2.4'/%3E%3Ccircle cx='140' cy='0' r='2.4'/%3E%3Ccircle cx='0' cy='140' r='2.4'/%3E%3Ccircle cx='140' cy='140' r='2.4'/%3E%3Ccircle cx='70' cy='70' r='3'/%3E%3Ccircle cx='0' cy='70' r='2.4'/%3E%3Ccircle cx='140' cy='70' r='2.4'/%3E%3Ccircle cx='70' cy='0' r='2.4'/%3E%3Ccircle cx='70' cy='140' r='2.4'/%3E%3C/g%3E%3C/svg%3E");
     background-size:140px 140px;background-repeat:repeat;
-    animation:heroNetDrift 50s linear infinite;will-change:transform}
+    animation:heroNetDrift 50s linear infinite}
+  /* Paused by script.js when the hero leaves the viewport — there is no
+     reason to keep compositing a background nobody can see. */
+  #heroNet.is-paused::before{animation-play-state:paused}
   @keyframes heroNetDrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-140px,-140px,0)}}
   @media (prefers-reduced-motion:reduce){#heroNet::before{animation:none}}
   /* Shrunk way down from the original 60vh band — that made the hero feel
      enormous and left the badges bar stranded far above the headline with
      nothing connecting them. This is just enough net-only space above the
      text now, not a separate oversized visual block. */
-  .robot-hero .rh-visual{position:relative;z-index:1;overflow:hidden;height:26vh;min-height:190px;max-height:260px;flex-shrink:0}
-  .robot-hero .rh-visual-bar{position:absolute;top:26px;left:50%;transform:translateX(-50%);z-index:2;display:flex;align-items:center;justify-content:space-between;gap:24px;opacity:0;filter:blur(6px);animation:rhUp 1s var(--ease-cine) .1s forwards}
+  /* .rh-visual (the empty 26vh band above the headline) and .rh-visual-bar
+     (the absolutely positioned badge/button strip inside it) were removed
+     from the markup — the badges and buttons now sit under the copy. */
+  .robot-hero .rh-actions{display:flex;flex-wrap:wrap;align-items:center;gap:18px 26px;margin-top:30px;
+    opacity:0;transform:translateY(20px);filter:blur(6px);animation:rhUp 1.05s var(--ease-cine) .6s forwards}
+  .robot-hero .rh-actions .badges{gap:8px}
   .robot-hero .rh-toolbar{display:flex;gap:10px;flex-shrink:0}
   .robot-hero .rh-pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;padding:11px 20px;border-radius:99px;transition:transform .18s var(--ease),background .2s,color .2s,border-color .2s,box-shadow .2s;font-family:var(--body);white-space:nowrap}
   .robot-hero .rh-pill .ar{transition:transform .2s var(--ease)}
@@ -509,11 +529,11 @@
      gap above it — .robot-hero is now a flex column and this block grows
      to fill the leftover space, then align-content:center balances the
      grid inside it. */
-  .robot-hero .rh-content{position:relative;z-index:1;flex:1;padding:32px 0;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:64px;align-items:end;align-content:center}
+  .robot-hero .rh-content{position:relative;z-index:1;flex:1;padding:clamp(48px,7vh,88px) 0 56px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:64px;align-items:start;align-content:start}
   .robot-hero h1{margin:0;color:#fff;font-size:clamp(34px,4.6vw,58px);font-weight:900;max-width:17ch;letter-spacing:-.025em;opacity:0;transform:translateY(22px);filter:blur(8px);animation:rhUp 1.15s var(--ease-cine) .28s forwards}
   .robot-hero h1 em{font-style:normal;color:var(--teal-tint,#7dd3e8)}
   .robot-hero .rh-sub{margin:22px 0 0;font-size:17.5px;color:rgba(255,255,255,.72);max-width:56ch;opacity:0;transform:translateY(20px);filter:blur(6px);animation:rhUp 1.05s var(--ease-cine) .46s forwards}
-  .robot-hero .rh-stats{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--blue);padding-left:30px;opacity:0;transform:translateY(20px);filter:blur(6px);animation:rhUp 1.05s var(--ease-cine) .6s forwards}
+  .robot-hero .rh-stats{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--blue);padding-left:30px;margin-top:10px;opacity:0;transform:translateY(20px);filter:blur(6px);animation:rhUp 1.05s var(--ease-cine) .6s forwards}
   .robot-hero .rh-stats .g{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.14)}
   .robot-hero .rh-stats .g:first-child{padding-top:0}
   .robot-hero .rh-stats .g:last-child{border-bottom:0;padding-bottom:0}
@@ -523,7 +543,6 @@
   @keyframes rhUp{to{opacity:1;transform:none;filter:blur(0)}}
 
   @media (max-width:1020px){
-    .robot-hero .rh-visual{height:24vh;min-height:170px;max-height:240px}
     .robot-hero .rh-content{grid-template-columns:1fr;gap:36px}
     .robot-hero .rh-stats{flex-direction:row;border-left:0;border-top:2px solid var(--brass);padding-left:0;padding-top:20px;gap:34px}
     .robot-hero .rh-stats .g{border-bottom:0;padding:0}
@@ -531,8 +550,6 @@
   }
   @media (max-width:600px){
     .map iframe{height:420px}
-    .robot-hero .rh-visual{height:34vh;min-height:240px;max-height:320px}
-    .robot-hero .rh-visual-bar{flex-direction:column;align-items:flex-start;gap:14px;top:14px;width:calc(100% - 32px)}
     .robot-hero .rh-toolbar{width:100%}
     .robot-hero .rh-pill{flex:1;justify-content:center;padding:10px 14px;font-size:12.5px}
     .robot-hero h1{font-size:clamp(30px,9vw,38px)}
@@ -540,5 +557,7 @@
     .robot-hero .rh-stats{flex-wrap:wrap;gap:16px 28px}
   }
   @media (prefers-reduced-motion:reduce){
-    .robot-hero .badges,.robot-hero h1,.robot-hero .rh-sub,.robot-hero .glance,.robot-hero .rh-toolbar{opacity:1;transform:none}
+    .robot-hero .badges,.robot-hero h1,.robot-hero .rh-sub,.robot-hero .glance,.robot-hero .rh-toolbar,.robot-hero .rh-actions{opacity:1;transform:none;filter:none}
+  .robot-hero .rh-actions{gap:14px 18px;margin-top:24px}
+  .robot-hero .rh-toolbar{flex-wrap:wrap}
   }
