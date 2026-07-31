@@ -675,13 +675,18 @@
    On photo pages the image carries real presence and a directional scrim
    keeps the headline legible over it. A slight blur stops fine detail in the
    photo from fighting the type. */
-.phero-photo .bgimg{opacity:.62;filter:blur(2.5px) saturate(1.06) contrast(1.02)}
-.phero-photo .weave{opacity:.34}
-.phero-photo .gridbg{opacity:.35}
+.phero-photo .bgimg{opacity:.78;filter:blur(1.8px) saturate(1.02)}
+.phero-photo .weave{opacity:.18}
+/* The grid ran edge to edge and smothered the photograph. It now fades out
+   across the panel, so it reads as texture behind the type and clears the
+   half of the frame the picture actually lives in. */
+.phero-photo .gridbg{opacity:.5;
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.35) 38%,transparent 62%);
+  mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.35) 38%,transparent 62%)}
 .phero-photo .scrim{position:absolute;inset:0;background:
-  linear-gradient(100deg,rgba(60,70,79,.94) 0%,rgba(60,70,79,.82) 34%,
-    rgba(60,70,79,.52) 66%,rgba(60,70,79,.42) 100%),
-  linear-gradient(to top,rgba(60,70,79,.72),transparent 42%)}
+  linear-gradient(96deg,rgba(60,70,79,.91) 0%,rgba(60,70,79,.74) 30%,
+    rgba(60,70,79,.34) 60%,rgba(60,70,79,.18) 100%),
+  linear-gradient(to top,rgba(60,70,79,.55),transparent 46%)}
 .phero-photo .wrap{position:relative;z-index:2}
 .phero-photo h1{text-shadow:0 2px 26px rgba(40,48,55,.5)}
 .phero-photo .lede{color:rgba(255,255,255,.93);text-shadow:0 1px 16px rgba(40,48,55,.55)}
@@ -690,8 +695,9 @@
   /* On a narrow screen the scrim has to be flatter or the headline sits over
      the bright end of the photo. */
   .phero-photo .scrim{background:
-    linear-gradient(180deg,rgba(60,70,79,.86) 0%,rgba(60,70,79,.78) 55%,rgba(60,70,79,.9) 100%)}
-  .phero-photo .bgimg{opacity:.5}
+    linear-gradient(180deg,rgba(60,70,79,.84) 0%,rgba(60,70,79,.74) 52%,rgba(60,70,79,.88) 100%)}
+  .phero-photo .bgimg{opacity:.66}
+  .phero-photo .gridbg{-webkit-mask-image:none;mask-image:none;opacity:.3}
 }
 @media (prefers-reduced-motion:reduce){.phero-photo .bgimg{animation:none;transform:none}}
 
