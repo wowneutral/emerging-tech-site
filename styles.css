@@ -660,3 +660,123 @@
 .vendor-offer{font-size:13px;color:var(--navy-2);margin:0 0 2px !important}
 .vendor-offer span{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
   text-transform:uppercase;color:var(--blue-2);display:block;margin-bottom:3px}
+
+/* ---- Benefit cards ------------------------------------------------------ */
+.benefit{position:relative}
+.benefit-icon{display:flex;align-items:center;justify-content:center;width:44px;height:44px;
+  border-radius:10px;background:var(--wash);border:1px solid var(--line-2);
+  color:var(--blue-2);margin-bottom:16px;transition:background .25s,color .25s,transform .3s var(--ease)}
+.benefit-icon svg{width:23px;height:23px}
+.benefit:hover .benefit-icon{background:var(--blue-2);color:#fff;border-color:var(--blue-2);
+  transform:translateY(-2px)}
+
+/* ---- Photo heroes -------------------------------------------------------
+   The stock .phero holds the image at .20 opacity, which reads as a smudge.
+   On photo pages the image carries real presence and a directional scrim
+   keeps the headline legible over it. A slight blur stops fine detail in the
+   photo from fighting the type. */
+.phero-photo .bgimg{opacity:.62;filter:blur(2.5px) saturate(1.06) contrast(1.02)}
+.phero-photo .weave{opacity:.34}
+.phero-photo .gridbg{opacity:.35}
+.phero-photo .scrim{position:absolute;inset:0;background:
+  linear-gradient(100deg,rgba(60,70,79,.94) 0%,rgba(60,70,79,.82) 34%,
+    rgba(60,70,79,.52) 66%,rgba(60,70,79,.42) 100%),
+  linear-gradient(to top,rgba(60,70,79,.72),transparent 42%)}
+.phero-photo .wrap{position:relative;z-index:2}
+.phero-photo h1{text-shadow:0 2px 26px rgba(40,48,55,.5)}
+.phero-photo .lede{color:rgba(255,255,255,.93);text-shadow:0 1px 16px rgba(40,48,55,.55)}
+.phero-photo .crumb{position:relative;z-index:2}
+@media (max-width:760px){
+  /* On a narrow screen the scrim has to be flatter or the headline sits over
+     the bright end of the photo. */
+  .phero-photo .scrim{background:
+    linear-gradient(180deg,rgba(60,70,79,.86) 0%,rgba(60,70,79,.78) 55%,rgba(60,70,79,.9) 100%)}
+  .phero-photo .bgimg{opacity:.5}
+}
+@media (prefers-reduced-motion:reduce){.phero-photo .bgimg{animation:none;transform:none}}
+
+/* ---- Hero themes for pages without photography --------------------------
+   Every page previously opened on the same navy panel with the same corner
+   glow, which is what made the site feel like one page repeated. These give
+   each family its own light direction, accent geometry and weight. */
+
+/* A: hard diagonal split, accent wedge from the lower left */
+.phero-a .weave{opacity:0;}
+.phero-a::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(118deg,var(--navy-3) 0%,var(--navy) 46%,#5E6C79 100%)}
+.phero-a::after{content:"";position:absolute;left:-8%;bottom:-58%;width:62%;height:150%;
+  background:linear-gradient(180deg,rgba(41,169,197,.42),rgba(41,169,197,0));
+  transform:rotate(19deg);filter:blur(6px)}
+
+/* B: horizon band, light rising from the base */
+.phero-b .weave{opacity:.5}
+.phero-b::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(120% 76% at 50% 122%,rgba(41,169,197,.5),transparent 62%),
+  linear-gradient(180deg,#3C464F 0%,var(--navy) 100%)}
+.phero-b::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+
+/* C: concentric rings, a quieter clinical feel */
+.phero-c .weave{opacity:.3}
+.phero-c::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(58% 100% at 82% 50%,rgba(41,169,197,.34),transparent 60%),
+  linear-gradient(90deg,var(--navy-3),var(--navy) 70%)}
+.phero-c::after{content:"";position:absolute;right:-14%;top:50%;width:640px;height:640px;
+  margin-top:-320px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 0 0 60px rgba(255,255,255,.05),0 0 0 140px rgba(255,255,255,.035),
+             0 0 0 230px rgba(255,255,255,.022)}
+
+/* D: engineering grid, denser and squarer */
+.phero-d .weave{opacity:.22}
+.phero-d::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(160deg,var(--navy) 0%,#4A5661 58%,var(--navy-3) 100%)}
+.phero-d::after{content:"";position:absolute;inset:0;opacity:.5;background-image:
+  linear-gradient(rgba(255,255,255,.075) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.075) 1px,transparent 1px);
+  background-size:38px 38px;
+  -webkit-mask-image:radial-gradient(80% 70% at 74% 30%,#000,transparent 72%);
+  mask-image:radial-gradient(80% 70% at 74% 30%,#000,transparent 72%)}
+
+/* E: warm side-light, softest of the set */
+.phero-e .weave{opacity:.42}
+.phero-e::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(70% 120% at 12% 20%,rgba(163,190,195,.4),transparent 58%),
+  radial-gradient(60% 90% at 96% 88%,rgba(41,169,197,.36),transparent 60%),
+  linear-gradient(200deg,var(--navy) 0%,var(--navy-3) 100%)}
+
+/* CASE: editorial, near-black with a single rule */
+.phero-case{background:#333B43}
+.phero-case .weave{opacity:0}
+.phero-case .gridbg{opacity:.18}
+.phero-case::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(105deg,#2E353C 0%,#3C464F 62%,#46525D 100%)}
+.phero-case::after{content:"";position:absolute;left:30px;right:30px;bottom:0;height:1px;
+  background:linear-gradient(90deg,var(--blue),transparent 65%)}
+.phero-case h1{font-size:clamp(28px,4vw,50px)}
+
+/* JOB: light hero, the only inverted one on the site */
+.phero-job{background:var(--wash);color:var(--navy)}
+.phero-job .weave,.phero-job .gridbg{opacity:0}
+.phero-job::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(180deg,var(--white) 0%,var(--wash) 100%)}
+.phero-job::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;
+  background:linear-gradient(180deg,var(--blue),rgba(41,169,197,0))}
+.phero-job h1{color:var(--navy)}
+.phero-job h1 em{color:var(--blue-2)}
+.phero-job .lede{color:var(--slate)}
+.phero-job .crumb,.phero-job .crumb a{color:var(--slate-2)}
+.phero-job .rule{background:var(--line-2)}
+
+/* Explicit stacking, or the theme's ::after accent would paint underneath the
+   weave and grid layers that follow it in the DOM. */
+.phero-a::before,.phero-b::before,.phero-c::before,.phero-d::before,.phero-e::before,
+.phero-case::before,.phero-job::before{z-index:0}
+.phero-a .weave,.phero-b .weave,.phero-c .weave,.phero-d .weave,.phero-e .weave,
+.phero-case .weave,.phero-job .weave,
+.phero-a .gridbg,.phero-b .gridbg,.phero-c .gridbg,.phero-d .gridbg,.phero-e .gridbg,
+.phero-case .gridbg,.phero-job .gridbg{z-index:1}
+.phero-a::after,.phero-b::after,.phero-c::after,.phero-d::after,.phero-e::after,
+.phero-case::after,.phero-job::after{z-index:2}
+.phero-a .wrap,.phero-b .wrap,.phero-c .wrap,.phero-d .wrap,.phero-e .wrap,
+.phero-case .wrap,.phero-job .wrap{position:relative;z-index:3}
