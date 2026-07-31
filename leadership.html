@@ -30,9 +30,13 @@
      the face stays with the text on the longer bios. */
   .lead-rows{display:flex;flex-direction:column;gap:clamp(56px,7vw,96px)}
   .lead-row{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:clamp(32px,5vw,64px);align-items:start}
-  .lead-row-alt .lead-portrait{order:2}
-  .lead-row-alt .lead-bio{order:1}
-  .lead-portrait{position:sticky;top:110px;border-radius:12px;overflow:hidden;background:var(--wash);border:1px solid var(--line-2);box-shadow:0 30px 60px -34px rgba(11,31,58,.4)}
+  /* Alternating rows swap which track is narrow rather than reordering items,
+     so the portrait always lands in the narrow track. Using `order` alone left
+     it in the wide track and blew the photo up to nearly twice the height. */
+  .lead-row-alt{grid-template-columns:minmax(0,1.22fr) minmax(0,.78fr)}
+  .lead-row-alt .lead-portrait{grid-column:2;grid-row:1;margin-left:auto}
+  .lead-row-alt .lead-bio{grid-column:1;grid-row:1}
+  .lead-portrait{position:sticky;top:110px;width:100%;max-width:400px;border-radius:12px;overflow:hidden;background:var(--wash);border:1px solid var(--line-2);box-shadow:0 30px 60px -34px rgba(11,31,58,.4)}
   .lead-portrait img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center top}
   .lead-bio{padding-top:4px}
   .lead-bio h3{font-family:var(--display);font-size:clamp(26px,3vw,34px);font-weight:800;line-height:1.12;margin:0 0 8px;letter-spacing:-.01em}
