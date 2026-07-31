@@ -66,7 +66,10 @@
       });
   }
 
-  map.fitBounds(bounds, { padding: [34, 34] });
+  // A phone-shaped box is much taller than the country's proportions, so the
+  // generous desktop padding left the map floating in empty ocean.
+  function pad() { return innerWidth < 700 ? [12, 12] : [34, 34]; }
+  map.fitBounds(bounds, { padding: pad() });
 
   // Click to enable wheel zoom, click away to release it.
   map.on('focus', function () { map.scrollWheelZoom.enable(); });
@@ -77,7 +80,7 @@
   window.addEventListener('load', function () {
     setTimeout(function () {
       map.invalidateSize();
-      map.fitBounds(bounds, { padding: [34, 34] });
+      map.fitBounds(bounds, { padding: pad() });
     }, 120);
   });
 })();

@@ -606,7 +606,7 @@
   box-shadow:0 10px 24px -14px rgba(71,82,94,.55)}
 @media (max-width:700px){
   .map-stats{grid-template-columns:repeat(2,1fr)}
-  #teamMap{height:min(64vh,420px)}
+  #teamMap{height:min(48vh,330px)}
 }
 
 /* ---- Client cards with agency seals ------------------------------------- */
