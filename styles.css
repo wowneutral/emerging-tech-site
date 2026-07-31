@@ -1076,3 +1076,12 @@
 .side-card-photo img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
 .side-card-photo .side-card-body{padding:20px 22px}
 .side-card-photo h3{margin-bottom:8px}
+
+/* ---- Mobile form sizing -------------------------------------------------
+   iOS Safari zooms the whole page when a focused field is under 16px. The
+   fields were 15.5px, so every tap on the contact form jolted the layout. */
+@media (max-width:760px){
+  .cf input,.cf select,.cf textarea,.filter-search{font-size:16px}
+  .cf input,.cf select{min-height:48px}
+  .cf textarea{min-height:150px}
+}
