@@ -167,16 +167,11 @@
 <section>
   <div class="wrap">
     <div class="sec-head reveal"><span class="eyebrow">Inside the lab</span><h2>Capabilities We Test, Evaluate, and Build Within MIL</h2></div>
-    <div class="cards2">
-      <div class="card reveal"><h3>Security Management</h3><p>OTA provisioning, configuration, verification, real-time security compliance, revoke rights, remote wipe.</p></div>
-      <div class="card reveal"><h3>Asset Management</h3><p>Tracking for devices, platforms, applications; auditing and change history.</p></div>
-      <div class="card reveal"><h3>Compliance Management</h3><p>Link IT policy to mobile devices; track new activations, compliance failures, device disablement.</p></div>
-      <div class="card reveal"><h3>Expense Management</h3><p>Device usage, tracking roaming costs, application usage patterns, license usage.</p></div>
-      <div class="card reveal"><h3>Incident Management</h3><p>Dashboard configuration showing health of mobile devices, report incidents.</p></div>
-      <div class="card reveal"><h3>Performance Management</h3><p>Alerting tools based on mobile device health.</p></div>
-      <div class="card reveal"><h3>Application Management</h3><p>Enterprise App Store, ease of deployment, location-based application management.</p></div>
-      <div class="card reveal"><h3>Mobile Continuous Monitoring</h3><p>Continue to monitor and provide device and data protection against ransomware, spyware, adware, rooting, trojan horses, man-in-the-middle attacks and more.</p></div>
-    </div>
+    <div class="filterbox" data-module="filter">
+        <div class="filter-bar"><div class="chips"><button class="chip is-active" type="button" data-tag="all" aria-pressed="true">All</button><button class="chip" type="button" data-tag="security-management" aria-pressed="false">Security Management</button><button class="chip" type="button" data-tag="asset-management" aria-pressed="false">Asset Management</button><button class="chip" type="button" data-tag="compliance-management" aria-pressed="false">Compliance Management</button><button class="chip" type="button" data-tag="expense-management" aria-pressed="false">Expense Management</button><button class="chip" type="button" data-tag="incident-management" aria-pressed="false">Incident Management</button><button class="chip" type="button" data-tag="performance-management" aria-pressed="false">Performance Management</button><button class="chip" type="button" data-tag="application-management" aria-pressed="false">Application Management</button><button class="chip" type="button" data-tag="mobile-continuous-moni" aria-pressed="false">Mobile Continuous Monitoring</button></div>
+          <span class="filter-count"></span></div>
+        <div class="fgrid"><div class="fcard" data-tags="security-management"><h3>Security Management</h3><p>OTA provisioning, configuration, verification, real-time security compliance, revoke rights, remote wipe.</p></div><div class="fcard" data-tags="asset-management"><h3>Asset Management</h3><p>Tracking for devices, platforms, applications; auditing and change history.</p></div><div class="fcard" data-tags="compliance-management"><h3>Compliance Management</h3><p>Link IT policy to mobile devices; track new activations, compliance failures, device disablement.</p></div><div class="fcard" data-tags="expense-management"><h3>Expense Management</h3><p>Device usage, tracking roaming costs, application usage patterns, license usage.</p></div><div class="fcard" data-tags="incident-management"><h3>Incident Management</h3><p>Dashboard configuration showing health of mobile devices, report incidents.</p></div><div class="fcard" data-tags="performance-management"><h3>Performance Management</h3><p>Alerting tools based on mobile device health.</p></div><div class="fcard" data-tags="application-management"><h3>Application Management</h3><p>Enterprise App Store, ease of deployment, location-based application management.</p></div><div class="fcard" data-tags="mobile-continuous-moni"><h3>Mobile Continuous Monitoring</h3><p>Continue to monitor and provide device and data protection against ransomware, spyware, adware, rooting, trojan horses, man-in-the-middle attacks and more.</p></div></div>
+      </div>
   </div>
 </section>
 <section class="cta">
@@ -276,5 +271,6 @@
   </div>
 </footer>
 <script src="script.js"></script>
+<script src="page-modules.js"></script>
 </body>
 </html>
