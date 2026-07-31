@@ -544,7 +544,7 @@
      gap above it — .robot-hero is now a flex column and this block grows
      to fill the leftover space, then align-content:center balances the
      grid inside it. */
-  .robot-hero .rh-content{position:relative;z-index:1;flex:1;padding:clamp(48px,7vh,88px) 0 56px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:64px;align-items:start;align-content:start}
+  .robot-hero .rh-content{position:relative;z-index:1;flex:1;padding:clamp(48px,7vh,88px) 30px 56px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:64px;align-items:start;align-content:start}
   .robot-hero h1{margin:0;color:#fff;font-size:clamp(34px,4.6vw,58px);font-weight:900;max-width:17ch;letter-spacing:-.025em;opacity:0;transform:translateY(22px);filter:blur(8px);animation:rhUp 1.15s var(--ease-cine) .28s forwards}
   .robot-hero h1 em{font-style:normal;color:var(--teal-tint,#7dd3e8)}
   .robot-hero .rh-sub{margin:22px 0 0;font-size:17.5px;color:rgba(255,255,255,.72);max-width:56ch;opacity:0;transform:translateY(20px);filter:blur(6px);animation:rhUp 1.05s var(--ease-cine) .46s forwards}
@@ -568,7 +568,7 @@
     .robot-hero .rh-toolbar{width:100%}
     .robot-hero .rh-pill{flex:1;justify-content:center;padding:10px 14px;font-size:12.5px}
     .robot-hero h1{font-size:clamp(30px,9vw,38px)}
-    .robot-hero .rh-content{padding:40px 0 56px}
+    .robot-hero .rh-content{padding:40px 20px 56px}
     .robot-hero .rh-stats{flex-wrap:wrap;gap:16px 28px}
   }
   @media (prefers-reduced-motion:reduce){
