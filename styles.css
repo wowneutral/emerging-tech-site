@@ -1085,3 +1085,20 @@
   .cf input,.cf select{min-height:48px}
   .cf textarea{min-height:150px}
 }
+
+/* ---- Tabs on narrow screens --------------------------------------------
+   Five labels like "Data Strategy & Governance" each wrapped to full width,
+   turning the tab bar into a 262px stack of buttons before any content.
+   A single scrollable rail keeps it to one row. */
+@media (max-width:760px){
+  .tab-bar{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    padding:8px 8px 0;position:relative}
+  .tab-bar::-webkit-scrollbar{display:none}
+  .tab-btn{flex:0 0 auto;white-space:nowrap;scroll-snap-align:start;padding:13px 15px}
+  /* hint that the rail continues past the edge */
+  .tabs{position:relative}
+  .tabs::after{content:"";position:absolute;top:8px;right:0;width:34px;height:52px;
+    pointer-events:none;background:linear-gradient(90deg,rgba(241,242,238,0),var(--wash))}
+  .tab-panes{padding:24px 20px}
+}
