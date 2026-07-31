@@ -704,9 +704,9 @@
 .phero-a .weave{opacity:0;}
 .phero-a::before{content:"";position:absolute;inset:0;background:
   linear-gradient(118deg,var(--navy-3) 0%,var(--navy) 46%,#5E6C79 100%)}
-.phero-a::after{content:"";position:absolute;left:-8%;bottom:-58%;width:62%;height:150%;
-  background:linear-gradient(180deg,rgba(41,169,197,.42),rgba(41,169,197,0));
-  transform:rotate(19deg);filter:blur(6px)}
+.phero-a::after{content:"";position:absolute;left:-14%;bottom:-62%;width:74%;height:160%;
+  background:linear-gradient(180deg,rgba(41,169,197,.30),rgba(41,169,197,0) 72%);
+  transform:rotate(19deg);filter:blur(46px);opacity:.9}
 
 /* B: horizon band, light rising from the base */
 .phero-b .weave{opacity:.5}
