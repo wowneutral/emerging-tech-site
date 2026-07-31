@@ -1048,3 +1048,23 @@
 .phero-f .weave,.phero-g .weave,.phero-f .gridbg,.phero-g .gridbg{z-index:1}
 .phero-f::after,.phero-g::after{z-index:2}
 .phero-f .wrap,.phero-g .wrap{position:relative;z-index:3}
+
+/* ---- Apply by email -----------------------------------------------------
+   Replaces the application forms, which collected resumes, home addresses and
+   EEO demographic data but never transmitted them. */
+.applybox{background:var(--wash);border:1px solid var(--line-2);border-radius:14px;
+  padding:clamp(26px,3.2vw,40px)}
+.applybox-lead{margin:0 0 22px;font-size:17px;line-height:1.7;color:var(--navy-2);max-width:62ch}
+.applybox-btn{margin-bottom:28px}
+.applybox-meta{display:grid;gap:1px;margin:0 0 22px;background:var(--line-2);
+  border:1px solid var(--line-2);border-radius:10px;overflow:hidden}
+.applybox-meta>div{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);
+  gap:16px;background:var(--white);padding:15px 18px}
+.applybox-meta dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--slate-2)}
+.applybox-meta dd{margin:0;font-size:15px;color:var(--navy-2)}
+.applybox-meta a{color:var(--blue-2);font-weight:700}
+.applybox-note{margin:0;font-size:13px;line-height:1.65;color:var(--slate-2);max-width:70ch}
+@media (max-width:600px){
+  .applybox-meta>div{grid-template-columns:1fr;gap:4px}
+}

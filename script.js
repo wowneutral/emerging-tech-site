@@ -242,41 +242,75 @@
   if(mm){ mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ mm.classList.remove('open'); }); }); }
 
   /* contact form -> FormSubmit (submits directly, no email client needed) */
+  /* Contact form.
+     Posts to Emerging Tech's own Worker (see worker/README.md) rather than a
+     third-party form relay. Until that endpoint is deployed, leave
+     CONTACT_ENDPOINT empty: the form then opens the visitor's mail client with
+     everything they typed already filled in, so it degrades instead of
+     failing silently to an unverified mailbox. */
+  var CONTACT_ENDPOINT = '';
+  var CONTACT_EMAIL = 'collaborate@emergingtech.co';
+
   var cf = document.getElementById('contactForm');
   if(cf){
     var cfStatus = document.getElementById('cfStatus');
     var cfBtn = cf.querySelector('button[type="submit"]');
+    var say = function(text, colour){
+      if(cfStatus){ cfStatus.textContent = text; cfStatus.style.color = colour; }
+    };
+    var reset = function(){
+      if(cfBtn){ cfBtn.disabled = false; cfBtn.style.opacity = ''; }
+    };
+
     cf.addEventListener('submit', function(ev){
       ev.preventDefault();
-      if(cfBtn){ cfBtn.disabled = true; cfBtn.style.opacity = '.6'; }
-      if(cfStatus){ cfStatus.textContent = 'Sending…'; cfStatus.style.color = 'var(--slate-2)'; }
       var f = new FormData(cf);
-      fetch(cf.action, { method: 'POST', body: f, headers: { 'Accept': 'application/json' } })
-        .then(function(res){ if(!res.ok) throw new Error('bad status'); return res.json(); })
+
+      if(f.get('_honey')){ return; }
+
+      if(!CONTACT_ENDPOINT){
+        var body = 'Name: ' + (f.get('name')||'') +
+                   '\nEmail: ' + (f.get('email')||'') +
+                   '\nOrganization: ' + (f.get('org')||'') +
+                   '\nReason: ' + (f.get('reason')||'') +
+                   '\n\n' + (f.get('msg')||'');
+        window.location.href = 'mailto:' + CONTACT_EMAIL +
+          '?subject=' + encodeURIComponent('Website enquiry from ' + (f.get('name')||'')) +
+          '&body=' + encodeURIComponent(body);
+        say('Opening your email app. If nothing happens, write to ' + CONTACT_EMAIL + '.', 'var(--slate-2)');
+        return;
+      }
+
+      if(cfBtn){ cfBtn.disabled = true; cfBtn.style.opacity = '.6'; }
+      say('Sending\u2026', 'var(--slate-2)');
+      fetch(CONTACT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: f
+      })
+        .then(function(res){
+          if(res.status === 429) throw new Error('rate');
+          if(!res.ok) throw new Error('bad status');
+          return res.json();
+        })
         .then(function(){
-          if(cfStatus){ cfStatus.textContent = 'Thanks — your message was sent. We\'ll be in touch soon.'; cfStatus.style.color = 'var(--blue-2)'; }
+          say('Thanks, your message was sent. We\u2019ll be in touch soon.', 'var(--blue-2)');
           cf.reset();
         })
-        .catch(function(){
-          if(cfStatus){ cfStatus.textContent = 'Something went wrong sending your message — please email us directly at collaborate@emergingtech.co.'; cfStatus.style.color = '#B3452C'; }
+        .catch(function(err){
+          say(err && err.message === 'rate'
+            ? 'That is a few messages in a short time. Please try again shortly, or email ' + CONTACT_EMAIL + '.'
+            : 'Something went wrong sending your message. Please email us directly at ' + CONTACT_EMAIL + '.',
+            '#B3452C');
         })
-        .finally(function(){
-          if(cfBtn){ cfBtn.disabled = false; cfBtn.style.opacity = '1'; }
-        });
+        .finally(reset);
     });
   }
 
   /* job application forms (preview site — does not transmit data anywhere) */
-  var af = document.getElementById('applyForm');
-  if(af){
-    af.addEventListener('submit', function(ev){
-      ev.preventDefault();
-      var note = document.getElementById('applySubmitted');
-      var btn = af.querySelector('button[type="submit"]');
-      if(btn){ btn.disabled = true; btn.textContent = 'Preview only — not submitted'; }
-      if(note){ note.classList.add('show'); note.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
-    });
-  }
+  /* The job application forms were removed. They collected resumes, home
+     addresses and EEO demographic data into a handler that never
+     transmitted anything; applications now go by email instead. */
 
   /* Note: the old cinematic net background (formerly Vanta.js/three.js — a
      full WebGL render loop running on every page load just for a

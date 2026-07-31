@@ -180,77 +180,17 @@
 
 <section class="caps-sec">
   <div class="wrap" style="max-width:900px">
-    <div class="sec-head reveal"><span class="eyebrow">Apply</span><h2>Apply for This Position</h2><p>Fields marked * are required. This is a design preview, applications aren&rsquo;t transmitted from this environment. On the live site, this connects directly to our secure applicant tracking system.</p></div>
-
-    <form class="cf" id="applyForm">
-      <div class="row2">
-        <div><label for="fn">First Name *</label><input id="fn" name="first_name" required></div>
-        <div><label for="ln">Last Name *</label><input id="ln" name="last_name" required></div>
-      </div>
-      <div class="row2">
-        <div><label for="em">Email Address *</label><input id="em" name="email" type="email" required></div>
-        <div><label for="ph">Phone *</label><input id="ph" name="phone" type="tel" required></div>
-      </div>
-      <div><label for="ad">Address</label><input id="ad" name="address"></div>
-      <div>
-        <label for="rf">Resume *</label>
-        <input id="rf" name="resume" type="file" accept=".pdf.doc.docx.odt.txt.rtf" required>
-        <p style="margin:6px 0 0;font-size:12px;color:var(--slate-2)">Attach as .pdf.doc.docx.odt.txt, or .rtf (limit 5MB).</p>
-      </div>
-
-      <div><label for="q1">Years of federal proposal management experience *</label><input id="q1" name="q_years" required></div>
-      <div><label for="q2">Largest proposal you&rsquo;ve personally managed, start to finish *</label><textarea id="q2" name="q_largest" required></textarea></div>
-      <div><label for="q3">Which agencies have you won work with? *</label><textarea id="q3" name="q_agencies" required></textarea></div>
-      <div><label for="q4">GWAC / IDIQ / OASIS+ / SeaPort-NxG experience? *</label><textarea id="q4" name="q_vehicles" required></textarea></div>
-      <div><label for="q5">This role requires 1&ndash;2 days/week in our DC office plus evenings/weekends during active proposals. Are you able to meet this? *</label><select id="q5" name="q_hybrid" required><option></option><option>Yes</option><option>No</option></select></div>
-      <div><label for="q6">Earliest available start date *</label><input id="q6" name="q_start" type="date" required></div>
-
-
-      <div class="eeo-block">
-        <h4>Voluntary Demographic Information</h4>
-        <p>The following questions are entirely optional. To comply with federal Equal Employment Opportunity and Affirmative Action reporting regulations, we are requesting (but not requiring) this data. It is not used in hiring decisions and is used solely as permitted by state and federal law. <a href="https://www.eeoc.gov/employees-job-applicants" target="_blank" rel="noopener" style="color:var(--blue-2)">Learn more &rarr;</a></p>
-        <div class="row2">
-          <div><label for="gender">Gender</label><select id="gender" name="gender"><option>Decline to answer</option><option>Female</option><option>Male</option></select></div>
-          <div><label for="race">Race/Ethnicity</label><select id="race" name="race"><option>Decline to answer</option><option>Hispanic or Latino</option><option>White, not Hispanic or Latino</option><option>Black or African-American, not Hispanic or Latino</option><option>Asian, not Hispanic or Latino</option><option>Native Hawaiian or Other Pacific Islander, not Hispanic or Latino</option><option>American Indian or Alaskan Native, not Hispanic or Latino</option><option>Two or More Races, not Hispanic or Latino</option><option>MENA (Middle Eastern and North African)</option></select></div>
-        </div>
-      </div>
-
-      <div class="eeo-block">
-        <h4>Voluntary Self-Identification as a Protected Veteran</h4>
-        <p>A protected veteran includes a disabled veteran, recently separated veteran, active duty wartime or campaign badge veteran, or Armed Forces service medal veteran, as defined under VEVRAA.</p>
-        <div class="radios">
-          <label class="r"><input type="radio" name="veteran" value="yes"> I identify as a protected veteran</label>
-          <label class="r"><input type="radio" name="veteran" value="no"> I am not a protected veteran</label>
-          <label class="r"><input type="radio" name="veteran" value="decline"> I don&rsquo;t wish to answer</label>
-        </div>
-      </div>
-
-      <div class="eeo-block">
-        <h4>Voluntary Self-Identification of Disability, Form CC-305</h4>
-        <p>OMB Control Number 1250-0005 &middot; Expires 05/31/2026. We are a federal contractor required to provide equal employment opportunity to qualified people with disabilities, with a goal of at least 7% of our workforce. Completing this form is voluntary and confidential, and your answer will not affect your candidacy. Learn more at <a href="https://www.dol.gov/ofccp" target="_blank" rel="noopener" style="color:var(--blue-2)">dol.gov/ofccp</a>.</p>
-        <div class="radios">
-          <label class="r"><input type="radio" name="disability" value="yes"> Yes, I have a disability, or have had one in the past</label>
-          <label class="r"><input type="radio" name="disability" value="no"> No, I do not have a disability and have not had one in the past</label>
-          <label class="r"><input type="radio" name="disability" value="decline"> I do not want to answer</label>
-        </div>
-        <div class="row2">
-          <div><label for="cc305name">Name</label><input id="cc305name" name="cc305_name"></div>
-          <div><label for="cc305date">Date</label><input id="cc305date" name="cc305_date" type="date"></div>
-        </div>
-        <p style="font-size:11.5px;margin-top:10px">Public burden statement: per the Paperwork Reduction Act of 1995, no persons are required to respond to a collection of information unless it displays a valid OMB control number. This survey should take about 5 minutes.</p>
-      </div>
-
-      <div>
-        <label class="r" style="display:flex;align-items:center;gap:10px;text-transform:none;letter-spacing:0;font-size:14px;font-weight:600"><input type="checkbox" required style="width:auto"> Human check, I confirm I am a person submitting this application. *</label>
-      </div>
-
-      <div><button class="btn btn-navy" type="submit">Submit Application <span class="ar">&rarr;</span></button></div>
-
-      <div class="form-submitted" id="applySubmitted">
-        <h4>Preview Mode, Not Submitted</h4>
-        <p>This is a design preview of Emerging Tech&rsquo;s redesigned careers section. No data was collected or transmitted. On the live site, applications for this role are submitted securely through our applicant tracking system.</p>
-      </div>
-    </form>
+    <div class="sec-head reveal"><span class="eyebrow">Apply</span><h2>Apply for This Position</h2></div>
+    <div class="applybox reveal">
+      <p class="applybox-lead">To apply, email your resume to our careers team with the role in the subject line. A recruiter will confirm receipt and follow up on next steps.</p>
+      <a class="btn btn-navy applybox-btn" href="mailto:collaborate@emergingtech.co?subject=Application:%20Proposal%20Director%2C%20Federal%20Government%20%28VA%20%26%20DoD%29">Email your application <span class="ar">&rarr;</span></a>
+      <dl class="applybox-meta">
+        <div><dt>Send to</dt><dd><a href="mailto:collaborate@emergingtech.co">collaborate@emergingtech.co</a></dd></div>
+        <div><dt>Subject line</dt><dd>Application: Proposal Director, Federal Government (VA & DoD)</dd></div>
+        <div><dt>Please attach</dt><dd>Your resume, and a short note on your relevant experience</dd></div>
+      </dl>
+      <p class="applybox-note">Emerging Tech is an equal opportunity employer. We consider all qualified applicants without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, disability, or veteran status.</p>
+    </div>
   </div>
 </section>
 

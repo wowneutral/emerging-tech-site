@@ -1,0 +1,22 @@
+name = "et-contact"
+main = "contact-worker.js"
+compatibility_date = "2026-01-01"
+
+# Serve the handler from Emerging Tech's own domain so form data never
+# transits a third party. Update the zone once emergingtech.co is on
+# Cloudflare; until then the workers.dev URL works for testing.
+# routes = [
+#   { pattern = "emergingtech.co/api/contact", zone_name = "emergingtech.co" }
+# ]
+
+[vars]
+TO_ADDRESS   = "collaborate@emergingtech.co"
+# Must be an address on a domain verified with the mail provider.
+FROM_ADDRESS = "Emerging Tech Website <website@emergingtech.co>"
+
+# Per-IP submission counter. Create with:
+#   npx wrangler kv namespace create RATE_KV
+# then paste the id below.
+# [[kv_namespaces]]
+# binding = "RATE_KV"
+# id = "<paste-the-id-here>"
