@@ -61,14 +61,11 @@
     });
   });
 
-  /* parallax on interior hero image */
-  var bgimg = document.querySelector('.phero .bgimg');
-  if(bgimg && !reduce){
-    addEventListener('scroll', function(){
-      var y = Math.min(window.scrollY, 600);
-      bgimg.style.transform = 'scale(1.05) translateY(' + (y * 0.18) + 'px)';
-    }, {passive:true});
-  }
+  /* The interior-hero parallax lived here. It scrolled .phero .bgimg, the
+     photograph behind the page headings, which no longer exists — every page
+     header is now the one checkered treatment. Removed rather than left
+     inert: it bound an unthrottled scroll listener on every page, which is a
+     real cost to keep paying for an element that is never in the document. */
 
   /* hero rotator */
   var slides = Array.prototype.slice.call(document.querySelectorAll('#rotator .slide'));

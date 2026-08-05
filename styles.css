@@ -103,7 +103,6 @@
 
   /* interior page hero */
   .phero{position:relative;background:var(--navy);color:#fff;overflow:hidden}
-  .phero .bgimg{position:absolute;inset:-6% 0;background-size:cover;background-position:center;opacity:.20;transform:scale(1.08);animation:kb 20s var(--ease) forwards;will-change:transform}
   @keyframes kb{to{transform:scale(1.01)}}
   .phero .weave{position:absolute;inset:0;opacity:.85;background:
     radial-gradient(70% 120% at 85% 10%,rgba(22,85,192,.55),transparent 55%),
@@ -589,7 +588,7 @@
 .map-sec .sec-head{text-align:center;max-width:720px;margin:0 auto 30px}
 .map-sec .map-lede{margin:14px auto 0;max-width:620px;color:var(--slate);font-size:16px;line-height:1.65}
 .map-card{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;
-  background:var(--wash);box-shadow:0 34px 70px -44px rgba(71,82,94,.45)}
+  background:var(--wash);box-shadow:0 34px 70px -44px rgba(11,31,58,.45)}
 #teamMap{height:clamp(400px,58vh,600px);width:100%;background:#eef2f6}
 .map-card .map-legend{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;
   padding:13px 18px;border-top:1px solid var(--line);background:var(--white);
@@ -611,7 +610,7 @@
 .map-card .leaflet-control-attribution{font-size:10px;background:rgba(255,255,255,.82)}
 .map-card .leaflet-tooltip{font-family:inherit;font-size:12px;font-weight:600;
   color:var(--navy-2);border:1px solid var(--line);border-radius:6px;
-  box-shadow:0 10px 24px -14px rgba(71,82,94,.55)}
+  box-shadow:0 10px 24px -14px rgba(11,31,58,.55)}
 @media (max-width:700px){
   .map-stats{grid-template-columns:repeat(2,1fr)}
   #teamMap{height:min(48vh,330px)}
@@ -639,7 +638,7 @@
    heading smaller than the list under it. The title now leads at heading
    scale and the box carries real padding. */
 .fpanel{background:var(--navy);border:1px solid var(--navy);border-radius:14px;
-  padding:clamp(28px,3.4vw,44px);box-shadow:0 34px 70px -46px rgba(71,82,94,.6)}
+  padding:clamp(28px,3.4vw,44px);box-shadow:0 34px 70px -46px rgba(11,31,58,.6)}
 .fpanel-title{font-family:var(--display);font-size:clamp(21px,2.3vw,27px);font-weight:800;
   line-height:1.22;color:#fff;margin:0 0 6px;letter-spacing:-.005em}
 .fpanel-title::after{content:"";display:block;width:42px;height:3px;border-radius:2px;
@@ -678,122 +677,46 @@
 .benefit:hover .benefit-icon{background:var(--blue-2);color:#fff;border-color:var(--blue-2);
   transform:translateY(-2px)}
 
-/* ---- Photo heroes -------------------------------------------------------
-   The stock .phero holds the image at .20 opacity, which reads as a smudge.
-   On photo pages the image carries real presence and a directional scrim
-   keeps the headline legible over it. A slight blur stops fine detail in the
-   photo from fighting the type. */
-.phero-photo .bgimg{opacity:.78;filter:blur(1.8px) saturate(1.02)}
-.phero-photo .weave{opacity:.18}
-/* The grid ran edge to edge and smothered the photograph. It now fades out
-   across the panel, so it reads as texture behind the type and clears the
-   half of the frame the picture actually lives in. */
-.phero-photo .gridbg{opacity:.5;
-  -webkit-mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.35) 38%,transparent 62%);
-  mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.35) 38%,transparent 62%)}
-.phero-photo .scrim{position:absolute;inset:0;background:
-  linear-gradient(96deg,rgba(60,70,79,.91) 0%,rgba(60,70,79,.74) 30%,
-    rgba(60,70,79,.34) 60%,rgba(60,70,79,.18) 100%),
-  linear-gradient(to top,rgba(60,70,79,.55),transparent 46%)}
-.phero-photo .wrap{position:relative;z-index:2}
-.phero-photo h1{text-shadow:0 2px 26px rgba(40,48,55,.5)}
-.phero-photo .lede{color:rgba(255,255,255,.93);text-shadow:0 1px 16px rgba(40,48,55,.55)}
-.phero-photo .crumb{position:relative;z-index:2}
-@media (max-width:760px){
-  /* On a narrow screen the scrim has to be flatter or the headline sits over
-     the bright end of the photo. */
-  .phero-photo .scrim{background:
-    linear-gradient(180deg,rgba(60,70,79,.84) 0%,rgba(60,70,79,.74) 52%,rgba(60,70,79,.88) 100%)}
-  .phero-photo .bgimg{opacity:.66}
-  .phero-photo .gridbg{-webkit-mask-image:none;mask-image:none;opacity:.3}
-}
-@media (prefers-reduced-motion:reduce){.phero-photo .bgimg{animation:none;transform:none}}
+/* ---- Page header, one treatment ----------------------------------------
+   WAS TEN. Twelve pages carried a photograph behind the heading
+   (.phero-photo), and the rest used one of seven abstract variants
+   (.phero-a .. -g) plus separate looks for case studies and job posts.
 
-/* ---- Hero themes for pages without photography --------------------------
-   Every page previously opened on the same navy panel with the same corner
-   glow, which is what made the site feel like one page repeated. These give
-   each family its own light direction, accent geometry and weight. */
+   Two reasons that is now one thing.
 
-/* A: hard diagonal split, accent wedge from the lower left */
-.phero-a .weave{opacity:0;}
-.phero-a::before{content:"";position:absolute;inset:0;background:
-  linear-gradient(118deg,var(--navy-3) 0%,var(--navy) 46%,#5E6C79 100%)}
-.phero-a::after{content:"";position:absolute;left:-14%;bottom:-62%;width:74%;height:160%;
-  background:linear-gradient(180deg,rgba(22,85,192,.30),rgba(22,85,192,0) 72%);
-  transform:rotate(19deg);filter:blur(46px);opacity:.9}
+   The photographs were the weaker half. They are candid event shots -
+   classrooms, conference rooms, a skyline - which are good documentary
+   images and bad headers: a header crop needs a clear subject, dead space
+   for type to sit in, and nothing important near the edges, and these have
+   none of the three. The stylesheet already admitted it; the note that used
+   to sit here read "the stock .phero holds the image at .20 opacity, which
+   reads as a smudge". Every fix after that - raising opacity to .78, adding
+   a blur, masking the grid, stacking two text-shadows - was working around
+   a photograph that was never going to sit behind a headline.
 
-/* B: horizon band, light rising from the base */
-.phero-b .weave{opacity:.5}
-.phero-b::before{content:"";position:absolute;inset:0;background:
-  radial-gradient(120% 76% at 50% 122%,rgba(22,85,192,.5),transparent 62%),
-  linear-gradient(180deg,#101C2C 0%,var(--navy) 100%)}
-.phero-b::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+   The seven abstract variants were the subtler problem. No visitor sees
+   more than a handful of pages, so seven treatments do not read as variety;
+   they read as a site that cannot decide what it looks like. One header,
+   used everywhere, is what makes the navy feel deliberate.
 
-/* C: concentric rings, a quieter clinical feel */
-.phero-c .weave{opacity:.3}
-.phero-c::before{content:"";position:absolute;inset:0;background:
-  radial-gradient(58% 100% at 82% 50%,rgba(22,85,192,.34),transparent 60%),
-  linear-gradient(90deg,var(--navy-3),var(--navy) 70%)}
-.phero-c::after{content:"";position:absolute;right:-14%;top:50%;width:640px;height:640px;
-  margin-top:-320px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 0 0 60px rgba(255,255,255,.05),0 0 0 140px rgba(255,255,255,.035),
-             0 0 0 230px rgba(255,255,255,.022)}
+   The photographs are not lost. They belong in captioned content blocks
+   further down the page, where a 16:9 crop with a caption is exactly the
+   right thing and their looseness becomes an asset rather than a liability.
 
-/* D: engineering grid, denser and squarer */
-.phero-d .weave{opacity:.22}
-.phero-d::before{content:"";position:absolute;inset:0;background:
-  linear-gradient(160deg,var(--navy) 0%,#4A5661 58%,var(--navy-3) 100%)}
-.phero-d::after{content:"";position:absolute;inset:0;opacity:.5;background-image:
-  linear-gradient(rgba(255,255,255,.075) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(255,255,255,.075) 1px,transparent 1px);
-  background-size:38px 38px;
-  -webkit-mask-image:radial-gradient(80% 70% at 74% 30%,#000,transparent 72%);
-  mask-image:radial-gradient(80% 70% at 74% 30%,#000,transparent 72%)}
+   The checker is the signature: a fine white grid drifting slowly over
+   navy, with blue and gold light bleeding through it. */
 
-/* E: warm side-light, softest of the set */
-.phero-e .weave{opacity:.42}
-.phero-e::before{content:"";position:absolute;inset:0;background:
-  radial-gradient(70% 120% at 12% 20%,rgba(185,138,47,.4),transparent 58%),
-  radial-gradient(60% 90% at 96% 88%,rgba(22,85,192,.36),transparent 60%),
-  linear-gradient(200deg,var(--navy) 0%,var(--navy-3) 100%)}
+/* Slightly denser and more visible than the old base, because it is now
+   carrying the whole header on its own rather than sitting under a photo. */
+.phero .gridbg{background-size:46px 46px}
+.phero .rule{background:var(--brass-2)}
 
-/* CASE: editorial, near-black with a single rule */
-.phero-case{background:#333B43}
-.phero-case .weave{opacity:0}
-.phero-case .gridbg{opacity:.18}
-.phero-case::before{content:"";position:absolute;inset:0;background:
-  linear-gradient(105deg,#2E353C 0%,#101C2C 62%,#46525D 100%)}
-.phero-case::after{content:"";position:absolute;left:30px;right:30px;bottom:0;height:1px;
-  background:linear-gradient(90deg,var(--blue),transparent 65%)}
-.phero-case h1{font-size:clamp(28px,4vw,50px)}
-
-/* JOB: light hero, the only inverted one on the site */
-.phero-job{background:var(--wash);color:var(--navy)}
-.phero-job .weave,.phero-job .gridbg{opacity:0}
-.phero-job::before{content:"";position:absolute;inset:0;background:
-  linear-gradient(180deg,var(--white) 0%,var(--wash) 100%)}
-.phero-job::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;
-  background:linear-gradient(180deg,var(--blue),rgba(22,85,192,0))}
-.phero-job h1{color:var(--navy)}
-.phero-job h1 em{color:var(--blue-2)}
-.phero-job .lede{color:var(--slate)}
-.phero-job .crumb,.phero-job .crumb a{color:var(--slate-2)}
-.phero-job .rule{background:var(--line-2)}
-
-/* Explicit stacking, or the theme's ::after accent would paint underneath the
-   weave and grid layers that follow it in the DOM. */
-.phero-a::before,.phero-b::before,.phero-c::before,.phero-d::before,.phero-e::before,
-.phero-case::before,.phero-job::before{z-index:0}
-.phero-a .weave,.phero-b .weave,.phero-c .weave,.phero-d .weave,.phero-e .weave,
-.phero-case .weave,.phero-job .weave,
-.phero-a .gridbg,.phero-b .gridbg,.phero-c .gridbg,.phero-d .gridbg,.phero-e .gridbg,
-.phero-case .gridbg,.phero-job .gridbg{z-index:1}
-.phero-a::after,.phero-b::after,.phero-c::after,.phero-d::after,.phero-e::after,
-.phero-case::after,.phero-job::after{z-index:2}
-.phero-a .wrap,.phero-b .wrap,.phero-c .wrap,.phero-d .wrap,.phero-e .wrap,
-.phero-case .wrap,.phero-job .wrap{position:relative;z-index:3}
+/* The one inherited distinction worth keeping. Case-study and job titles are
+   long - a role plus a location, an agency plus a programme - and at the full
+   66px they wrapped to three lines and pushed the lede off the fold. This is
+   a typographic fix, not a second theme: same navy, same checker, same
+   everything else. */
+.phero-case h1,.phero-job h1{font-size:clamp(28px,4vw,50px)}
 
 /* ---- Typographic signature ---------------------------------------------
    Replaces a repeated avatar thumbnail that appeared as a byline on more than
@@ -816,18 +739,33 @@
 .statwall-note{grid-column:1/-1;background:var(--navy) !important;color:rgba(255,255,255,.9);
   font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;padding:16px 22px !important}
 
+/* The dark blue box on Centers of Excellence. Three things were wrong with
+   it, all of which read as "the formatting is off" without being obvious:
+
+   1. The numerals were var(--blue) on var(--navy) — #1655C0 on #0B1F3A. Two
+      blues about one step apart, so the numbers all but vanished into the
+      panel. They are gold now, which is the palette's accent and the only
+      colour in it with real contrast against navy.
+   2. The numeral was positioned at a fixed top:16px against a list item with
+      14px of padding, so it sat a couple of pixels off the cap-height of the
+      label beside it — close enough to look like a mistake rather than a
+      choice. It aligns to the same padding as the text now.
+   3. The panel had no internal separation between the heading and the list
+      beyond a margin, so at narrow widths the two ran together. */
 .sharewall{background:var(--navy);border-radius:14px;padding:clamp(26px,3vw,38px);
-  box-shadow:0 34px 70px -46px rgba(71,82,94,.6)}
+  box-shadow:0 34px 70px -46px rgba(11,31,58,.6)}
 .sharewall h3{font-family:var(--display);font-size:clamp(19px,2.1vw,24px);color:#fff;
-  margin:0 0 20px;font-weight:800}
+  margin:0 0 18px;padding-bottom:16px;font-weight:800;
+  border-bottom:1px solid rgba(255,255,255,.16)}
 .sharewall ol{list-style:none;counter-reset:sw;margin:0;padding:0}
 .sharewall li{counter-increment:sw;position:relative;padding:14px 0 14px 46px;
   border-top:1px solid rgba(255,255,255,.14)}
-.sharewall li:first-child{border-top:0}
-.sharewall li::before{content:counter(sw,decimal-leading-zero);position:absolute;left:0;top:16px;
-  font-family:var(--mono);font-size:12px;color:var(--blue);letter-spacing:.06em}
-.sharewall li b{display:block;color:#fff;font-size:15.5px;font-weight:700}
-.sharewall li span{display:block;margin-top:2px;font-size:13.5px;color:rgba(255,255,255,.72);
+.sharewall li:first-child{border-top:0;padding-top:2px}
+.sharewall li::before{content:counter(sw,decimal-leading-zero);position:absolute;left:0;top:14px;
+  font-family:var(--mono);font-size:12px;color:var(--brass-2);letter-spacing:.06em}
+.sharewall li:first-child::before{top:2px}
+.sharewall li b{display:block;color:#fff;font-size:15.5px;font-weight:700;line-height:1.35}
+.sharewall li span{display:block;margin-top:3px;font-size:13.5px;color:rgba(255,255,255,.72);
   line-height:1.55}
 @media (max-width:520px){.statwall{grid-template-columns:1fr}}
 
@@ -946,7 +884,7 @@
 .fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:16px}
 .fcard{background:var(--white);border:1px solid var(--line);border-radius:11px;padding:22px 20px;
   transition:border-color .25s,box-shadow .3s,transform .3s var(--ease)}
-.fcard:hover{border-color:var(--navy-3);box-shadow:0 20px 40px -26px rgba(71,82,94,.45);
+.fcard:hover{border-color:var(--navy-3);box-shadow:0 20px 40px -26px rgba(11,31,58,.45);
   transform:translateY(-3px)}
 .fcard h3{font-size:16.5px;margin-bottom:6px}
 .fcard p{margin:0;font-size:14px;color:var(--slate);line-height:1.6}
@@ -986,14 +924,25 @@
    data-sec token that changes how its section heads and cards are drawn.
    Type scale, colour and spacing stay constant so the brand holds. */
 
-/* ---- edge: eyebrow set beside the heading, no underline ---------------- */
-[data-sec="edge"] .sec-head{max-width:none;display:grid;
-  grid-template-columns:minmax(0,168px) minmax(0,1fr);gap:8px clamp(20px,3vw,52px);
-  align-items:start;border-top:2px solid var(--navy);padding-top:22px}
-[data-sec="edge"] .sec-head .eyebrow{padding-top:10px}
-[data-sec="edge"] .sec-head h2{margin-top:0;max-width:20ch}
+/* ---- edge: eyebrow above the heading, no underline --------------------- */
+/* THIS USED TO BE A TWO-COLUMN GRID, with the eyebrow in a 168px column on
+   the left and the heading beside it on the right. That is the single cause
+   of four separate pieces of feedback — "What We Bring to This Market",
+   "Standards-Driven Approaches…", "Innovate, Collaborate, Educate" and
+   "Where the Work Is Concentrated" were all reported as needing to sit
+   *below* their tag. They are all this one rule.
+
+   Side-by-side reads as two unrelated things at a glance rather than a label
+   and the thing it labels, and it is also the only place on the site where
+   an eyebrow does not sit directly above its heading — so it looked like a
+   mistake even to someone who could not say why. Stacked now, matching every
+   other section, and the border-top still gives the treatment its edge. */
+[data-sec="edge"] .sec-head{max-width:none;
+  border-top:2px solid var(--navy);padding-top:22px}
+[data-sec="edge"] .sec-head .eyebrow{padding-top:0}
+[data-sec="edge"] .sec-head h2{margin-top:10px;max-width:26ch}
 [data-sec="edge"] .sec-head h2::after{display:none}
-[data-sec="edge"] .sec-head p{grid-column:2;max-width:64ch;margin-top:14px}
+[data-sec="edge"] .sec-head p{max-width:64ch;margin-top:14px}
 [data-sec="edge"] .card{border-radius:0;border:0;border-top:2px solid var(--line-2);
   background:none;padding:24px 0 6px}
 [data-sec="edge"] .card:hover{border-top-color:var(--navy);transform:none;box-shadow:none;
@@ -1022,7 +971,7 @@
 [data-sec="quiet"] .sec-head h2::after{display:none}
 [data-sec="quiet"] .sec-head .eyebrow{color:var(--slate-2)}
 [data-sec="quiet"] .card{box-shadow:none;border-color:var(--line-2)}
-[data-sec="quiet"] .card:hover{box-shadow:0 16px 34px -24px rgba(71,82,94,.4)}
+[data-sec="quiet"] .card:hover{box-shadow:0 16px 34px -24px rgba(11,31,58,.4)}
 
 /* the split-layout headings follow the same rule as their page */
 [data-sec="edge"] .split h2::after,[data-sec="stack"] .split h2::after,
@@ -1031,33 +980,11 @@
   top:.34em;left:-32px;background:var(--blue);transform:none}
 
 @media (max-width:760px){
-  [data-sec="edge"] .sec-head{grid-template-columns:1fr;gap:6px}
-  [data-sec="edge"] .sec-head p{grid-column:1}
-  [data-sec="edge"] .sec-head .eyebrow{padding-top:0}
+  /* The mobile override that used to collapse the grid to one column is gone
+     with the grid itself — it stacks at every width now. */
   [data-sec="mark"] .sec-head{padding-left:26px}
   [data-sec="mark"] .sec-head h2::after{right:calc(100% + 12px)}
 }
-
-/* ---- Two more hero treatments for pages whose photo was cut ------------- */
-/* F: offset blocks, the most graphic of the set */
-.phero-f .weave{opacity:.25}
-.phero-f::before{content:"";position:absolute;inset:0;background:
-  linear-gradient(135deg,var(--navy-3) 0%,var(--navy) 55%,#5A6874 100%)}
-.phero-f::after{content:"";position:absolute;right:-4%;top:-30%;width:46%;height:160%;
-  background:repeating-linear-gradient(120deg,rgba(22,85,192,.30) 0 3px,transparent 3px 26px);
-  transform:rotate(6deg);-webkit-mask-image:linear-gradient(200deg,#000,transparent 78%);
-  mask-image:linear-gradient(200deg,#000,transparent 78%)}
-/* G: soft vertical wash with a single bright edge */
-.phero-g .weave{opacity:.3}
-.phero-g::before{content:"";position:absolute;inset:0;background:
-  radial-gradient(90% 130% at 100% 0%,rgba(22,85,192,.4),transparent 58%),
-  linear-gradient(180deg,var(--navy) 0%,var(--navy-3) 100%)}
-.phero-g::after{content:"";position:absolute;right:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--blue),rgba(22,85,192,0))}
-.phero-f::before,.phero-g::before{z-index:0}
-.phero-f .weave,.phero-g .weave,.phero-f .gridbg,.phero-g .gridbg{z-index:1}
-.phero-f::after,.phero-g::after{z-index:2}
-.phero-f .wrap,.phero-g .wrap{position:relative;z-index:3}
 
 /* ---- Apply by email -----------------------------------------------------
    Replaces the application forms, which collected resumes, home addresses and
