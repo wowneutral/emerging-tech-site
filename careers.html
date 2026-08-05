@@ -94,7 +94,7 @@
         <button type="button" class="active">Careers &#9662;</button>
         <div class="menu">
           <a href="careers">All Careers <small>Join our team</small></a>
-          <a href="internships">Internships <small>Student &amp; early-career programs</small></a>
+          <a href="careers#internships">Internships <small>Student &amp; early-career programs</small></a>
         </div>
       </div>
     </nav>
@@ -132,7 +132,7 @@
   <a href="accelerators" class="sm">Accelerators</a>
   <a href="centers-of-excellence" class="sm">Centers of Excellence</a>
   <a href="careers">Careers</a>
-  <a href="internships" class="sm">Internships</a>
+  <a href="careers#internships" class="sm">Internships</a>
   <a href="contact">Contact Us</a>
 </div>
 <main>
@@ -151,7 +151,10 @@
       <h2>Equip &middot; Train &middot; Deploy</h2>
       <p style="color:var(--slate);margin-top:20px">Our internship program is built around a simple three-step path from student to contributor, with applications open August 17 &ndash; September 17 and a new cohort starting October 1.</p>
       <div class="cta-row" style="margin-top:28px">
-        <a class="btn btn-brass" href="internships">Explore the internship program <span class="ar">&rarr;</span></a>
+        <!-- An in-page jump now, not a link to another page. This section used
+             to be the teaser for the standalone internships page; with that
+             page folded in below, the button scrolls rather than navigates. -->
+        <a class="btn btn-brass" href="#internships">See dates and how it runs <span class="ar">&rarr;</span></a>
       </div>
     </div>
     <div class="photo photo-natural reveal-r">
@@ -224,11 +227,75 @@
     </div>
   </div>
 </section>
+<!-- ============================================================
+     INTERNSHIPS. Folded back in from the standalone internships page,
+     which has been removed.
+
+     It belongs here. An internship is a way into this company, which is
+     what this whole page is about, and splitting it out meant a student
+     who landed on Careers saw six sections about working here and no
+     sign the programme existed. The three-step Equip / Train / Deploy
+     framing was also already the opening section of this page, so the
+     two pages were repeating each other's best idea at each other.
+
+     The old page's duplicate "Equip / Train / Deploy" cards are dropped
+     for that reason — they said the same thing as the section at the top
+     of this page in the same words.
+     ============================================================ -->
+<section id="internships" class="caps-sec">
+  <div class="wrap split" style="align-items:center">
+    <div class="reveal-l">
+      <span class="eyebrow">Internships</span>
+      <h2>Applications &amp; Cohort Timeline</h2>
+      <p style="margin-top:16px">Internship positions are available remote, hybrid, or onsite, depending on the role and your preference. Occasional trips to our Alachua, FL headquarters may be needed for remote interns, for example to pick up equipment, but these are rare.</p>
+      <div class="fpanel" style="margin-top:24px">
+        <h3 class="fpanel-title">Application window</h3>
+        <p style="color:#DDE7F1;margin-top:8px">Applications are open <b style="color:#fff">August 17 &ndash; September 17</b> for remote positions.</p>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <span class="k">Cohort start</span>
+        <p style="margin-top:8px">The new internship cohort begins <b style="color:var(--navy)">October 1</b>.</p>
+      </div>
+      <div class="cta-row" style="margin-top:28px">
+        <a class="btn btn-brass" href="openings">View internship openings <span class="ar">&rarr;</span></a>
+        <a class="btn btn-line" href="contact">Ask a question</a>
+      </div>
+    </div>
+    <div class="sharewall reveal-r">
+      <h3>How the Program Runs</h3>
+      <ol>
+        <li><b>Apply</b><span>August 17 to September 17, remote positions</span></li>
+        <li><b>Onboard</b><span>Cohort begins October 1 with tools and training</span></li>
+        <li><b>Build</b><span>Real client work, not busywork, with a named mentor</span></li>
+        <li><b>Convert</b><span>Strong interns are offered full-time roles</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Academic partnership. Photo cropped out of a LinkedIn post screenshot; the
+     post chrome was removed so only the building remains. Height is set
+     explicitly because this is a wide 2.1:1 crop and the default .photo height
+     of 480px would upscale and soften it. -->
+<section>
+  <div class="wrap split" style="align-items:center">
+    <div class="prose reveal-l">
+      <span class="eyebrow">Academic partners</span>
+      <h2 style="margin:16px 0 20px;font-size:clamp(26px,3vw,38px)">Growing with Gainesville</h2>
+      <p>We partner with local institutions to build the next generation of technologists. Santa Fe College&rsquo;s Blount Hall gives students interested in business and IT a place to learn and grow, and gives us a pipeline of talent right here in North Central Florida.</p>
+    </div>
+    <div class="photo photo-natural reveal-r">
+      <img width="824" height="394" src="images/photos/santa-fe-blount-hall.jpg" alt="Blount Hall at Santa Fe College in Gainesville, Florida" loading="lazy">
+      <div class="est">SANTA FE COLLEGE &middot; GAINESVILLE, FL</div>
+    </div>
+  </div>
+</section>
+
 <section class="cta">
   <div class="wrap">
     <span class="eyebrow">Get in touch</span>
     <h2>Ready to Build a Career that Matters?</h2>
-    <p>Explore open roles across 24 states and see why our team sticks around.</p>
+    <p>Explore open roles across 24 states, or apply to the next internship cohort.</p>
     <div class="cta-row">
       <a class="btn btn-navy" href="contact">Collaborate with us <span class="ar">&rarr;</span></a>
       <a class="btn btn-line" href="openings">See current openings</a>
@@ -291,7 +358,7 @@
         <h4>Connect</h4>
         <ul>
           <li><a href="careers">Careers</a></li>
-          <li><a href="internships">Internships</a></li>
+          <li><a href="careers#internships">Internships</a></li>
           <li><a href="openings">Current Openings</a></li>
           <li><a href="contact">Contact Us</a></li>
           <li><a href="mailto:collaborate@emergingtech.co">collaborate@emergingtech.co</a></li>

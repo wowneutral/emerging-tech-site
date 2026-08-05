@@ -56,7 +56,7 @@
   document.querySelectorAll('img').forEach(function(img){
     img.addEventListener('error', function(){
       img.classList.add('broken');
-      var host = img.closest('.brandlink, .flogo, .seal, .hero-visual, .photo, .plat-rail');
+      var host = img.closest('.brandlink, .flogo, .seal, .client-seal, .hero-visual, .photo, .plat-rail');
       if(host) host.classList.add('broken');
     });
   });

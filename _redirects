@@ -1,0 +1,9 @@
+# Cloudflare Pages redirects.
+#
+# The internships page was folded into Careers, but the old URL has been live,
+# is in the sitemap Google already crawled, and may be in job posts, emails and
+# LinkedIn comments. A 301 keeps every one of those links working and passes the
+# ranking to the section that replaced it, instead of handing people a 404 in
+# the middle of applying.
+/internships       /careers#internships   301
+/internships.html  /careers#internships   301

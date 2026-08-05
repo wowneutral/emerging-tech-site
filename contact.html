@@ -94,7 +94,7 @@
         <button type="button" >Careers &#9662;</button>
         <div class="menu">
           <a href="careers">All Careers <small>Join our team</small></a>
-          <a href="internships">Internships <small>Student &amp; early-career programs</small></a>
+          <a href="careers#internships">Internships <small>Student &amp; early-career programs</small></a>
         </div>
       </div>
     </nav>
@@ -132,7 +132,7 @@
   <a href="accelerators" class="sm">Accelerators</a>
   <a href="centers-of-excellence" class="sm">Centers of Excellence</a>
   <a href="careers">Careers</a>
-  <a href="internships" class="sm">Internships</a>
+  <a href="careers#internships" class="sm">Internships</a>
   <a href="contact">Contact Us</a>
 </div>
 <main>
@@ -147,31 +147,48 @@
 <section>
   <div class="wrap contact-grid">
     <div class="reveal-l">
-      <form class="cf" id="contactForm" method="POST" novalidate>
-        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <div class="row2">
-          <div><label for="cfn">Name</label><input id="cfn" name="name" required autocomplete="name" maxlength="120"></div>
-          <div><label for="cfe">Email</label><input id="cfe" name="email" type="email" required autocomplete="email" maxlength="180"></div>
+      <!-- THE FORM IS DELIBERATELY GONE, replaced by the map, until the send
+           path has been moved onto Microsoft Graph and the input handling has
+           been hardened. Shipping a contact form we are not yet confident in
+           is worse than shipping none: a form that silently fails loses
+           enquiries without anyone knowing, which is the one failure mode a
+           contact page cannot have.
+
+           The email address below is not a downgrade in the meantime. It goes
+           to the same inbox the form would have, it works from any client, and
+           it leaves the visitor holding a copy of what they sent.
+
+           The form markup lives in git history at commit 5ddc63e if it needs
+           to come back quickly. -->
+      <div class="contact-map">
+        <iframe
+          title="Map showing Emerging Tech headquarters at 13900 Tech City Circle, Suite 400, Alachua, Florida"
+          src="https://maps.google.com/maps?q=13900%20Tech%20City%20Circle%2C%20Suite%20400%2C%20Alachua%2C%20FL%2032615&t=m&z=15&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+      </div>
+      <div class="contact-direct">
+        <h2>Talk to Us Directly</h2>
+        <p>Email is the fastest way to reach the team. Capability statements, teaming, task orders, or a question about a programme, it all goes to the same place and it is read by a person.</p>
+        <div class="cta-row">
+          <a class="btn btn-navy" href="mailto:collaborate@emergingtech.co">collaborate@emergingtech.co <span class="ar">&rarr;</span></a>
+          <a class="btn btn-line" href="https://www.linkedin.com/company/emerging-tech/" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
-        <div class="row2">
-          <div><label for="cfo">Organization</label><input id="cfo" name="org" autocomplete="organization" maxlength="160"></div>
-          <div><label for="cfr">Reason for contact</label>
-            <select id="cfr" name="reason" required>
-              <option>Enquire about our capabilities</option>
-              <option>Career or intern opportunities</option>
-              <option>Media inquiries</option>
-              <option>Alumni reach out</option>
-              <option>HR request</option>
-            </select>
-          </div>
-        </div>
-        <div><label for="cfm">Message</label><textarea id="cfm" name="msg" required maxlength="4000"></textarea></div>
-        <div><button class="btn btn-navy" type="submit">Send message <span class="ar">&rarr;</span></button></div>
-        <p id="cfStatus" style="margin:0;font-size:12.5px;color:var(--slate-2)" aria-live="polite"></p>
-      </form>
+      </div>
     </div>
     <div class="reveal-r">
       <div class="side-card side-card-photo"><img width="891" height="579" src="images/photos/techcity-aerial.jpg" alt="Aerial view of Alachua Tech City" loading="lazy"><div class="side-card-body"><h3>Headquarters</h3><address>13900 Tech City Circle, Suite 400<br>Alachua, FL 32615</address></div></div>
+
+      <!-- ADDITIONAL OFFICE — READY, BUT NOT PUBLISHED.
+           The box was asked for before the address was available. It is left
+           commented rather than filled with a placeholder on purpose: a wrong
+           address on a federal contractor's contact page is the kind of error
+           that gets copied into a proposal. Uncomment and drop the real
+           address in, and it will sit correctly alongside the HQ card.
+      <div class="side-card"><h3>Additional Office</h3><address>STREET<br>CITY, ST ZIP</address></div>
+      -->
+
       <div class="side-card"><h3>Email</h3><p><a href="mailto:collaborate@emergingtech.co">collaborate@emergingtech.co</a></p></div>
       <div class="side-card"><h3>Entity Identifiers</h3><p class="code" style="font-size:13px">UEI JTMSJZJBHXA5<br>CAGE 7VYV9</p></div>
       <div class="side-card"><h3>Response Time</h3><p style="margin:0;color:var(--slate);font-size:15px">We aim to respond to capability and teaming enquiries within two business days.</p></div>
@@ -235,7 +252,7 @@
         <h4>Connect</h4>
         <ul>
           <li><a href="careers">Careers</a></li>
-          <li><a href="internships">Internships</a></li>
+          <li><a href="careers#internships">Internships</a></li>
           <li><a href="openings">Current Openings</a></li>
           <li><a href="contact">Contact Us</a></li>
           <li><a href="mailto:collaborate@emergingtech.co">collaborate@emergingtech.co</a></li>

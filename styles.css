@@ -619,13 +619,24 @@
 /* ---- Client cards with agency seals ------------------------------------- */
 .client-grid{align-items:stretch}
 .client-card{display:flex;gap:16px;align-items:flex-start}
-.client-seal{flex:none;width:52px;height:52px;border-radius:50%;background:var(--white);
-  border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;
-  overflow:hidden}
-.client-seal img{width:40px;height:40px;object-fit:contain}
+/* NO CIRCLE. These are federal agency seals, and every one of them is already
+   a circular device with its own border, ring of lettering and edge detail.
+   Putting them inside a second bordered circle produced a ring inside a ring,
+   which is why they read as badly cropped — and the 52px circle clipped seals
+   whose artwork runs to the edge of the disc.
+   Sitting free on the card, at a slightly larger size, each seal is its own
+   shape again. */
+.client-seal{flex:none;width:56px;height:56px;display:flex;align-items:center;
+  justify-content:center}
+.client-seal img{width:56px;height:56px;object-fit:contain}
 .client-seal img.broken{display:none}
-.client-seal-text{font-family:var(--display);font-size:11px;font-weight:800;
-  letter-spacing:.06em;color:var(--navy-2);background:var(--wash)}
+/* Text stand-in, shown only when a seal image is genuinely missing. */
+.client-seal-text,.client-seal .seal-fallback{display:none;font-family:var(--display);
+  font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--navy-2);
+  background:var(--wash);border-radius:50%;width:56px;height:56px;
+  align-items:center;justify-content:center}
+.client-seal.client-seal-text{display:flex}
+.client-seal.broken .seal-fallback{display:flex}
 .client-card h3{margin-bottom:6px}
 @media (max-width:520px){
   .client-card{gap:13px}
@@ -1007,6 +1018,27 @@
 }
 
 /* ---- Sidebar card with a photo ----------------------------------------- */
+/* ---- Contact map --------------------------------------------------------
+   Stands in for the contact form until the send path is hardened. Sized by
+   aspect-ratio rather than a fixed height so it never letterboxes, and the
+   iframe is lazy so an embed the visitor may never scroll to does not cost
+   them a third-party connection on load. */
+.contact-map{border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  background:var(--wash);aspect-ratio:16/11}
+.contact-map iframe{display:block;width:100%;height:100%;border:0;
+  /* The default Google embed is a bright, saturated map that fights a navy
+     and cream page. Pulled down slightly so it sits in the palette instead of
+     shouting over it, and restored on hover for anyone actually reading it. */
+  filter:saturate(.72) contrast(.96);transition:filter .35s var(--ease)}
+.contact-map:hover iframe{filter:none}
+.contact-direct{margin-top:34px}
+.contact-direct h2{font-size:clamp(24px,2.6vw,32px)}
+.contact-direct p{color:var(--slate);margin:14px 0 24px;max-width:52ch}
+@media (max-width:640px){
+  .contact-map{aspect-ratio:4/3}
+  .contact-direct .cta-row .btn{width:100%;justify-content:center}
+}
+
 .side-card-photo{padding:0;overflow:hidden}
 .side-card-photo img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
 .side-card-photo .side-card-body{padding:20px 22px}
