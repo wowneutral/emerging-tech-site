@@ -10,13 +10,37 @@ compatibility_date = "2026-01-01"
 # ]
 
 [vars]
-TO_ADDRESS   = "collaborate@emergingtech.co"
-# Must be an address on a domain verified with the mail provider.
-FROM_ADDRESS = "Emerging Tech Website <website@emergingtech.co>"
+# Where enquiries land.
+TO_ADDRESS = "collaborate@emergingtech.co"
 
-# Per-IP submission counter. Create with:
+# The mailbox Microsoft Graph sends AS. This must be a real mailbox in the
+# tenant, and the app registration must be allowed to send as it.
+SENDER_ADDRESS = "noreply@emergingtech.co"
+
+# Entra ID app registration. These two are identifiers, not credentials, so
+# they are safe to keep in the repo.
+GRAPH_TENANT_ID = "10aa4af8-3fa7-4d50-93fb-d4b487fa3227"
+GRAPH_CLIENT_ID = "9542faa9-1536-4ad9-b85a-86a854d5605b"
+
+# ---------------------------------------------------------------------------
+# GRAPH_CLIENT_SECRET IS DELIBERATELY NOT IN THIS FILE.
+#
+# It is a credential that can send mail as the company. This repo is public,
+# and a secret in a public repo is a secret that is gone — GitHub's own
+# scanners will find it, and so will everyone else's.
+#
+# Set it once, from your machine, and it is stored encrypted by Cloudflare:
+#
+#   npx wrangler secret put GRAPH_CLIENT_SECRET
+#
+# Rotate it in Entra ID any time it has been sent over chat, email or a
+# document, which the current one has been.
+# ---------------------------------------------------------------------------
+
+# Per-IP submission counter and the cached Graph token. Create with:
 #   npx wrangler kv namespace create RATE_KV
-# then paste the id below.
+# then paste the id below. Without it the form still works, but every
+# submission fetches a fresh token and the rate limit is not enforced.
 # [[kv_namespaces]]
 # binding = "RATE_KV"
 # id = "<paste-the-id-here>"
