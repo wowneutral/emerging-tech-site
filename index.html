@@ -211,20 +211,31 @@
       <div class="g"><div class="n">24</div><div class="l">States</div></div>
     </div>
   </div>
+  <!-- THE SWOOP. Taken from the sweep on the business card, and the same
+       device alvarezit.com uses under its hero.
+
+       Drawn as SVG rather than cut into an image, for three reasons: it stays
+       sharp at any width, it recolours with the palette because it is filled
+       with the page background, and it costs a few hundred bytes instead of a
+       photograph. preserveAspectRatio="none" lets it stretch to any viewport
+       without the curve flattening out at the edges. -->
+  <svg class="rh-swoop" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path d="M0,120 L0,64 C240,4 520,0 760,26 C1000,52 1240,86 1440,52 L1440,120 Z"></path>
+  </svg>
 </section>
 
 <div class="serve" aria-label="Agencies we have supported">
   <!-- The supporting paragraph was removed: it repeated what the seals
        below already show, and the agencies are named in the Markets
        section further down. -->
-  <div class="wrap head">
-    <h2>Proud to Serve</h2>
-  </div>
+  <!-- The "Proud to Serve" heading was removed. The aria-label on the
+       container above still tells a screen reader what this row is, and the
+       marquee now runs straight out of the section before it — the seals say
+       what they are without being introduced. -->
   <div class="marquee"><div class="track" id="sealTrack">
     <div class="seal"><img src="https://emergingtech.co/seals/seal-dod.svg" alt="Department of Defense seal"><span>DOD</span></div>
+    <div class="seal"><img src="https://emergingtech.co/seals/seal-army.svg" alt="Department of the Army seal"><span>ARMY</span></div>
     <div class="seal"><img src="https://emergingtech.co/seals/seal-af.svg" alt="U.S. Air Force seal"><span>AIR FORCE</span></div>
-    <div class="seal"><img src="https://emergingtech.co/seals/seal-nsa.svg" alt="National Security Agency seal"><span>NSA</span></div>
-    <div class="seal"><img src="https://emergingtech.co/seals/seal-dia.png" alt="Defense Intelligence Agency seal"><span>DIA</span></div>
     <div class="seal"><img src="https://emergingtech.co/seals/seal-fbi.png" alt="FBI seal"><span>FBI</span></div>
     <div class="seal"><img src="https://emergingtech.co/seals/seal-va.svg" alt="Department of Veterans Affairs seal"><span>VA</span></div>
     <div class="seal"><img src="https://emergingtech.co/seals/seal-disa.png" alt="Defense Information Systems Agency seal"><span>DISA</span></div>
@@ -239,7 +250,7 @@
       <h2>Mission Driven, Standards Guided, Client Focused</h2>
       <p>Emerging Tech was founded to deliver standards-based, end-to-end IT consultancy to federal agencies and their partners. Our team of over 85 professionals is located across the United States, bringing deep domain expertise to the programs that matter most.</p>
       <ul class="checks">
-        <li>SDVOSB, 8(a), and HUBZone certified</li>
+        <li>SDVOSB, 8(a), HUBZone, and MBE certified</li>
         <li>Cleared, credentialed professionals across 24 states</li>
         <li>CMMI Level 3, CMMC Level 1, ISO 9001, ISO 20000-1, and ISO 27001</li>
       </ul>
@@ -328,13 +339,21 @@
       <!-- Civilian sits last and uses a generic icon rather than an agency
            seal. Its .seals div was previously empty, which left the card
            visibly shorter than the four beside it. A single agency logo
-           would also misrepresent the market, which spans many agencies. -->
+           would also misrepresent the market, which spans many agencies.
+
+           A PERSON, NOT A BUILDING. This was a classical portico, which is
+           the same shorthand every government contractor uses and which said
+           "a federal building" rather than anything about the work. The
+           civilian market is the one defined by the public it serves rather
+           than by a single agency, so a figure is both more accurate and the
+           only icon on this row that is not architecture. Filled rather than
+           stroked, so it reads as a silhouette at the small size it renders. -->
       <a class="mcard reveal-s" href="civilian">
         <div class="seals">
           <span class="mkt-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 21h18"/><path d="M12 3 3 8h18L12 3Z"/>
-              <path d="M6 11v7M10 11v7M14 11v7M18 11v7"/>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+              <circle cx="12" cy="7.25" r="3.85"/>
+              <path d="M12 12.6c-4.2 0-7.4 2.5-7.4 5.9 0 .83.62 1.5 1.4 1.5h12c.78 0 1.4-.67 1.4-1.5 0-3.4-3.2-5.9-7.4-5.9Z"/>
             </svg>
           </span>
         </div>
@@ -361,8 +380,17 @@
       </div>
       <a class="readmore" href="leadership">Meet our leadership <span class="ar">&rarr;</span></a>
     </div>
-    <div class="pres-photo reveal-r">
-      <img width="1200" height="1800" src="images/photos/seth-speaking.jpg" alt="Gaurav Seth speaking at the PS27 Veteran Founders Forum" loading="lazy">
+    <!-- The professional headshot, not the conference photo.
+         This was a shot of him mid-sentence at the PS27 Veteran Founders
+         Forum — a good documentary picture, and the wrong one to put beside a
+         formal statement about accountability and discipline, where a reader
+         is looking the speaker in the eye. The headshot was already in the
+         repo, used on the Leadership page.
+         It is landscape (405x327) where the old file was a tall 2:3 portrait,
+         so .pres-photo now sets the frame and the image fills it rather than
+         the image dictating the column height. -->
+    <div class="pres-photo pres-photo-headshot reveal-r">
+      <img width="405" height="327" src="images/leadership/gaurav-seth.jpg" alt="Gaurav Seth, Founder and CEO of Emerging Tech" loading="lazy">
     </div>
   </div>
 </section>

@@ -262,6 +262,14 @@
   .pres .gridbg{position:absolute;inset:-60px;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:52px 52px;animation:drift 26s linear infinite}
   .pres .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,5vw,72px);align-items:center}
   .pres .pres-photo img{width:100%;height:auto;max-height:520px;object-fit:cover;object-position:center top;border-radius:12px;display:block}
+  /* The headshot is a 405x327 landscape crop rather than the tall portrait
+     that used to sit here. height:auto on a wide image left a short, wide
+     picture floating beside a tall column of text, so the frame sets a
+     portrait aspect and the image fills it. object-position sits slightly
+     above centre because the subject's eyes are in the upper third — centring
+     a head crop puts the eyeline too low every time. */
+  .pres .pres-photo-headshot img{aspect-ratio:4/5;height:auto;max-height:520px;
+    object-fit:cover;object-position:center 28%}
   /* Single column below the two-column breakpoint; the photo is capped so a
      tall portrait does not dominate a narrow screen. */
   @media (max-width:900px){
@@ -519,13 +527,27 @@
     mask-image:linear-gradient(180deg,#000,#000 65%,transparent 100%)}
   #heroNet::before{content:"";position:absolute;top:0;left:0;width:calc(100% + 140px);height:calc(100% + 140px);
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cg stroke='%233d7dff' stroke-opacity='.28' stroke-width='1' fill='none'%3E%3Cline x1='0' y1='0' x2='70' y2='70'/%3E%3Cline x1='140' y1='0' x2='70' y2='70'/%3E%3Cline x1='0' y1='140' x2='70' y2='70'/%3E%3Cline x1='140' y1='140' x2='70' y2='70'/%3E%3Cline x1='70' y1='70' x2='140' y2='70'/%3E%3Cline x1='70' y1='70' x2='0' y2='70'/%3E%3Cline x1='70' y1='70' x2='70' y2='140'/%3E%3Cline x1='70' y1='70' x2='70' y2='0'/%3E%3C/g%3E%3Cg fill='%233d7dff' fill-opacity='.55'%3E%3Ccircle cx='0' cy='0' r='2.4'/%3E%3Ccircle cx='140' cy='0' r='2.4'/%3E%3Ccircle cx='0' cy='140' r='2.4'/%3E%3Ccircle cx='140' cy='140' r='2.4'/%3E%3Ccircle cx='70' cy='70' r='3'/%3E%3Ccircle cx='0' cy='70' r='2.4'/%3E%3Ccircle cx='140' cy='70' r='2.4'/%3E%3Ccircle cx='70' cy='0' r='2.4'/%3E%3Ccircle cx='70' cy='140' r='2.4'/%3E%3C/g%3E%3C/svg%3E");
-    background-size:140px 140px;background-repeat:repeat;
-    animation:heroNetDrift 50s linear infinite}
-  /* Paused by script.js when the hero leaves the viewport — there is no
-     reason to keep compositing a background nobody can see. */
-  #heroNet.is-paused::before{animation-play-state:paused}
+    background-size:140px 140px;background-repeat:repeat}
+  /* STATIC, as asked, for the time being. The mesh no longer drifts.
+     The animation and its keyframes are kept below rather than deleted so
+     turning the motion back on is one line, but nothing references them now,
+     and a static background is also the cheapest thing this hero has ever
+     rendered — no compositing work at all once it has painted once.
+     script.js still adds .is-paused when the hero scrolls out of view; that is
+     now a no-op and harmless. */
   @keyframes heroNetDrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-140px,-140px,0)}}
-  @media (prefers-reduced-motion:reduce){#heroNet::before{animation:none}}
+
+  /* The swoop under the hero.
+     Filled with --navy, NOT --paper, because what sits directly below the
+     hero is the navy seal band rather than the cream page. Filling it with
+     the page background would have drawn a cream wave across two dark
+     sections — the shape has to be the colour of whatever it is revealing.
+     Hero is --navy-3 (#1C3E63) and the band below is --navy (#0B1F3A), so the
+     curve reads as the darker navy rising into the lighter one.
+     Sits above the mesh, below the copy. */
+  .rh-swoop{position:absolute;left:0;right:0;bottom:-1px;width:100%;
+    height:clamp(52px,7vw,120px);display:block;z-index:1;pointer-events:none}
+  .rh-swoop path{fill:var(--navy)}
   /* Shrunk way down from the original 60vh band — that made the hero feel
      enormous and left the badges bar stranded far above the headline with
      nothing connecting them. This is just enough net-only space above the
@@ -551,7 +573,7 @@
      gap above it — .robot-hero is now a flex column and this block grows
      to fill the leftover space, then align-content:center balances the
      grid inside it. */
-  .robot-hero .rh-content{position:relative;z-index:1;flex:1;padding:clamp(48px,7vh,88px) 30px 56px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:64px;align-items:start;align-content:start}
+  .robot-hero .rh-content{position:relative;z-index:2;flex:1;padding:clamp(48px,7vh,88px) 30px clamp(84px,10vw,150px);display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:64px;align-items:start;align-content:start}
   .robot-hero h1{margin:0;color:#fff;font-size:clamp(34px,4.6vw,58px);font-weight:900;max-width:17ch;letter-spacing:-.025em;opacity:0;transform:translateY(22px);filter:blur(8px);animation:rhUp 1.15s var(--ease-cine) .28s forwards}
   .robot-hero h1 em{font-style:normal;color:var(--teal-tint,#7dd3e8)}
   .robot-hero .rh-sub{margin:22px 0 0;font-size:17.5px;color:rgba(255,255,255,.72);max-width:56ch;opacity:0;transform:translateY(20px);filter:blur(6px);animation:rhUp 1.05s var(--ease-cine) .46s forwards}
