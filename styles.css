@@ -1,17 +1,25 @@
 :root{
-    /* Emerging Tech corporate palette experiment — primary: teal #29A9C5,
-       slate gray #54616E, light blue-gray #A3BEC3; secondary: light gray
-       #C4C3C2, white. Derived shades below keep every existing CSS hook
-       (--navy, --blue, --brass, etc.) but remapped onto the brand colors so
-       the whole site reskins without touching markup. */
+    /* REVERTED to the original dark-blue palette.
+       What was here was a "corporate palette experiment" that remapped teal
+       #29A9C5, slate #54616E and light blue-gray #A3BEC3 onto the existing
+       --navy / --blue / --brass hooks. The values below are the originals,
+       restored from the pre-experiment stylesheet, and they map 1:1 onto the
+       same hook names — so the whole site reskins without touching markup,
+       exactly the way the experiment went in.
+
+       Note --navy is a true navy again (#0B1F3A). Under the experiment it was
+       #54616E, a warm gray, which is why nothing on the site read as blue. */
     --paper:#FAFAF8; --white:#FFFFFF; --wash:#F1F2EE;
-    --navy:#54616E; --navy-2:#47525E; --navy-3:#3C464F;
-    --ink:#3C464F; --slate:#54616E; --slate-2:#7A8794;
-    --blue:#29A9C5; --blue-2:#228BA2;
-    --brass:#A3BEC3; --brass-2:#BACED2;
-    --line:#E4E4E4; --line-2:#C4C3C2;
+    --navy:#0B1F3A; --navy-2:#14304F; --navy-3:#1C3E63;
+    --ink:#101C2C; --slate:#4E5D6E; --slate-2:#7A8794;
+    --blue:#1655C0; --blue-2:#0E479F;
+    --brass:#B98A2F; --brass-2:#D9AE55;
+    --line:#E2E4DE; --line-2:#CFD3CB;
     --ondark-1:rgba(255,255,255,.94); --ondark-2:rgba(255,255,255,.76); --ondark-3:rgba(255,255,255,.52);
-    --teal-tint:#5FD4EC;
+    /* Was #5FD4EC, a bright teal, used for the emphasised word in page-header
+       headings. Repointed at the gold, which is the palette's actual accent
+       and what the reference screenshots show on the CMMI pill. */
+    --teal-tint:#D9AE55;
     --display:"Schibsted Grotesk",ui-sans-serif,system-ui,sans-serif;
     --body:"Public Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
     --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -74,7 +82,7 @@
   nav.links>a,.dd>button{font-size:15px;font-weight:600;color:var(--navy-2);padding:8px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .25s;background:none;border-top:0;border-left:0;border-right:0;cursor:pointer;font-family:var(--body)}
   nav.links>a:hover,nav.links>a.active,.dd:hover>button,.dd>button.active{color:var(--blue-2);border-bottom-color:var(--brass)}
   .dd{position:relative}
-  .dd .menu{position:absolute;top:calc(100% + 14px);left:-18px;min-width:290px;background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:0 26px 54px -22px rgba(84,97,110,.35);padding:8px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .22s var(--ease),transform .22s var(--ease),visibility .22s}
+  .dd .menu{position:absolute;top:calc(100% + 14px);left:-18px;min-width:290px;background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:0 26px 54px -22px rgba(11,31,58,.35);padding:8px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .22s var(--ease),transform .22s var(--ease),visibility .22s}
   .dd:hover .menu,.dd:focus-within .menu{opacity:1;visibility:visible;transform:none}
   .dd .menu a{display:block;padding:10px 14px;border-radius:7px;font-size:14.5px;font-weight:600;color:var(--navy-2);transition:background .15s,transform .15s}
   .dd .menu a small{display:block;font-weight:500;color:var(--slate-2);font-size:12px;margin-top:2px}
@@ -86,11 +94,11 @@
   .btn .ar{transition:transform .2s var(--ease)}
   .btn:hover .ar{transform:translateX(4px)}
   .btn-navy{background:var(--navy);color:#fff}
-  .btn-navy:hover{background:var(--blue-2);transform:translateY(-1px);box-shadow:0 10px 24px -8px rgba(84,97,110,.45)}
+  .btn-navy:hover{background:var(--blue-2);transform:translateY(-1px);box-shadow:0 10px 24px -8px rgba(11,31,58,.45)}
   .btn-line{border-color:var(--line-2);color:var(--navy)}
   .btn-line:hover{border-color:var(--navy)}
-  .btn-brass{background:var(--blue);color:#fff;box-shadow:0 10px 22px -10px rgba(41,169,197,.5)}
-  .btn-brass:hover{background:var(--blue-2);color:#fff;transform:translateY(-1px);box-shadow:0 14px 26px -10px rgba(41,169,197,.6)}
+  .btn-brass{background:var(--blue);color:#fff;box-shadow:0 10px 22px -10px rgba(22,85,192,.5)}
+  .btn-brass:hover{background:var(--blue-2);color:#fff;transform:translateY(-1px);box-shadow:0 14px 26px -10px rgba(22,85,192,.6)}
   .menu-btn{display:none;background:none;border:1.5px solid var(--line-2);border-radius:6px;width:44px;height:40px;font-size:18px;color:var(--navy);cursor:pointer}
 
   /* interior page hero */
@@ -98,13 +106,13 @@
   .phero .bgimg{position:absolute;inset:-6% 0;background-size:cover;background-position:center;opacity:.20;transform:scale(1.08);animation:kb 20s var(--ease) forwards;will-change:transform}
   @keyframes kb{to{transform:scale(1.01)}}
   .phero .weave{position:absolute;inset:0;opacity:.85;background:
-    radial-gradient(70% 120% at 85% 10%,rgba(41,169,197,.55),transparent 55%),
-    radial-gradient(55% 95% at 8% 100%,rgba(41,169,197,.28),transparent 62%),
-    radial-gradient(40% 70% at 50% 40%,rgba(163,190,195,.22),transparent 65%)}
+    radial-gradient(70% 120% at 85% 10%,rgba(22,85,192,.55),transparent 55%),
+    radial-gradient(55% 95% at 8% 100%,rgba(22,85,192,.28),transparent 62%),
+    radial-gradient(40% 70% at 50% 40%,rgba(185,138,47,.22),transparent 65%)}
   .phero .gridbg{position:absolute;inset:-60px;background-image:linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px);background-size:52px 52px;animation:drift 26s linear infinite}
   .gridbg.is-paused{animation-play-state:paused}
   @keyframes drift{to{transform:translate(52px,52px)}}
-  .phero::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,rgba(84,97,110,.5) 30%,rgba(84,97,110,0) 100%)}
+  .phero::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,rgba(11,31,58,.5) 30%,rgba(11,31,58,0) 100%)}
   .phero .wrap{position:relative;z-index:2;padding:96px 30px 88px}
   .phero .crumb{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--ondark-3);text-transform:uppercase;margin-bottom:22px;opacity:0;transform:translateY(14px);filter:blur(6px);animation:up .9s var(--ease-cine) .15s forwards}
   .phero .crumb a:hover{color:var(--brass-2)}
@@ -142,11 +150,11 @@
   .hero .dots button{width:26px;height:3px;border:0;border-radius:2px;background:var(--line-2);cursor:pointer;padding:0;transition:background .25s,width .25s}
   .hero .dots button.on{background:var(--brass);width:40px}
   .hero-visual{position:relative}
-  .hero-visual .frame{position:relative;border-radius:10px;overflow:hidden;box-shadow:0 34px 70px -34px rgba(84,97,110,.5)}
-  .hero-visual .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(200deg,rgba(84,97,110,0) 55%,rgba(84,97,110,.42));pointer-events:none}
+  .hero-visual .frame{position:relative;border-radius:10px;overflow:hidden;box-shadow:0 34px 70px -34px rgba(11,31,58,.5)}
+  .hero-visual .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(200deg,rgba(11,31,58,0) 55%,rgba(11,31,58,.42));pointer-events:none}
   .hero-visual img{width:100%;height:520px;object-fit:cover;transform:scale(1.08);animation:kb 20s var(--ease) forwards}
   .hero-visual.broken .frame{display:none}
-  .hero-visual .contract{position:absolute;left:-22px;bottom:34px;background:var(--white);border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:8px;padding:14px 18px;box-shadow:0 18px 40px -18px rgba(84,97,110,.35)}
+  .hero-visual .contract{position:absolute;left:-22px;bottom:34px;background:var(--white);border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:8px;padding:14px 18px;box-shadow:0 18px 40px -18px rgba(11,31,58,.35)}
   .hero-visual .contract .k{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--slate-2)}
   .hero-visual .contract .v{font-family:var(--mono);font-size:14px;color:var(--navy);font-weight:600;margin-top:4px}
   .hero-visual .contract .p{font-family:var(--mono);font-size:11px;color:var(--slate-2);margin-top:3px}
@@ -220,12 +228,12 @@
   .cap .tagline{display:block;margin-top:7px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-2)}
   .cap p{margin:0;color:var(--slate);font-size:15.5px;max-width:56ch}
   .cap .go{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line-2);display:grid;place-items:center;color:var(--navy);font-size:16px;transition:.3s var(--ease);flex-shrink:0;justify-self:end}
-  .cap:hover .go{background:var(--white);color:var(--blue-2);border-color:var(--blue);transform:translateX(4px);box-shadow:0 6px 16px -6px rgba(41,169,197,.35)}
+  .cap:hover .go{background:var(--white);color:var(--blue-2);border-color:var(--blue);transform:translateX(4px);box-shadow:0 6px 16px -6px rgba(22,85,192,.35)}
 
   .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
   .cards2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
   .card{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:28px;transition:border-color .25s,box-shadow .3s,transform .3s var(--ease)}
-  .card:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(84,97,110,.35);transform:translateY(-4px)}
+  .card:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(11,31,58,.35);transform:translateY(-4px)}
   /* "We help agencies" / "What we deliver" info cards aren't links — the
      lift-on-hover made them feel clickable when there's nothing to click.
      Client asked to remove that specifically from this box. */
@@ -241,10 +249,10 @@
   .card.card-light .checks li:last-child{border-bottom-color:var(--line)}
 
   .vcard{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:28px;transition:.3s var(--ease)}
-  .vcard:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(84,97,110,.35);transform:translateY(-4px)}
+  .vcard:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(11,31,58,.35);transform:translateY(-4px)}
   .vcard .vh{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px;flex-wrap:wrap}
   .vcard h3{font-size:19px;font-weight:800}
-  .vcard .num{font-family:var(--mono);font-size:12.5px;color:var(--blue-2);font-weight:600;background:rgba(41,169,197,.07);border:1px solid rgba(41,169,197,.18);border-radius:5px;padding:5px 9px;white-space:nowrap}
+  .vcard .num{font-family:var(--mono);font-size:12.5px;color:var(--blue-2);font-weight:600;background:rgba(22,85,192,.07);border:1px solid rgba(22,85,192,.18);border-radius:5px;padding:5px 9px;white-space:nowrap}
   .vcard .period{font-family:var(--mono);font-size:11.5px;color:var(--slate-2);margin-bottom:14px}
   .vcard p{margin:0 0 14px;color:var(--slate);font-size:14.5px}
   .vcard .sins{display:flex;flex-wrap:wrap;gap:7px}
@@ -286,7 +294,7 @@
   .plats-3{grid-template-columns:repeat(3,1fr)}
   .plats-2{grid-template-columns:repeat(2,1fr);max-width:820px}
   .plat{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;transition:border-color .25s,box-shadow .3s,transform .3s var(--ease)}
-  .plat:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(84,97,110,.35);transform:translateY(-5px)}
+  .plat:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(11,31,58,.35);transform:translateY(-5px)}
   /* Logos always in full colour. They used to be desaturated to 65% opacity
      until hover, which is what made the row look flat and grey.
      Sizing is normalised on HEIGHT, not a fixed 140x36 box. With a fixed box
@@ -321,7 +329,7 @@
   /* markets */
   .mcards{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
   .mcard{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:24px 20px;display:flex;flex-direction:column;transition:border-color .25s,box-shadow .3s,transform .3s var(--ease)}
-  .mcard:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(84,97,110,.35);transform:translateY(-5px)}
+  .mcard:hover{border-color:var(--navy-3);box-shadow:0 22px 44px -26px rgba(11,31,58,.35);transform:translateY(-5px)}
   .mcard .seals{display:flex;gap:6px;margin-bottom:16px;min-height:34px}
     /* Generic market icon, used where an agency seal would either be
      missing or misrepresent a market that spans many agencies.
@@ -366,7 +374,7 @@
   .cf .row2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   .cf label{display:block;font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--navy-2);margin-bottom:8px}
   .cf input,.cf select,.cf textarea{width:100%;font-family:var(--body);font-size:15.5px;color:var(--ink);background:var(--white);border:1.5px solid var(--line-2);border-radius:7px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
-  .cf input:focus,.cf select:focus,.cf textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(41,169,197,.12)}
+  .cf input:focus,.cf select:focus,.cf textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,85,192,.12)}
   .cf textarea{min-height:150px;resize:vertical}
   .jobmeta{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
   .jobmeta span{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ondark-2);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:6px 14px}
@@ -533,7 +541,7 @@
   .robot-hero .rh-pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;padding:11px 20px;border-radius:99px;transition:transform .18s var(--ease),background .2s,color .2s,border-color .2s,box-shadow .2s;font-family:var(--body);white-space:nowrap}
   .robot-hero .rh-pill .ar{transition:transform .2s var(--ease)}
   .robot-hero .rh-pill:hover .ar{transform:translateX(4px)}
-  .robot-hero .rh-pill-solid{background:var(--blue);color:#fff;box-shadow:0 12px 26px -14px rgba(41,169,197,.5)}
+  .robot-hero .rh-pill-solid{background:var(--blue);color:#fff;box-shadow:0 12px 26px -14px rgba(22,85,192,.5)}
   .robot-hero .rh-pill-solid:hover{background:var(--blue-2);transform:translateY(-1px)}
   .robot-hero .rh-pill-line{background:var(--white);color:var(--navy-2);border:1px solid var(--line-2)}
   .robot-hero .rh-pill-line:hover{border-color:var(--navy);color:var(--navy)}
@@ -711,21 +719,21 @@
 .phero-a::before{content:"";position:absolute;inset:0;background:
   linear-gradient(118deg,var(--navy-3) 0%,var(--navy) 46%,#5E6C79 100%)}
 .phero-a::after{content:"";position:absolute;left:-14%;bottom:-62%;width:74%;height:160%;
-  background:linear-gradient(180deg,rgba(41,169,197,.30),rgba(41,169,197,0) 72%);
+  background:linear-gradient(180deg,rgba(22,85,192,.30),rgba(22,85,192,0) 72%);
   transform:rotate(19deg);filter:blur(46px);opacity:.9}
 
 /* B: horizon band, light rising from the base */
 .phero-b .weave{opacity:.5}
 .phero-b::before{content:"";position:absolute;inset:0;background:
-  radial-gradient(120% 76% at 50% 122%,rgba(41,169,197,.5),transparent 62%),
-  linear-gradient(180deg,#3C464F 0%,var(--navy) 100%)}
+  radial-gradient(120% 76% at 50% 122%,rgba(22,85,192,.5),transparent 62%),
+  linear-gradient(180deg,#101C2C 0%,var(--navy) 100%)}
 .phero-b::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
   background:linear-gradient(90deg,transparent,var(--blue),transparent)}
 
 /* C: concentric rings, a quieter clinical feel */
 .phero-c .weave{opacity:.3}
 .phero-c::before{content:"";position:absolute;inset:0;background:
-  radial-gradient(58% 100% at 82% 50%,rgba(41,169,197,.34),transparent 60%),
+  radial-gradient(58% 100% at 82% 50%,rgba(22,85,192,.34),transparent 60%),
   linear-gradient(90deg,var(--navy-3),var(--navy) 70%)}
 .phero-c::after{content:"";position:absolute;right:-14%;top:50%;width:640px;height:640px;
   margin-top:-320px;border-radius:50%;
@@ -747,8 +755,8 @@
 /* E: warm side-light, softest of the set */
 .phero-e .weave{opacity:.42}
 .phero-e::before{content:"";position:absolute;inset:0;background:
-  radial-gradient(70% 120% at 12% 20%,rgba(163,190,195,.4),transparent 58%),
-  radial-gradient(60% 90% at 96% 88%,rgba(41,169,197,.36),transparent 60%),
+  radial-gradient(70% 120% at 12% 20%,rgba(185,138,47,.4),transparent 58%),
+  radial-gradient(60% 90% at 96% 88%,rgba(22,85,192,.36),transparent 60%),
   linear-gradient(200deg,var(--navy) 0%,var(--navy-3) 100%)}
 
 /* CASE: editorial, near-black with a single rule */
@@ -756,7 +764,7 @@
 .phero-case .weave{opacity:0}
 .phero-case .gridbg{opacity:.18}
 .phero-case::before{content:"";position:absolute;inset:0;background:
-  linear-gradient(105deg,#2E353C 0%,#3C464F 62%,#46525D 100%)}
+  linear-gradient(105deg,#2E353C 0%,#101C2C 62%,#46525D 100%)}
 .phero-case::after{content:"";position:absolute;left:30px;right:30px;bottom:0;height:1px;
   background:linear-gradient(90deg,var(--blue),transparent 65%)}
 .phero-case h1{font-size:clamp(28px,4vw,50px)}
@@ -767,7 +775,7 @@
 .phero-job::before{content:"";position:absolute;inset:0;background:
   linear-gradient(180deg,var(--white) 0%,var(--wash) 100%)}
 .phero-job::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;
-  background:linear-gradient(180deg,var(--blue),rgba(41,169,197,0))}
+  background:linear-gradient(180deg,var(--blue),rgba(22,85,192,0))}
 .phero-job h1{color:var(--navy)}
 .phero-job h1 em{color:var(--blue-2)}
 .phero-job .lede{color:var(--slate)}
@@ -962,7 +970,7 @@
 .filter-search{width:100%;font-family:var(--body);font-size:15px;color:var(--navy);
   background:var(--white);border:1px solid var(--line-2);border-radius:8px;
   padding:12px 15px 12px 40px;transition:border-color .2s,box-shadow .2s}
-.filter-search:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 3px rgba(41,169,197,.16)}
+.filter-search:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,85,192,.16)}
 .filter-field::before{content:"";position:absolute;left:15px;top:50%;width:13px;height:13px;
   margin-top:-8px;border:1.8px solid var(--slate-2);border-radius:50%}
 .filter-field::after{content:"";position:absolute;left:26px;top:50%;width:6px;height:1.8px;
@@ -1036,16 +1044,16 @@
 .phero-f::before{content:"";position:absolute;inset:0;background:
   linear-gradient(135deg,var(--navy-3) 0%,var(--navy) 55%,#5A6874 100%)}
 .phero-f::after{content:"";position:absolute;right:-4%;top:-30%;width:46%;height:160%;
-  background:repeating-linear-gradient(120deg,rgba(41,169,197,.30) 0 3px,transparent 3px 26px);
+  background:repeating-linear-gradient(120deg,rgba(22,85,192,.30) 0 3px,transparent 3px 26px);
   transform:rotate(6deg);-webkit-mask-image:linear-gradient(200deg,#000,transparent 78%);
   mask-image:linear-gradient(200deg,#000,transparent 78%)}
 /* G: soft vertical wash with a single bright edge */
 .phero-g .weave{opacity:.3}
 .phero-g::before{content:"";position:absolute;inset:0;background:
-  radial-gradient(90% 130% at 100% 0%,rgba(41,169,197,.4),transparent 58%),
+  radial-gradient(90% 130% at 100% 0%,rgba(22,85,192,.4),transparent 58%),
   linear-gradient(180deg,var(--navy) 0%,var(--navy-3) 100%)}
 .phero-g::after{content:"";position:absolute;right:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--blue),rgba(41,169,197,0))}
+  background:linear-gradient(180deg,var(--blue),rgba(22,85,192,0))}
 .phero-f::before,.phero-g::before{z-index:0}
 .phero-f .weave,.phero-g .weave,.phero-f .gridbg,.phero-g .gridbg{z-index:1}
 .phero-f::after,.phero-g::after{z-index:2}

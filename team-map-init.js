@@ -15,7 +15,7 @@
     return cs.getPropertyValue(name).trim() || fallback;
   }
   var NAVY = v('--navy-2', '#47525E');
-  var DOT = v('--blue-2', '#228BA2');
+  var DOT = v('--blue-2', '#0E479F');
 
   var map = L.map(el, {
     scrollWheelZoom: false,
