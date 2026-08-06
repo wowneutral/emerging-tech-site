@@ -282,7 +282,19 @@
       <p>Emerging Tech is a Service-Disabled Veteran-Owned Small Business, and that is not a certification we picked up along the way. It is where the company started, and it shapes who we hire and how we work with the agencies that serve veterans.</p>
     </div>
     <div class="photo photo-natural reveal-r">
-      <img width="1600" height="1200" src="images/photos/seth-speaking.jpg" alt="Gaurav Seth speaking at the PS27 Veteran Founders Forum at Santa Fe College" loading="lazy">
+      <!-- 1200x1800, measured off the actual file rather than assumed.
+           I first wrote 1600x1200 here from memory, which is landscape —
+           this photograph is portrait. Those attributes are not decoration:
+           the browser derives an aspect ratio from them and reserves that
+           box before the image arrives, so a wrong pair means it reserves a
+           wide short space and then slams a tall one into it. With
+           .photo-natural setting height:auto the real ratio wins on load,
+           which is exactly what makes the jump visible.
+
+           Portrait in a split layout runs tall next to short prose, so this
+           is capped. object-fit is deliberately NOT set: cropping a person
+           mid-frame is the failure .photo-natural exists to prevent. -->
+      <img width="1200" height="1800" style="max-height:520px;width:auto" src="images/photos/seth-speaking.jpg" alt="Gaurav Seth speaking at the PS27 Veteran Founders Forum at Santa Fe College" loading="lazy">
       <div class="est">PS27 VETERAN FOUNDERS FORUM</div>
     </div>
   </div>
