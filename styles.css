@@ -898,23 +898,36 @@
 .acc-inner{padding:0 34px 26px 52px}
 .acc-inner p{margin:0;color:var(--slate);font-size:16px;line-height:1.7}
 
-/* ---- Tabs --------------------------------------------------------------- */
-.tabs{border:1px solid var(--line-2);border-radius:14px;overflow:hidden;background:var(--white)}
-.tab-bar{display:flex;flex-wrap:wrap;gap:2px;background:var(--wash);
-  border-bottom:1px solid var(--line-2);padding:8px 8px 0}
+/* ---- Tabs, rendered as cards -------------------------------------------
+   See the note in page-modules.js. The tab bar is gone and every panel is
+   on the page at once. The outer .tabs shell drops its border and
+   background because it is no longer a container holding one thing — each
+   card carries its own edge now, and keeping the shell would have drawn a
+   box around a grid of boxes. */
+.tabs{border:0;border-radius:0;overflow:visible;background:none}
+.tab-bar{display:none}
 .tab-btn{min-height:44px}
 .tab-btn{background:none;border:0;border-bottom:2px solid transparent;cursor:pointer;
   padding:13px 18px;font-family:var(--body);font-size:14.5px;font-weight:700;
   color:var(--slate);border-radius:8px 8px 0 0;transition:color .2s,background .2s,border-color .2s}
 .tab-btn:hover{color:var(--navy);background:rgba(255,255,255,.6)}
 .tab-btn.is-active{color:var(--blue-2);background:var(--white);border-bottom-color:var(--blue)}
-.tab-panes{padding:clamp(26px,3vw,40px)}
-.tab-panel h3{font-size:clamp(20px,2.2vw,25px);margin-bottom:12px}
-.tab-panel p{margin:0;color:var(--slate);font-size:16.5px;line-height:1.72;max-width:70ch}
+/* auto-fit rather than a fixed column count: these panels number anywhere
+   from three to six across the five pages that use them, and a hard
+   grid-template would strand a lonely card on its own row somewhere. */
+.tab-panes{padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+.tab-panel{background:var(--white);border:1px solid var(--line-2);border-radius:14px;
+  padding:clamp(22px,2.4vw,30px)}
+.tab-panel h3{font-size:clamp(19px,2vw,23px);margin-bottom:12px}
+.tab-panel p{margin:0;color:var(--slate);font-size:16px;line-height:1.7;max-width:60ch}
 
-/* ---- Stepper ------------------------------------------------------------ */
+/* ---- Stepper, rendered as cards ----------------------------------------
+   The rail (dots, track, progress fill) is hidden. The numbers it carried
+   were the one thing worth keeping, so they come back as a CSS counter on
+   each card — the order survives without the click-through. */
 .stepper{--dot:44px}
-.step-rail{position:relative;padding-bottom:8px}
+.step-rail{display:none}
+.step-rail-legacy{position:relative;padding-bottom:8px}
 .step-track{position:absolute;left:0;right:0;top:calc(var(--dot)/2);height:2px;
   background:var(--line-2)}
 .step-fill{height:100%;width:0;background:var(--blue);transition:width .45s var(--ease)}
@@ -931,10 +944,17 @@
 .step-dot.is-done i{background:var(--blue);border-color:var(--blue);color:#fff}
 .step-dot.is-active i{background:var(--navy);border-color:var(--navy);color:#fff;transform:scale(1.12)}
 .step-dot.is-active span{color:var(--navy)}
-.step-panes{margin-top:30px;background:var(--white);border:1px solid var(--line-2);
-  border-radius:14px;padding:clamp(24px,3vw,36px)}
-.step-pane h3{font-size:clamp(19px,2.1vw,24px);margin-bottom:11px}
-.step-pane p{margin:0;color:var(--slate);font-size:16.5px;line-height:1.72;max-width:70ch}
+.step-panes{margin-top:0;background:none;border:0;border-radius:0;padding:0;
+  counter-reset:sp;display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+.step-pane{background:var(--white);border:1px solid var(--line-2);border-radius:14px;
+  padding:clamp(22px,2.4vw,30px)}
+/* The number the rail used to carry, kept on the card so the sequence
+   survives. decimal-leading-zero matches the 01/02 the dots used. */
+.step-pane::before{counter-increment:sp;content:counter(sp,decimal-leading-zero);
+  display:block;font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  color:var(--blue-2);margin-bottom:12px}
+.step-pane h3{font-size:clamp(19px,2vw,23px);margin-bottom:11px}
+.step-pane p{margin:0;color:var(--slate);font-size:16px;line-height:1.7;max-width:60ch}
 
 /* ---- Filter ------------------------------------------------------------- */
 .filter-bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:22px}
@@ -1118,8 +1138,11 @@
   .tab-bar::-webkit-scrollbar{display:none}
   .tab-btn{flex:0 0 auto;white-space:nowrap;scroll-snap-align:start;padding:13px 15px}
   /* hint that the rail continues past the edge */
-  .tabs{position:relative}
-  .tabs::after{content:"";position:absolute;top:8px;right:0;width:34px;height:52px;
-    pointer-events:none;background:linear-gradient(90deg,rgba(241,242,238,0),var(--wash))}
-  .tab-panes{padding:24px 20px}
+  /* The ::after here was a fade over the right edge of the tab bar, the
+     hint that there were more tabs to scroll to on a narrow screen. With
+     the bar gone it would have been a floating grey rectangle over the
+     first card. Removed with the thing it described.
+     .tab-panes keeps its grid from above and only loses side padding —
+     the cards supply their own now. */
+  .tab-panes{padding:0}
 }

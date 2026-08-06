@@ -36,52 +36,43 @@
     });
   });
 
-  /* ---- Tabs ------------------------------------------------------------ */
+  /* ---- Tabs and Stepper: both now render as cards ----------------------
+   *
+   * These were a tabbed panel and a numbered stepper. Both hid five or six
+   * pieces of content behind one visible panel and made you click through
+   * the rest.
+   *
+   * The objection was that you have to work to read the page. It is also
+   * the worst possible shape for this particular content: these are
+   * service areas, not steps in a process. Nothing about "Clinical Workflow
+   * Optimization" comes after "EHR Modernization" — they are a list wearing
+   * a sequence's clothes. And a federal buyer scanning for one capability
+   * had to open every tab to find out whether it was there. On top of that,
+   * five of six panels were hidden from find-in-page and shipped to search
+   * engines as content nobody could see.
+   *
+   * The accordion on the Cyber Security page was liked, but copying it here
+   * would keep the real problem — it is still click-to-read — and would
+   * flatten three different components into one. Cards show everything at
+   * once, which is what "don't make me click through stuff" actually means.
+   *
+   * WHY THE HIDING IS REMOVED HERE RATHER THAN OVERRIDDEN IN CSS. The old
+   * code set p.hidden, which is a semantic hide, not just display:none.
+   * Forcing the panels visible with CSS alone would leave the attribute in
+   * place, so assistive tech would still be told the content is hidden
+   * while it sits in plain sight — worse than either state on its own. No
+   * attribute is set now, so there is nothing to contradict.
+   *
+   * The bar and the rail are hidden in CSS, and their click handlers are
+   * gone with them. Markup on all five pages is untouched: this is one
+   * component change, not five rewrites, so there is one place to undo it.
+   */
   document.querySelectorAll('[data-module="tabs"]').forEach(function (root) {
-    var tabs = [].slice.call(root.querySelectorAll('.tab-btn'));
-    var panels = [].slice.call(root.querySelectorAll('.tab-panel'));
-    function show(i) {
-      tabs.forEach(function (t, n) {
-        t.classList.toggle('is-active', n === i);
-        t.setAttribute('aria-selected', n === i ? 'true' : 'false');
-        t.tabIndex = n === i ? 0 : -1;
-      });
-      panels.forEach(function (p, n) { p.hidden = n !== i; });
-    }
-    tabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { show(i); });
-      t.addEventListener('keydown', function (e) {
-        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-        if (!d) return;
-        e.preventDefault();
-        var n = (i + d + tabs.length) % tabs.length;
-        show(n); tabs[n].focus();
-      });
-    });
-    show(0);
+    root.querySelectorAll('.tab-panel').forEach(function (p) { p.hidden = false; });
   });
 
-  /* ---- Stepper --------------------------------------------------------- */
   document.querySelectorAll('[data-module="stepper"]').forEach(function (root) {
-    var dots = [].slice.call(root.querySelectorAll('.step-dot'));
-    var panes = [].slice.call(root.querySelectorAll('.step-pane'));
-    var fill = root.querySelector('.step-fill');
-    function show(i) {
-      dots.forEach(function (d, n) {
-        d.classList.toggle('is-active', n === i);
-        d.classList.toggle('is-done', n < i);
-        d.setAttribute('aria-selected', n === i ? 'true' : 'false');
-      });
-      panes.forEach(function (p, n) { p.hidden = n !== i; });
-      if (fill) {
-        var pct = dots.length > 1 ? (i / (dots.length - 1)) * 100 : 0;
-        fill.style.width = pct + '%';
-        // the mobile rail is vertical and reads this instead
-        fill.style.setProperty('--progress', pct + '%');
-      }
-    }
-    dots.forEach(function (d, i) { d.addEventListener('click', function () { show(i); }); });
-    show(0);
+    root.querySelectorAll('.step-pane').forEach(function (p) { p.hidden = false; });
   });
 
   /* ---- Filter ---------------------------------------------------------- */

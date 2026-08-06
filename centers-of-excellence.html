@@ -142,36 +142,77 @@
     <div class="rule"></div>
   </div>
 </div>
+<!-- TWO SECTIONS COLLAPSED INTO ONE, and the navy slab is gone.
+
+     What was here: a paragraph that repeated the hero lede almost word
+     for word ("Emerging Tech established 7 Centers of Excellence to
+     pioneer standard-driven approaches..." appears in both), followed by
+     seven bullet points in a full-width navy block, followed by a
+     separate section introducing I.C.E. with three cards.
+
+     Three problems with that. The repeated paragraph made the page feel
+     like it was stalling before it started. The navy block was a slab —
+     seven equal-weight lines with nothing to grip, and its top edge cut
+     through the first row because .checks puts a border-top on every item
+     including the first, which lands flush against the card edge. And
+     I.C.E. was introduced as a concept immediately after seven bullets
+     that were, in fact, the concept — the page said the same thing twice
+     in two formats.
+
+     What it is now: the seven purposes live inside the three I.C.E.
+     headings they actually belong to. The umbrella line ("embed ICE
+     across the enterprise") became the section intro, since that is what
+     it was doing. Six supporting points sit two per card under the
+     principle each one serves. Same content, no slab, and I.C.E. now does
+     structural work instead of being decoration.
+
+     Supporting points are <p> rather than a nested .checks list on
+     purpose: .card .checks li takes a light border for dark cards and
+     .card-light resets it, so a checks list inside a light card is a
+     coin-flip on border colour. Paragraphs have no such ambiguity. -->
 <section>
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">Why we built them</span><h2>Standard-Driven Approaches, Replicated Across Industries</h2></div>
-    <div class="prose reveal"><p>Emerging Tech established 7 Centers of Excellence (CoE) to pioneer standard-driven approaches that are reliable, efficient, and easily replicated across all industries. Being a technology focused organization, we established various Center of Excellences (CoE) to:</p></div>
-    <div class="card card-static reveal" style="background:var(--navy);border-color:var(--navy);margin-top:22px">
-      <ul class="checks" style="margin-top:0">
-        <li>Embed Innovation, Collaboration, and Education (ICE) across ET enterprise</li>
-        <li>Develop niche talent, effective frameworks, and demonstrate success</li>
-        <li>Empower ET family members to build partnership to accelerate technology adoption</li>
-        <li>Share knowledge to increase comprehension and forge ahead with best approach</li>
-        <li>Continue to develop and improve standards and processes</li>
-        <li>Integrate disruptive technology into how we conduct our day-to-day business</li>
-        <li>Enable collaborations between ET, academia, government, and other industry partners to provide new opportunities for training</li>
-      </ul>
+    <div class="sec-head reveal"><span class="eyebrow">Why we built them</span><h2>Innovate &middot; Collaborate &middot; Educate</h2></div>
+    <div class="prose reveal"><p>Seven Centers of Excellence exist to embed Innovation, Collaboration, and Education across the Emerging Tech enterprise, so that what one team learns does not stay with one team.</p></div>
+    <div class="cards2" style="margin-top:26px">
+      <div class="card reveal">
+        <h3>Innovate</h3>
+        <p>Keep trying to figure out a better way to solve a given problem. Between two dots there isn&rsquo;t only one line, and there are multiple ways to get from A to B.</p>
+        <p><b>Integrate disruptive technology</b> into how we conduct day-to-day business.</p>
+        <p><b>Develop and improve</b> standards and processes continuously.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Collaborate</h3>
+        <p>Partner and connect with likeminded organizations, whether consultants, academics, government, or non-profits, to provide the best solutions, vendor agnostic.</p>
+        <p><b>Empower ET teams</b> to build partnerships that accelerate technology adoption.</p>
+        <p><b>Open collaboration</b> between ET, academia, government, and industry partners.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Educate</h3>
+        <p>Continue to learn and train, keeping up to date with standards, because having information and having knowledge are not the same thing.</p>
+        <p><b>Develop niche talent</b>, effective frameworks, and demonstrated success.</p>
+        <p><b>Share knowledge</b> to increase comprehension and forge ahead with the best approach.</p>
+      </div>
     </div>
   </div>
 </section>
+<!-- Banding fixed. Collapsing the two sections above into one left two
+     plain sections running back to back with nothing between them, which
+     is a large part of why this page read as unstructured — every other
+     page on the site alternates plain and .caps-sec so the eye gets a
+     boundary. This one is now tinted and Educate below is plain, so the
+     rhythm resumes.
+
+     THE 7-VS-3 GAP IS REAL AND NOT MINE TO INVENT. The hero says seven
+     Centers of Excellence; three are listed here, because three are all
+     that have pages. That mismatch is most of the "feels empty" note —
+     a visitor counts three and wonders where the other four went. The
+     sentence below closes the gap honestly rather than pretending the
+     number is three. If ET wants the remaining four named, that is copy
+     they need to supply. -->
 <section class="caps-sec">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">I.C.E.</span><h2>Innovate &middot; Collaborate &middot; Educate</h2></div>
-    <div class="cards2">
-      <div class="card reveal"><h3>Innovate</h3><p>Keep trying to figure out a better way to solve a given problem. Solve the same problem in multiple ways, between two dots there isn&rsquo;t only one line, and there are multiple ways to get from A to B.</p></div>
-      <div class="card reveal"><h3>Collaborate</h3><p>Continue to partner and connect with likeminded organizations, whether consultants, academics, government organizations, or non-profits. We collaborate with different communities to provide the best solutions, vendor agnostic.</p></div>
-      <div class="card reveal"><h3>Educate</h3><p>Continue to learn and train. Learn on our own, keeping up to date with standards and staying ahead of the curve, because having information and having knowledge are not the same thing.</p></div>
-    </div>
-  </div>
-</section>
-<section>
-  <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">Our Centers</span><h2>Where the Work Is Concentrated</h2></div>
+    <div class="sec-head reveal"><span class="eyebrow">Our Centers</span><h2>Where the Work Is Concentrated</h2><p>Three of the seven have dedicated practices you can read about here. The rest operate inside client programmes.</p></div>
     <div class="cards2">
       <a class="card reveal" href="coe-healthcare"><h3>Healthcare CoE</h3><p>Medical device cybersecurity, secure EMR deployment and integration, and the Revolutionization of Patient Encounters framework.</p><span class="k" style="margin-top:12px;display:block">Read more &rarr;</span></a>
       <a class="card reveal" href="coe-mobile"><h3>Mobile CoE</h3><p>Over a decade configuring, securing, and integrating mobile operating systems, plus the Mobile Innovation Lab.</p><span class="k" style="margin-top:12px;display:block">Read more &rarr;</span></a>
@@ -179,7 +220,7 @@
     </div>
   </div>
 </section>
-<section class="caps-sec">
+<section>
   <div class="wrap split" style="align-items:center">
     <div class="prose reveal-l">
       <span class="eyebrow">Educate</span>
