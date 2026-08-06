@@ -171,7 +171,19 @@
           var apply = j.url || '#';
           return ''
             + '<div class="vcard ' + side + ' in">'
-            +   '<div class="vh"><h3>' + Esc(J.title) + '</h3></div>'
+            /* Was Esc(J.title) — capital E, capital J. The helper is esc()
+               and the loop variable is j, and JavaScript does not forgive
+               case. That threw a ReferenceError on the first job, which
+               rejected the promise and handed control to the .catch()
+               below, so the page reported the feed as unavailable while
+               jobs.json was sitting there perfectly valid.
+
+               Worth noting for next time: the heading above already said
+               "9 current openings" because line 166 runs before this map.
+               A page claiming nine openings and then saying it cannot
+               load them is not a fetch problem — it is proof the data
+               arrived and the rendering broke. */
+            +   '<div class="vh"><h3>' + esc(j.title) + '</h3></div>'
             +   (meta ? '<div class="period">' + meta + '</div>' : '')
             +   (j.department ? '<div class="sins"><span>' + esc(j.department) + '</span></div>' : '')
             +   '<div class="cta-row" style="margin-top:18px"><a class="btn btn-navy" href="' + esc(apply) + '" target="_blank" rel="noopener">View details &amp; apply <span class="ar">&rarr;</span></a></div>'
