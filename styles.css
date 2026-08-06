@@ -168,7 +168,14 @@
   .serve .head{position:relative;z-index:1;margin-bottom:26px}
   .serve h2{color:#fff;font-size:clamp(22px,2.6vw,30px);font-weight:700}
   .serve .head p{margin:0;color:var(--ondark-2);font-size:14.5px;max-width:56ch}
-  .marquee{position:relative;z-index:1;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  /* PADDING IS LOAD-BEARING HERE, it is not spacing.
+     overflow:hidden is what makes the marquee a marquee — it clips the
+     track that runs off both edges. But overflow clips on all four sides,
+     and .seal:hover scales the crest to 1.08, so the top of every seal was
+     being sliced off the moment you pointed at it. Clipping happens at the
+     padding edge, so padding here buys the scaled seal room to grow into
+     without giving up the horizontal clip the effect depends on. */
+  .marquee{position:relative;z-index:1;overflow:hidden;padding:14px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
   /* Scrolling is driven entirely by JS now (script.js) — a continuously
      recycling requestAnimationFrame loop instead of a CSS keyframe that
      animates to a fixed endpoint and resets. That reset point was the
@@ -520,7 +527,20 @@
      hero — both the top visual band AND the copy/stats area below it —
      instead of stopping above the text. Text colors below are flipped to
      light-on-dark to stay legible against that darker background. */
-  .robot-hero{position:relative;background:var(--navy-3);overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;min-height:70vh}
+  /* NO BORDER-BOTTOM. There was a 1px rgba(255,255,255,.08) highlight here,
+     which is the standard trick for separating two dark sections — a hair of
+     light where one navy meets another. It did nothing visible while the seal
+     band below was also navy.
+
+     Now that the swoop fills with the page colour, that border is the only
+     part of the hero's navy left below the curve: a 1px strip of tinted navy
+     running the full width with white above and below it, which reads as a
+     hard rule someone drew on purpose. The swoop already sits at bottom:-1px
+     specifically to avoid leaving a sliver, and the border was re-creating
+     the exact problem that offset exists to solve.
+
+     The curve is the separation now. It does not need a line under it. */
+  .robot-hero{position:relative;background:var(--navy-3);overflow:hidden;display:flex;flex-direction:column;min-height:70vh}
   /* Replaces the old three.js/VANTA.NET WebGL animation — that ran a full
      render loop every frame on every page load just for a background
      flourish, which is exactly what was making the hero feel laggy. This
