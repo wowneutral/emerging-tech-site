@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Privacy and Terms carry a low priority on purpose. They must be in
+       the sitemap so they are indexed and discoverable — a legal page a
+       crawler cannot find is a legal page that does not exist for most
+       practical purposes — but they should never outrank a capability page
+       for a query about what ET does. 0.3 says "index this, do not
+       promote it". -->
+  <url>
+    <loc>https://emergingtech.co/privacy.html</loc>
+    <lastmod>2026-08-06</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://emergingtech.co/terms.html</loc>
+    <lastmod>2026-08-06</lastmod>
+    <priority>0.3</priority>
+  </url>
   <url>
     <loc>https://emergingtech.co/about.html</loc>
     <lastmod>2026-07-31</lastmod>
