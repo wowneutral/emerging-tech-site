@@ -157,7 +157,13 @@
   .hero-visual .contract .k{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--slate-2)}
   .hero-visual .contract .v{font-family:var(--mono);font-size:14px;color:var(--navy);font-weight:600;margin-top:4px}
   .hero-visual .contract .p{font-family:var(--mono);font-size:11px;color:var(--slate-2);margin-top:3px}
-  .serve{background:var(--navy);padding:40px 0 46px;overflow:hidden;position:relative}
+  /* ON WHITE NOW, NOT NAVY. The seal row used to sit in a dark band
+     immediately under the hero, which meant the curve above it had to be
+     navy too and the whole thing read as one enormous header. The row has
+     moved further down the page, between two light sections, so the band
+     takes the page background and the seals sit on white like everything
+     else around them. */
+  .serve{background:var(--paper);padding:60px 0 64px;overflow:hidden;position:relative}
   #vantaNet{position:absolute;inset:0;z-index:0}
   .serve .head{position:relative;z-index:1;margin-bottom:26px}
   .serve h2{color:#fff;font-size:clamp(22px,2.6vw,30px);font-weight:700}
@@ -170,9 +176,15 @@
      so there's no CSS animation on .track at all anymore. */
   .marquee .track{display:flex;gap:70px;width:max-content;align-items:center}
   .seal{display:flex;flex-direction:column;align-items:center;gap:10px}
-  .seal img{height:74px;width:74px;object-fit:contain;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35));transition:transform .3s var(--ease)}
+  /* Shadow dialled right back. At .35 it was doing the work of separating
+     a seal from a dark navy band; on white that same shadow reads as a
+     smudge under every crest. */
+  .seal img{height:74px;width:74px;object-fit:contain;filter:drop-shadow(0 3px 10px rgba(11,31,58,.14));transition:transform .3s var(--ease)}
   .seal:hover img{transform:scale(1.08)}
-  .seal span{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--ondark-3)}
+  /* Was --ondark-3, a pale grey meant for navy. On white it was almost
+     invisible — the labels are how you know which agency a crest belongs
+     to at 74px, so they have to actually read. */
+  .seal span{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--slate)}
   /* Do NOT display:none a broken seal — the marquee's JS measures each
      seal's width to drive a continuously-recycling scroll, and collapsing
      a box to zero width mid-animation (whenever that seal's image happens
@@ -538,16 +550,16 @@
   @keyframes heroNetDrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-140px,-140px,0)}}
 
   /* The swoop under the hero.
-     Filled with --navy, NOT --paper, because what sits directly below the
-     hero is the navy seal band rather than the cream page. Filling it with
-     the page background would have drawn a cream wave across two dark
-     sections — the shape has to be the colour of whatever it is revealing.
-     Hero is --navy-3 (#1C3E63) and the band below is --navy (#0B1F3A), so the
-     curve reads as the darker navy rising into the lighter one.
-     Sits above the mesh, below the copy. */
+     Filled with --paper, the page background. The rule this shape obeys is
+     that it must be the colour of whatever it reveals — it is a wave of the
+     next section rising into the hero, not a decoration sitting on top of
+     it. It used to be --navy because the navy seal band sat directly below;
+     that band is now further down the page and on white, so the curve
+     carries the cream page up instead and the hero ends where the page
+     begins. Sits above the mesh, below the copy. */
   .rh-swoop{position:absolute;left:0;right:0;bottom:-1px;width:100%;
     height:clamp(52px,7vw,120px);display:block;z-index:1;pointer-events:none}
-  .rh-swoop path{fill:var(--navy)}
+  .rh-swoop path{fill:var(--paper)}
   /* Shrunk way down from the original 60vh band — that made the hero feel
      enormous and left the badges bar stranded far above the headline with
      nothing connecting them. This is just enough net-only space above the
