@@ -174,7 +174,18 @@
   <div class="wrap">
     <div class="sec-head reveal"><span class="eyebrow">Why we built them</span><h2>Innovate &middot; Collaborate &middot; Educate</h2></div>
     <div class="prose reveal"><p>Seven Centers of Excellence exist to embed Innovation, Collaboration, and Education across the Emerging Tech enterprise, so that what one team learns does not stay with one team.</p></div>
-    <div class="cards2" style="margin-top:26px">
+    <!-- THREE CARDS IN A TWO-COLUMN GRID IS THE BUG.
+         .cards2 is literally two columns (579px 579px at desktop). Both
+         rows on this page hold three cards, so the third has always
+         dropped onto a row of its own, half-width, with a gap beside it.
+         That is most of the "feels random and not aligned" note — the
+         page had two orphaned cards on it.
+
+         auto-fit rather than a hard repeat(3,1fr): with three items that
+         resolves to three equal columns at desktop, and reflows to two
+         then one as the viewport narrows, without a media query. Set
+         inline so .cards2 keeps meaning two columns everywhere else. -->
+    <div class="cards2" style="margin-top:26px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
       <div class="card reveal">
         <h3>Innovate</h3>
         <p>Keep trying to figure out a better way to solve a given problem. Between two dots there isn&rsquo;t only one line, and there are multiple ways to get from A to B.</p>
@@ -213,7 +224,7 @@
 <section class="caps-sec">
   <div class="wrap">
     <div class="sec-head reveal"><span class="eyebrow">Our Centers</span><h2>Where the Work Is Concentrated</h2><p>Three of the seven have dedicated practices you can read about here. The rest operate inside client programmes.</p></div>
-    <div class="cards2">
+    <div class="cards2" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
       <a class="card reveal" href="coe-healthcare"><h3>Healthcare CoE</h3><p>Medical device cybersecurity, secure EMR deployment and integration, and the Revolutionization of Patient Encounters framework.</p><span class="k" style="margin-top:12px;display:block">Read more &rarr;</span></a>
       <a class="card reveal" href="coe-mobile"><h3>Mobile CoE</h3><p>Over a decade configuring, securing, and integrating mobile operating systems, plus the Mobile Innovation Lab.</p><span class="k" style="margin-top:12px;display:block">Read more &rarr;</span></a>
       <a class="card reveal" href="coe-systems-of-systems"><h3>Systems-of-Systems CoE</h3><p>Systems engineering at the SoS level, aligned to ISO/IEC/IEEE 21839, 21840, and 21841.</p><span class="k" style="margin-top:12px;display:block">Read more &rarr;</span></a>
