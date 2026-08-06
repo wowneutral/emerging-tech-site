@@ -30,23 +30,55 @@ This Worker keeps submissions inside infrastructure ET controls.
 - HTML-escapes every value before it goes into the email body
 - **Message bodies are never logged.** Only status codes.
 
-## Deploy
+## How it sends
 
-Requires the Cloudflare account for emergingtech.co and a mail provider. The
-code uses [Resend](https://resend.com); Postmark or SendGrid need only the
-`fetch` block swapped.
+Microsoft Graph, client-credentials flow, against the tenant that already hosts
+the mailbox. No third-party relay in the path. The Worker gets an app-only
+token from Entra, caches it in KV until five minutes before expiry, and calls
+`/users/{SENDER_ADDRESS}/sendMail`.
+
+## What has to exist in Entra first
+
+This is the part that is not code, and it has to be done by someone with admin
+on the emergingtech.co tenant.
+
+1. **App registration** — already made. Tenant and client IDs are in
+   `wrangler.toml`; both are identifiers, not credentials.
+2. **Application permission `Mail.Send`**, with admin consent granted. Note
+   *Application*, not *Delegated* — there is no signed-in user here. Without
+   consent the token is issued and `sendMail` still returns 403.
+3. **A real, licensed mailbox at `noreply@emergingtech.co`.** Graph sends *as*
+   an existing mailbox; it cannot invent one. If that address does not exist,
+   change `SENDER_ADDRESS` in `wrangler.toml` to one that does.
+4. **Scope the app down.** `Mail.Send` as an application permission means send
+   as *anyone in the tenant*, including the CEO. Restrict it to the single
+   sender mailbox with an ApplicationAccessPolicy:
+
+   ```powershell
+   New-ApplicationAccessPolicy -AppId 9542faa9-1536-4ad9-b85a-86a854d5605b `
+     -PolicyScopeGroupId noreply@emergingtech.co `
+     -AccessRight RestrictAccess `
+     -Description "Contact form sender only"
+   ```
+
+   Skipping this is the single biggest risk in the whole setup: it turns a
+   leaked client secret from "spam through our contact form" into "send mail as
+   any executive in the company."
+
+## Deploy
 
 ```bash
 cd worker
 npm install -g wrangler
 wrangler login
 
-# 1. rate-limit store
+# 1. rate-limit + token cache store
 wrangler kv namespace create RATE_KV
 #    paste the returned id into wrangler.toml and uncomment that block
 
-# 2. verify the sending domain in Resend, then store the key
-wrangler secret put RESEND_API_KEY
+# 2. the client secret — rotate it in Entra first, the current one has
+#    travelled through Teams and a Word file
+wrangler secret put GRAPH_CLIENT_SECRET
 
 # 3. ship
 wrangler deploy
@@ -83,6 +115,10 @@ curl -X POST https://emergingtech.co/api/contact \
 
 Confirm a real message lands in `collaborate@emergingtech.co` before telling
 anyone the form is live.
+
+If `sendMail` returns **403** the token was fine and the permission was not:
+check that `Mail.Send` is an *Application* permission with admin consent, and
+that the access policy above has not excluded the sender mailbox.
 
 ## Retention
 
