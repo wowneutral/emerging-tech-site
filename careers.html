@@ -94,7 +94,6 @@
         <button type="button" class="active">Careers &#9662;</button>
         <div class="menu">
           <a href="careers">All Careers <small>Join our team</small></a>
-          <a href="careers#internships">Internships <small>Student &amp; early-career programs</small></a>
         </div>
       </div>
     </nav>
@@ -132,7 +131,6 @@
   <a href="accelerators" class="sm">Accelerators</a>
   <a href="centers-of-excellence" class="sm">Centers of Excellence</a>
   <a href="careers">Careers</a>
-  <a href="careers#internships" class="sm">Internships</a>
   <a href="contact">Contact Us</a>
 </div>
 <main>
@@ -248,9 +246,25 @@
       <span class="eyebrow">Internships</span>
       <h2>Applications &amp; Cohort Timeline</h2>
       <p style="margin-top:16px">Internship positions are available remote, hybrid, or onsite, depending on the role and your preference. Occasional trips to our Alachua, FL headquarters may be needed for remote interns, for example to pick up equipment, but these are rare.</p>
-      <div class="fpanel" style="margin-top:24px">
-        <h3 class="fpanel-title">Application window</h3>
-        <p style="color:#DDE7F1;margin-top:8px">Applications are open <b style="color:#fff">August 17 &ndash; September 17</b> for remote positions.</p>
+      <!-- GOLD, NOT A SECOND GREY BOX.
+           This was .fpanel, the dark navy panel — the same treatment as "How
+           the Program Runs" sitting directly to its right. Two heavy navy
+           blocks side by side gave the eye nowhere to land and made the
+           column look like one unbroken slab.
+
+           Grey would have fixed the collision but created a different one:
+           it would then match the Cohort start card immediately below, and
+           the two most important facts on the page would look interchangeable.
+
+           Gold separates it from both and puts the weight where it belongs.
+           The application window is the only thing on this page with a
+           deadline attached — miss it and nothing else here matters. Colours
+           are set inline rather than as a new class because this is the one
+           panel on the site that wants this treatment, and a one-off class
+           in a shared stylesheet is how stylesheets rot. -->
+      <div class="fpanel" style="margin-top:24px;background:var(--brass);border-color:var(--brass)">
+        <h3 class="fpanel-title" style="color:var(--navy)">Application window</h3>
+        <p style="color:var(--navy-2);margin-top:8px">Applications are open <b style="color:var(--navy)">August 17 &ndash; September 17</b> for remote positions.</p>
       </div>
       <div class="card" style="margin-top:16px">
         <span class="k">Cohort start</span>
