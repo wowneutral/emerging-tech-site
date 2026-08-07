@@ -85,52 +85,65 @@
     }
   }
 
-  /* Marquee — two earlier approaches (CSS -50%, then a JS-measured pixel
-     distance) both still relied on animating to a fixed endpoint and then
-     resetting, which glitched at the seam no matter how precisely the
-     distance was measured. Replacing that with a continuously-running
-     scroll: every frame, nudge the track left by a small fixed amount, and
-     the instant a seal has fully scrolled past the left edge, move that
-     exact element to the end of the row and pull the offset back by
-     precisely its width. There is no "loop point" to land on anymore —
-     content just keeps recycling forever, so there's nothing left to
-     glitch at. */
+  /* Marquee.
+   *
+   * WHAT THIS REPLACED, AND WHY IT WAS THE LAG.
+   *
+   * The previous version ran a requestAnimationFrame loop that, every
+   * single frame, called getBoundingClientRect() on the first seal to
+   * decide whether to recycle it. That is a forced synchronous layout,
+   * sixty times a second, and it happened immediately after the previous
+   * frame had written track.style.transform. Write style, read layout,
+   * write style, read layout: the browser cannot batch any of it, so it
+   * recalculates the page on every frame forever. That is why the page
+   * hitched exactly when you scrolled to this section, and it is why
+   * shrinking the images helped but did not fix it. The setup was no
+   * better: it called track.scrollWidth inside a while condition while
+   * doubling innerHTML, which is another forced layout per iteration.
+   *
+   * It also never stopped. No intersection check, so it kept thrashing
+   * while the row was three screens away.
+   *
+   * THE REWORK. Travel is a CSS animation on a transform, which the
+   * compositor runs on its own without touching layout or JavaScript at
+   * all. Zero work per frame on the main thread. The seam problem that
+   * drove the original author to JS is solved by construction rather
+   * than by measurement: the track holds an exact even number of copies
+   * and translates by exactly -50%, so the second half lands precisely
+   * where the first half began. There is no distance to measure and
+   * therefore nothing to measure wrong.
+   *
+   * The only layout reads left happen once, at setup. */
   var track = document.getElementById('sealTrack');
-  if(track && !reduce){
-    var GAP = 70; // must match .marquee .track{gap:70px} in styles.css
-    track.style.animation = 'none';
-    track.style.gap = GAP + 'px';
-    /* Recycling only works if there's always enough content on screen to
-       cover the full viewport width — otherwise the row runs out of seals
-       before the recycled one scrolls back into view, showing blank space
-       on wide screens. Duplicate the original set until the total width
-       comfortably clears twice the widest reasonable viewport. */
-    var safety = 0;
-    while(track.scrollWidth < Math.max(window.innerWidth, 1600) * 2 && safety < 10){
-      track.innerHTML += track.innerHTML;
-      safety++;
+  var marquee = track && track.parentElement;
+  if(track && marquee && !reduce){
+    /* One measurement, once. Enough copies that a single set is wider
+       than the viewport, so the row is never short on a wide screen. */
+    var setHTML = track.innerHTML;
+    var setWidth = track.scrollWidth;
+    var guard = 0;
+    while(setWidth < window.innerWidth && guard < 6){
+      track.insertAdjacentHTML('beforeend', setHTML);
+      setWidth = track.scrollWidth;
+      guard++;
     }
-    var offset = 0;
-    var speed = 0.5; // px per frame, ~30px/s at 60fps
-    var raf;
-    var tick = function(){
-      offset += speed;
-      var first = track.children[0];
-      if(first){
-        var w = first.getBoundingClientRect().width + GAP;
-        if(w > 0 && offset >= w){
-          offset -= w;
-          track.appendChild(first);
-        }
-      }
-      track.style.transform = 'translateX(' + (-offset) + 'px)';
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    document.addEventListener('visibilitychange', function(){
-      if(document.hidden){ cancelAnimationFrame(raf); }
-      else { raf = requestAnimationFrame(tick); }
-    });
+    /* Then duplicate the whole thing exactly once. -50% is now precisely
+       one full set, whatever that turned out to be. */
+    track.insertAdjacentHTML('beforeend', track.innerHTML);
+    track.classList.add('is-rolling');
+
+    /* Stop the animation when the row is not on screen. Toggling
+       animation-play-state costs nothing and the compositor simply stops
+       producing frames, rather than us cancelling a loop that should not
+       have been running in the first place. */
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          track.style.animationPlayState = e.isIntersecting ? 'running' : 'paused';
+        });
+      }, { rootMargin: '150px' });
+      io.observe(marquee);
+    }
   }
 
   /* reveals with per-parent stagger */

@@ -182,6 +182,20 @@
      source of the repeated gap/jump glitch no matter how it was measured,
      so there's no CSS animation on .track at all anymore. */
   .marquee .track{display:flex;gap:70px;width:max-content;align-items:center}
+  /* Travel is a compositor animation now, not a per frame JS loop. The
+     class is added by script.js only after it has duplicated the track,
+     so the animation can never run against a half built row.
+     will-change promotes the layer once, up front, instead of letting
+     the browser discover it needs to on the first frame. */
+  .marquee .track.is-rolling{
+    animation:sealRoll 60s linear infinite;
+    will-change:transform;
+  }
+  .marquee .track.is-rolling:hover{animation-play-state:paused}
+  @keyframes sealRoll{
+    from{transform:translate3d(0,0,0)}
+    to{transform:translate3d(-50%,0,0)}
+  }
   .seal{display:flex;flex-direction:column;align-items:center;gap:10px}
   /* Shadow dialled right back. At .35 it was doing the work of separating
      a seal from a dark navy band; on white that same shadow reads as a
