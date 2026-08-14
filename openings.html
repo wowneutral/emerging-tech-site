@@ -166,8 +166,15 @@
         }
         heading.textContent = jobs.length + ' current opening' + (jobs.length === 1 ? '' : 's') + '.';
         grid.innerHTML = jobs.map(function(j, i){
-          var loc = [j.city, j.state].filter(Boolean).join(', ');
-          var meta = [loc, j.employment_type].filter(Boolean).join(' &middot; ');
+          /* esc() on every field, not just the ones that looked risky.
+             city, state and employment_type come from the JazzHR feed and
+             land in innerHTML below exactly like title and department do.
+             They were the only three going in raw, which is the shape this
+             bug always takes: the fields nobody pictured an attacker
+             touching. Anyone who can edit a job posting in the ATS could
+             put a <script> in "city" and have it run on this page. */
+          var loc = [esc(j.city), esc(j.state)].filter(Boolean).join(', ');
+          var meta = [loc, esc(j.employment_type)].filter(Boolean).join(' &middot; ');
           var side = i % 2 === 0 ? 'reveal-l' : 'reveal-r';
           var apply = j.url || '#';
           return ''

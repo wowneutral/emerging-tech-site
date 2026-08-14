@@ -1,0 +1,108 @@
+# =============================================================================
+# Emerging Tech — Apache / LiteSpeed configuration
+#
+# WHY THIS FILE EXISTS. The repo already had a `_redirects` file. That is
+# Cloudflare Pages / Netlify syntax and Apache and LiteSpeed ignore it
+# completely — on Hostinger it is an inert text file. Every rule that mattered
+# has been restated here in a form the server actually reads. `_redirects` is
+# left in place in case the site is ever moved back to Cloudflare Pages; the
+# two must be kept in step.
+# =============================================================================
+
+# --- Redirects ---------------------------------------------------------------
+# The internships page was folded into Careers. The old URL has been live, is
+# in the sitemap Google already crawled, and may be in job posts, emails and
+# LinkedIn comments. A 301 keeps every one of those links working and passes
+# the ranking to the section that replaced it, instead of handing someone a
+# 404 in the middle of applying.
+#
+# The fragment is what makes this slightly awkward: a browser never sends
+# #internships to the server, so it has to be written into the target and the
+# [NE] flag used, or Apache escapes the # into %23 and the redirect lands on a
+# literal path that does not exist.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteRule ^internships/?$      /careers#internships  [R=301,NE,L]
+  RewriteRule ^internships\.html$  /careers#internships  [R=301,NE,L]
+
+  # Extensionless URLs. The site links to `careers`, `openings`, `contact` and
+  # so on with no .html, which Cloudflare Pages resolved automatically and
+  # Apache does not. Without this every internal link on the site 404s on
+  # Hostinger. THIS IS THE ONE MOST LIKELY TO BITE ON LAUNCH NIGHT.
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^(.+)$ $1.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # --- Security headers ------------------------------------------------------
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "DENY"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
+
+  # Legacy XSS auditor is itself a vulnerability class. 0 disables it, which is
+  # the current recommendation, not 1.
+  Header always set X-XSS-Protection "0"
+
+  # HSTS. Deliberately NOT preload and NOT includeSubDomains yet — turn those on
+  # only once every subdomain is confirmed HTTPS-only. Preload is close to
+  # irreversible and can take a subdomain offline for a year.
+  Header always set Strict-Transport-Security "max-age=31536000"
+
+  Header always unset X-Powered-By
+  Header always unset Server
+
+  # --- Content Security Policy ----------------------------------------------
+  # REPORT-ONLY FIRST. This does not block anything; it reports what it WOULD
+  # have blocked to the browser console. Load every page, watch the console,
+  # confirm it is silent, and only then swap the header name below to the
+  # enforcing one. Shipping a CSP straight to enforce on a site you have not
+  # clicked through is how you take the map, the fonts and the job feed off the
+  # site at the same time.
+  #
+  # The two sha256 hashes are the two inline <script> blocks on the site, in
+  # index.html and openings.html. THEY WILL BREAK IF EITHER BLOCK IS EDITED —
+  # even by one character of whitespace. Regenerate with scripts/csp-hashes.py.
+  Header always set Content-Security-Policy-Report-Only "default-src 'none'; script-src 'self' https://unpkg.com 'sha256-ZN5Pt+7f2CoA7lYAKlVFFIMynFz72L2ZI0YRIHO4cKQ=' 'sha256-Bz4/PwA3MNu5MhBW0IotM5+wsVuXUJ5RdDaezEf5LXU='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.basemaps.cartocdn.com; connect-src 'self'; frame-src https://maps.google.com https://www.google.com; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; form-action 'self'; upgrade-insecure-requests"
+
+  # style-src keeps 'unsafe-inline' because the markup uses style="" attributes
+  # throughout. Attribute styles cannot be hashed without 'unsafe-hashes', and
+  # inline STYLE is a far smaller risk than inline SCRIPT. Removing it means
+  # refactoring several hundred attributes, which is a real piece of work and
+  # not a launch-night one.
+</IfModule>
+
+# --- Compression -------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# --- Caching -----------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg              "access plus 1 year"
+  ExpiresByType image/png               "access plus 1 year"
+  ExpiresByType image/svg+xml           "access plus 1 year"
+  ExpiresByType image/webp              "access plus 1 year"
+  ExpiresByType font/woff2              "access plus 1 year"
+  ExpiresByType text/css                "access plus 7 days"
+  ExpiresByType application/javascript  "access plus 7 days"
+  ExpiresByType text/html               "access plus 0 seconds"
+
+  # jobs.json is rewritten hourly by the JazzHR sync. Caching it would mean the
+  # openings page shows filled roles. The page also requests it with
+  # cache:'no-store', but a caching proxy in between does not have to honour
+  # that, and this does.
+  ExpiresByType application/json        "access plus 0 seconds"
+</IfModule>
+
+# --- Don't serve the repo's own plumbing -------------------------------------
+<FilesMatch "^(\.git|\.gitignore|\.htaccess|_redirects|README\.md)">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 ^/\.git
+RedirectMatch 404 ^/worker/
+RedirectMatch 404 ^/scripts/
