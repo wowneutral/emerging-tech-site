@@ -252,12 +252,11 @@
   if(mm){ mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ mm.classList.remove('open'); }); }); }
 
   /* contact form -> FormSubmit (submits directly, no email client needed) */
-  /* Contact form.
-     Posts to Emerging Tech's own Worker (see worker/README.md) rather than a
-     third-party form relay. Until that endpoint is deployed, leave
-     CONTACT_ENDPOINT empty: the form then opens the visitor's mail client with
-     everything they typed already filled in, so it degrades instead of
-     failing silently to an unverified mailbox. */
+  /* Contact form -- scrapped. contact.html has no #contactForm element
+     (map + direct mailto instead), so this whole block never runs; the
+     guard right below (if(cf)) is permanently false. Left in place rather
+     than deleted in case a real form comes back later -- api/contact.php
+     is still sitting in api/ if that happens, just not deployed tonight. */
   var CONTACT_ENDPOINT = '';
   var CONTACT_EMAIL = 'collaborate@emergingtech.co';
 
