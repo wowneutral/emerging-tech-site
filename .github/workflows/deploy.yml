@@ -1,0 +1,97 @@
+name: Deploy to Hostinger
+
+# WHY THIS EXISTS
+#
+# fetch-jobs.yml commits a fresh jobs.json to main every hour. Deployment is
+# a manual FileZilla upload, so nothing carries those commits to the server:
+# the openings page keeps serving whatever was last uploaded by hand and
+# quietly advertises filled roles. Nobody notices, because the page looks
+# perfectly healthy.
+#
+# This closes that loop. Every push to main — including the bot's own hourly
+# commits — syncs the site over FTPS.
+#
+# FIRST RUN SHOULD BE A DRY RUN. Actions tab -> this workflow -> Run workflow,
+# leave "dry_run" ticked. It connects, works out what it would change, and
+# writes it to the log without touching anything. Read that list. If it looks
+# right, run again with dry_run unticked, and from then on pushes deploy
+# automatically.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'List changes without uploading anything'
+        type: boolean
+        default: true
+
+# Least privilege: this job only ever reads the repo. It does not need to
+# write commits, open PRs, or touch packages.
+permissions:
+  contents: read
+
+# The JazzHR bot can push while a deploy is already running. Without this,
+# two deploys race and the server can end up with a mix of both. Queue them
+# instead, and do not cancel a run that is mid-upload.
+concurrency:
+  group: hostinger-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        # Pinned to a full commit SHA, not a tag. Tags can be moved: that is
+        # exactly how the tj-actions/changed-files compromise reached 23,000
+        # repositories in March 2025. The trailing comment is what Dependabot
+        # reads to keep the pin current.
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          # By default checkout writes the GITHUB_TOKEN into .git/config,
+          # where any later step can read it. Nothing here needs it.
+          persist-credentials: false
+
+      - name: Sync over FTPS
+        uses: SamKirkland/FTP-Deploy-Action@3a9c65ae0fc12ac924ccef8afc26941cc43aad0b # v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+
+          # Explicit TLS on port 21, which is what this server negotiated in
+          # FileZilla ("Initializing TLS... TLS connection established").
+          # Plain "ftp" would send the password in clear text.
+          protocol: ftps
+
+          # Path as the FTP account sees it after login. FileZilla lands at /
+          # with domains/ beneath it, so the document root is this. If the dry
+          # run reports it cannot find the directory, this is the line to fix.
+          server-dir: ./domains/emergingtech.co/public_html/
+
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+
+          # Anything not on the server today. Excluded paths are skipped
+          # entirely — not uploaded, and not deleted from the server either.
+          #
+          #   api/      the PHP contact handler. There is no contact form on
+          #             the site, and the old server-side api/ was removed.
+          #   scripts/  fetch_jobs.py and csp-hashes.py are build-time tools.
+          #   worker/   Cloudflare Worker source. Wrong runtime, never used.
+          #   _redirects Cloudflare/Netlify syntax, inert on Apache. .htaccess
+          #             carries these rules; the file is kept in the repo only
+          #             in case the site ever moves back.
+          #   .git*     repo internals. Publishing .git exposes every commit.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/api/**
+            **/scripts/**
+            **/worker/**
+            **/_redirects
+            **/*.bak-*
+            **/.DS_Store
+            **/README.md
