@@ -32,6 +32,24 @@ ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # --- Force HTTPS. Must be first. ---------------------------------------
+  # The certificate is installed and valid, but plain http was being served
+  # rather than redirected, so anyone typing the bare domain got an insecure
+  # first hop. HSTS already covers repeat visitors; this covers the first one
+  # and any crawler.
+  #
+  # TWO conditions, not one, and the second is the important one. Doing this
+  # with only %{HTTPS} !=on is the classic way to build an infinite redirect
+  # loop: if TLS is terminated upstream at a proxy or CDN, the origin sees
+  # plain http on every request, redirects to https, gets handed the same
+  # plain-http request again, forever. X-Forwarded-Proto is what such a proxy
+  # sets to say "the visitor's leg was already secure" — checking it means
+  # the redirect fires only when the connection is genuinely insecure end to
+  # end. Safe whether or not anything sits in front of this server.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
   # --- Legacy WordPress URLs, predating both builds ----------------------
   RewriteRule ^careers-at-emerging-tech/?$        /careers                  [R=301,L]
   RewriteRule ^data-and-ai/?$                     /data-ai                  [R=301,L]
