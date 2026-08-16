@@ -2,5 +2,4 @@
 
 # Local safety copies made before destructive edits. Useful on disk,
 # not something the repo should carry.
-*.bak-original
-*.bak-preorder
+*.bak-*

@@ -52,7 +52,17 @@
   #intro{position:fixed;inset:0;z-index:250;pointer-events:none}
   #intro .panel{position:absolute;left:0;right:0;height:50.5%;background:var(--paper);transition:transform .85s var(--ease) 1.35s}
   #intro .panel.t{top:0} #intro .panel.b{bottom:0}
-  #intro.open .fpanel.t{transform:translateY(-101%)} #intro.open .fpanel.b{transform:translateY(101%)}
+  /* .panel, NOT .fpanel. This read .fpanel and therefore matched nothing:
+     .fpanel is the dark navy panel component further down this file, and
+     the intro's two shutters are .panel.t / .panel.b declared two lines
+     above. The consequence was not a missing animation, it was a blank
+     screen: the shutters are --paper (#FAFAF8) and cover 101% of the
+     viewport, so they simply never left. The lockup faded out on
+     schedule at ~1.85s and the shutters sat there until the JS removed
+     #intro outright at 2.7s, giving ~850ms of empty near-white and then
+     an abrupt cut to the page. That is the "white flash after the
+     reveal". */
+  #intro.open .panel.t{transform:translateY(-101%)} #intro.open .panel.b{transform:translateY(101%)}
   #intro .lockup{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .4s ease 1.15s}
   #intro.open .lockup{opacity:0}
   #intro img{height:56px;margin:0 auto 26px;opacity:0;transform:translateY(12px) scale(.96);transition:opacity .8s var(--ease) .1s,transform .8s var(--ease) .1s}
