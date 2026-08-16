@@ -1,111 +1,187 @@
 # =============================================================================
 # Emerging Tech — Apache / LiteSpeed configuration
 #
-# WHY THIS FILE EXISTS. The repo carries a `_redirects` file, which is
-# Cloudflare Pages / Netlify syntax that Apache and LiteSpeed ignore entirely.
-# On Hostinger it is an inert text file. Everything that mattered is restated
-# here in a form the server actually reads. `_redirects` is kept in case the
-# site ever returns to Cloudflare Pages; the two must be kept in step.
+# FULL REPLACEMENT. public_html is now this static site and nothing else. The
+# PHP application that used to live here (/api, /admin, /_astro, /_private,
+# /vendor) was removed deliberately; its MySQL database still exists but has
+# no interface. If any of that is ever restored, the skip rule it needed is in
+# git history alongside this file.
 #
-# SAFETY NOTE, READ BEFORE EDITING. Every directive below sits inside an
-# <IfModule> guard and uses only FileInfo-class directives, which is what
-# shared hosts normally permit in .htaccess. That is deliberate: a directive a
-# host does not allow does not fail quietly, it returns 500 on EVERY page of
-# the site. If the site 500s immediately after upload, rename this file to
-# .htaccess.off and the site returns at once — then add these blocks back one
-# at a time to find the one the host rejects.
+# A note on 500s: every directive class used below — SetHandler, Header,
+# ExpiresByType, Options, RewriteRule, Require — was already in use in the
+# .htaccess this server ran before, so all of them are permitted here. If the
+# site 500s anyway, rename this file to .htaccess.off and it comes straight
+# back.
+#
+# Superseded and NOT for upload: .htaccess.bak-standalone (pre-merge) and
+# .htaccess.bak-merged (kept the API rules).
 # =============================================================================
+
+# ----------------------------------------------------------------------
+# PHP handler. There is no PHP in this build, so this is inert today. It is
+# kept because Hostinger's global PHP for this account is pinned to 7.4 for a
+# legacy WordPress install: if anyone ever drops a .php file in here, it would
+# silently run on 7.4 without this line.
+# ----------------------------------------------------------------------
+<FilesMatch "\.(php4|php5|php3|php2|php|phtml)$">
+  SetHandler application/x-lsphp82
+</FilesMatch>
+
+ErrorDocument 404 /404.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # --- Extensionless URLs ----------------------------------------------------
-  # THE MOST IMPORTANT RULE IN THIS FILE. The site links internally as
-  # `careers`, `openings`, `contact` with no .html. GitHub Pages resolves that
-  # automatically and Apache does not, so without this every single nav item
-  # 404s. This is the rule to test first after deploying.
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME}\.html -f
-  RewriteRule ^(.+?)/?$ $1.html [L]
+  # --- Legacy WordPress URLs, predating both builds ----------------------
+  RewriteRule ^careers-at-emerging-tech/?$        /careers                  [R=301,L]
+  RewriteRule ^data-and-ai/?$                     /data-ai                  [R=301,L]
+  RewriteRule ^artificial-intelligence/?$         /data-ai                  [R=301,L]
+  RewriteRule ^cybersecurity-services/?$          /cybersecurity            [R=301,L]
+  RewriteRule ^healthcare-(it|services)/?$        /healthcare-modernization [R=301,L]
+  RewriteRule ^team/?$                            /our-people               [R=301,L]
+  RewriteRule ^job-openings/?$                    /openings                 [R=301,L]
+  RewriteRule ^current-openings/?$                /openings                 [R=301,L]
+  RewriteRule ^message-from-the-president/?$      /founders-message         [R=301,L]
+  RewriteRule ^president/?$                       /founders-message         [R=301,L]
+  RewriteRule ^services/?$                        /mission-support          [R=301,L]
+  RewriteRule ^cloud(-services|-enablement)?/?$   /cloud-solutions          [R=301,L]
 
-  # --- Retired URLs ----------------------------------------------------------
-  # Internships was folded into Careers. The old URL has been live, is in the
-  # sitemap Google already crawled, and may be in job posts and emails. A 301
-  # keeps those links working instead of handing someone a 404 mid-application.
+  # The previous config sent ^leadership/?$ to /our-people. Removed on
+  # purpose: this build has a real Leadership page and the client approved it.
+
+  # --- URLs the previous (Astro) build served, now renamed ---------------
+  # All of these are in the sitemap Google has already crawled, so they 301
+  # rather than 404.
+  RewriteRule ^about-us/?$                          /about               [R=301,L]
+  RewriteRule ^presidents-message/?$                /founders-message    [R=301,L]
+  RewriteRule ^aws-cloud-enablement/?$              /cloud-solutions     [R=301,L]
+  RewriteRule ^enterprise-integrators/?$            /systems-integration [R=301,L]
+  RewriteRule ^technology-and-system-integration/?$ /systems-integration [R=301,L]
+  RewriteRule ^consulting-services/?$               /mission-support     [R=301,L]
+  RewriteRule ^apply/?$                             /openings            [R=301,L]
+  RewriteRule ^partnerships/?$                      /clients             [R=301,L]
+
+  # Routes the removed application owned. They would now fall through to the
+  # extensionless rule, fail to match a file, and render the 404 — which is
+  # correct, but a 410 Gone tells crawlers to drop them rather than keep
+  # retrying a page that is never coming back.
+  RewriteRule ^(api|admin|_astro|_private|vendor)(/|$) - [G,L]
+
+  # --- Internships folded into Careers -----------------------------------
   # [NE] stops Apache escaping the # into %23.
   RewriteRule ^internships/?$      /careers#internships  [R=301,NE,L]
   RewriteRule ^internships\.html$  /careers#internships  [R=301,NE,L]
 
-  # --- Keep the repo's plumbing off the web ----------------------------------
-  # Done with rewrite rather than <FilesMatch> + Require, because Require needs
-  # a broader AllowOverride than many shared hosts grant, and getting that
-  # wrong 500s the whole site.
-  RewriteRule ^(\.git|\.github|scripts|worker)(/|$)  - [R=404,L]
-  RewriteRule ^(_redirects|README\.md|\.gitignore)$  - [R=404,L]
+  # --- Trailing slash on a page URL --------------------------------------
+  # /careers/ would otherwise 404: REQUEST_FILENAME keeps the trailing slash,
+  # so the rule below would look for "careers/.html" and find nothing. !-d
+  # excludes real directories, so this never fights mod_dir's auto-slash.
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^(.+?)/$ /$1 [R=301,L]
+
+  # --- Extensionless URLs. Keep LAST. ------------------------------------
+  # The site links internally as /careers, /openings, /contact with no .html.
+  # Apache does not resolve that on its own; without this every nav item 404s.
+  # This is the rule to test first after deploying.
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^(.+?)/?$ $1.html [L]
 </IfModule>
 
+# ----------------------------------------------------------------------
+# Security headers
+# ----------------------------------------------------------------------
+# CSP origins, and why each is here:
+#   unpkg.com                        Leaflet (team map on Our People)
+#   fonts.googleapis / fonts.gstatic webfonts
+#   *.basemaps.cartocdn.com          Leaflet map tiles
+#   www.google.com / maps.google.com the embedded office map on Contact
+#
+# script-src keeps 'unsafe-inline' rather than sha256 hashes. Hashes are
+# stricter, and there are only two inline blocks (index.html, openings.html)
+# so they are easy to generate — scripts/csp-hashes.py prints them. The reason
+# they are not used: the moment anyone edits one of those blocks by even a
+# space, its hash stops matching and the script silently stops running, with
+# nothing in the UI to say why. 'unsafe-inline' still blocks script injected
+# from any other origin, which is the attack that actually matters on a static
+# marketing site. Switch to hashes when there is a build step to regenerate
+# them automatically.
+# ----------------------------------------------------------------------
 <IfModule mod_headers.c>
-  # --- Security headers ------------------------------------------------------
   Header always set X-Content-Type-Options "nosniff"
-  Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Frame-Options "DENY"
-  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
 
-  # The legacy XSS auditor is itself a vulnerability class. 0 disables it,
-  # which is the current recommendation. Not 1.
+  # Legacy XSS auditor is itself a vulnerability class; 0 disables it, which
+  # is the current recommendation. Not 1.
   Header always set X-XSS-Protection "0"
 
-  # HSTS. Deliberately WITHOUT preload and WITHOUT includeSubDomains for now.
-  # Turn those on only once every subdomain is confirmed HTTPS-only — preload
-  # is close to irreversible and can take a subdomain offline for a year.
-  # Only meaningful once the certificate is live and HTTPS is forced.
-  Header always set Strict-Transport-Security "max-age=31536000"
+  # includeSubDomains is carried over from the config this server already ran,
+  # so it is not a new commitment. preload stays off: it is close to
+  # irreversible and can take a subdomain offline for a year.
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 
   Header always unset X-Powered-By
   Header always unset Server
 
-  # --- Content Security Policy ----------------------------------------------
-  # REPORT-ONLY. This blocks nothing; it reports what it WOULD block to the
-  # browser console. Click through every page, confirm the console is clean,
-  # then change the header name to Content-Security-Policy to enforce.
-  # Shipping a CSP straight to enforce on a site nobody has clicked through is
-  # how you take the fonts, the map and the job feed down simultaneously.
-  #
-  # The two sha256 values are the two inline <script> blocks on the site
-  # (index.html and openings.html). THEY BREAK IF EITHER BLOCK IS EDITED, even
-  # by one space. Regenerate with: python3 scripts/csp-hashes.py
-  Header always set Content-Security-Policy-Report-Only "default-src 'none'; script-src 'self' https://unpkg.com 'sha256-ZN5Pt+7f2CoA7lYAKlVFFIMynFz72L2ZI0YRIHO4cKQ=' 'sha256-Bz4/PwA3MNu5MhBW0IotM5+wsVuXUJ5RdDaezEf5LXU='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.basemaps.cartocdn.com; connect-src 'self'; frame-src https://maps.google.com https://www.google.com; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; form-action 'self'; upgrade-insecure-requests"
-
-  # style-src keeps 'unsafe-inline' because the markup uses style="" attributes
-  # throughout. Attribute styles cannot be hashed without 'unsafe-hashes', and
-  # inline STYLE is a far smaller risk than inline SCRIPT. Removing it means
-  # refactoring several hundred attributes — real work, not launch-night work.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.basemaps.cartocdn.com; connect-src 'self'; frame-src https://www.google.com https://maps.google.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
 </IfModule>
 
-# NOTE ON FORCING HTTPS. There is deliberately no http->https rewrite here.
-# Use Hostinger's own "Force HTTPS" toggle in hPanel instead. Doing it in
-# .htaccess behind a host that terminates TLS at a proxy is the classic cause
-# of an infinite redirect loop, and the host's own toggle knows its topology.
+ErrorDocument 301 default
+ErrorDocument 302 default
 
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
-</IfModule>
-
+# ----------------------------------------------------------------------
+# Caching
+# ----------------------------------------------------------------------
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType image/jpeg              "access plus 1 year"
-  ExpiresByType image/png               "access plus 1 year"
-  ExpiresByType image/svg+xml           "access plus 1 year"
-  ExpiresByType image/webp              "access plus 1 year"
-  ExpiresByType font/woff2              "access plus 1 year"
-  ExpiresByType text/css                "access plus 7 days"
-  ExpiresByType application/javascript  "access plus 7 days"
-  ExpiresByType text/html               "access plus 0 seconds"
+  ExpiresByType text/html              "access plus 0 seconds"
+  ExpiresByType text/css               "access plus 7 days"
+  ExpiresByType text/javascript        "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/svg+xml          "access plus 1 month"
+  ExpiresByType image/png              "access plus 1 month"
+  ExpiresByType image/jpeg             "access plus 1 month"
+  ExpiresByType image/webp             "access plus 1 month"
+  ExpiresByType image/x-icon           "access plus 1 month"
+  ExpiresByType font/woff2             "access plus 1 year"
+  ExpiresByType application/xml        "access plus 1 hour"
 
-  # jobs.json is rewritten hourly by the JazzHR sync. Caching it means the
-  # openings page shows roles that are already filled. The page requests it
-  # with cache:'no-store', but an intermediate proxy does not have to honour
-  # that and this does.
-  ExpiresByType application/json        "access plus 0 seconds"
+  # jobs.json is rewritten hourly by the JazzHR sync. Cache it and the
+  # openings page advertises roles that are already filled.
+  ExpiresByType application/json       "access plus 0 seconds"
 </IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+  # Deliberately NOT immutable. The previous build hashed its asset filenames
+  # so it could afford a year; this one ships plain styles.css and script.js,
+  # and an immutable year on those means visitors keep a stale site after the
+  # next upload with no way to bust it.
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  <FilesMatch "\.(svg|png|jpg|jpeg|webp|avif|ico|woff2)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.(json)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml application/xml text/xml
+</IfModule>
+
+Options -Indexes
+
+# Blocks .git, .env, .DS_Store and friends. .htaccess itself is exempt so the
+# server can still read it.
+<FilesMatch "^\.(?!htaccess)">
+  Require all denied
+</FilesMatch>

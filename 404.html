@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Page Not Found &mdash; Emerging Tech</title>
+<meta name="robots" content="noindex, follow">
+<!--
+  Deliberately standalone: no styles.css, no script.js, no webfont.
+
+  A 404 has to render when something is already wrong — a bad deploy, a
+  half-uploaded asset folder, a path that resolved to nothing. Wiring it to
+  the same stylesheet the rest of the site depends on means the one page
+  whose job is to work when things are broken breaks along with them. The
+  colours are the site's, copied as literals; the font falls back to the
+  system stack, which is what Schibsted Grotesk degrades to anyway.
+-->
+<link rel="icon" href="favicon.ico">
+<style>
+  :root{--paper:#FAFAF8;--navy:#0B1F3A;--slate:#4E5D6E;--slate-2:#7A8794;--brass:#B98A2F;--line:#E4E2DC}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;padding:32px;
+       background:var(--paper);color:var(--navy);
+       font-family:"Schibsted Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+  .wrap{max-width:560px;text-align:center}
+  .code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;font-weight:600;
+        letter-spacing:.28em;text-transform:uppercase;color:var(--slate-2);margin-bottom:18px}
+  h1{font-size:clamp(30px,5vw,44px);font-weight:800;line-height:1.12;letter-spacing:-.02em;margin:0 0 16px}
+  p{color:var(--slate);font-size:16.5px;line-height:1.7;margin:0 0 12px}
+  .rule{width:180px;height:2px;background:var(--brass);margin:26px auto 30px}
+  .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+  a.btn{display:inline-block;padding:13px 22px;border-radius:9px;text-decoration:none;
+        font-weight:600;font-size:15px;border:1px solid var(--navy)}
+  a.navy{background:var(--navy);color:#fff}
+  a.line{background:transparent;color:var(--navy);border-color:var(--line)}
+  a.line:hover{border-color:var(--navy)}
+  .alt{margin-top:30px;font-size:14px;color:var(--slate-2)}
+  .alt a{color:var(--slate);text-decoration:underline}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="code">Error 404</div>
+    <h1>We couldn&rsquo;t find that page.</h1>
+    <div class="rule"></div>
+    <p>The link may be out of date, or the page may have moved. Everything is still reachable from the homepage.</p>
+    <div class="row">
+      <a class="btn navy" href="/">Go to the homepage</a>
+      <a class="btn line" href="/contact">Contact us</a>
+    </div>
+    <p class="alt">Looking for a role? See <a href="/openings">current openings</a>.
+       Need something specific? Email <a href="mailto:collaborate@emergingtech.co">collaborate@emergingtech.co</a>.</p>
+  </main>
+</body>
+</html>
