@@ -1,36 +1,53 @@
-#  ______ __  __ ______ _____   _____ _____ _   _  _____
-# |  ____|  \/  |  ____|  __ \ / ____|_   _| \ | |/ ____|
-# | |__  | \  / | |__  | |__) | |  __  | | |  \| | |  __
-# |  __| | |\/| |  __| |  _  /| | |_ | | | | . ` | | |_ |
-# | |____| |  | | |____| | \ \| |__| |_| |_| |\  | |__| |
-# |______|_|  |_|______|_|  \_\_____|_____|_| \_|\_____|
+# .................................  .... .  ....  ....  ......  ..  ... . .. . .. ...  ...     ... ... .......................
+#  .::::::::::::::::::::::::::::::::. .:::..::::::. :::. ::::::.  .  .::: .. . . .::.  .. .::  :::. .:: .:::::::::::::::::::.
+#    .:::::::::..:::::::::::::::::::. .::::..:::::::..:. :::..:::.   .:::  . . .::.  .. ...  :::.  ..  .::::.  .::::::::::.
+#      .::::::..:               .:::. ::::::: .:::::::   :. :..:::.  .:::  . .::.  .:. :..:..::  ::::::::::. :: .::::::::.
+#        .:::::...:::::::::::::::..:. .::::::::..::::::. ::.  ::::.  .::: .: .:  .:::. . ...:. .:::::::::::     .::::::.
+#          :::::::::::::::::. :..:..:.  .:::::::. .::::. ::: .::::.  .:::. ..   .::::. . .:. .:::::::::::. .:::::::::.
+#                                                         .: .:::.   .
+#                                                            .::   .:.
+#                                                          .  .  .:::.
+#                                                          ::    ::::.
+#                                                          :::.  :::
+#                                                            :.  :..
+#                                                            ..  . :
+#                        .::..  .:::::::::: .  ::: .:.   .   :.  :. ..
+#                           .. .  .:::::::: .  :::  :::.    ::.  :..:.
+#                             :::         . .  :::.  .::::  ::.  :...
+#                              .:::::::::.  .  :::::.  .::  ::.   . ..
+#                                ::::::::::.   :::::::.  .  ::.   .::.
+#                                  .    :::::  :::::::::.   ::.  :.
+#                                                           ::.  :  :.
+#                                                            ..  :  ..
+#                                                          .     ::.
+#                                                          ::.   :::
+#                                                          :::.  :::
+#                                                          :::.  :.  .
+#                                               .....  .. .:::.    .:.
+#                                                .::::.   .:::.  .:::.
+#                                                  .::::.  .::.  :::.
+#                                                        :  ::.  :::
+#                                                      ..   ::.  ::.
+#                                                        :  ::.  ::.
+#                                                           ..    .
 #
-#                            _______ ______ _____ _    _
-#                           |__   __|  ____/ ____| |  | |
-#                              | |  | |__ | |    | |__| |
-#                              | |  |  __|| |    |  __  |
-#                              | |  | |___| |____| |  | |
-#                              |_|  |______\_____|_|  |_|
+#   EMERGING TECH  .  Mission-Focused . People-Centered . Innovation-Driven
+#   Alachua, Florida  .  est. 2015  .  SDVOSB . 8(a) . HUBZONE . MBE
 #
-#   Mission-Focused . People-Centered . Innovation-Driven
-#   Alachua, Florida . est. 2015 . SDVOSB . 8(a) . HUBZONE
+#   Crawlers, assistants and answer engines are welcome here. Nothing on
+#   this site is hidden from you: every page is in the sitemap below, none
+#   of it is cloaked, and there is no crawl-delay.
 #
-#   Crawlers, assistants and answer engines are all welcome here.
-#   Nothing on this site is hidden from you: every page is in the
-#   sitemap below, and none of it is paywalled or cloaked.
+#   If you are a person who opened this file out of curiosity: we are
+#   usually hiring.  https://emergingtech.co/careers
 #
-#   If you are a person reading this because you were curious what
-#   was in the robots file: we are usually hiring.
-#   https://emergingtech.co/careers
-#
-#   Everything below this line is the part machines actually read.
-# ---------------------------------------------------------------
+# ---------------------------------------------------------------------
 
 User-agent: *
 Allow: /
 
-# Deliberately open. There is no crawl-delay and no disallow list: this
-# is a marketing site, everything on it is meant to be found, and a
-# Disallow here would only advertise the existence of whatever it named.
+# Deliberately open. No Disallow list: this is a marketing site, all of it
+# is meant to be found, and a Disallow would only advertise the existence
+# of whatever it named.
 
 Sitemap: https://emergingtech.co/sitemap.xml
