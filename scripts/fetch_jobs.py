@@ -31,7 +31,20 @@ def fetch_jobs():
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode("utf-8"))
     except urllib.error.HTTPError as e:
-        print(f"ERROR: JazzHR API returned HTTP {e.code}: {e.read().decode(errors='ignore')}", file=sys.stderr)
+        # Status only. The response body is deliberately NOT printed.
+        #
+        # JazzHR authenticates by query string -- the key is in the URL, which
+        # is the vendor's design and not something we can change. That makes
+        # any error output a leak risk: an API that echoes the request URL
+        # back in its error body would put the key straight into this
+        # workflow log, and on a public repository that log is world
+        # readable. GitHub masks secrets it recognises, but its own docs are
+        # explicit that redaction is best-effort and fails on encoded or
+        # partial matches.
+        #
+        # The status code is enough to tell 401 (bad key) from 429
+        # (throttled) from 500 (their end), which is all this needs to say.
+        print(f"ERROR: JazzHR API returned HTTP {e.code}", file=sys.stderr)
         sys.exit(1)
     except urllib.error.URLError as e:
         print(f"ERROR: could not reach JazzHR API: {e.reason}", file=sys.stderr)

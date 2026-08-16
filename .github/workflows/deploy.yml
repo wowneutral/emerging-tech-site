@@ -20,6 +20,13 @@ name: Deploy to Hostinger
 on:
   push:
     branches: [main]
+
+  # Called directly by fetch-jobs.yml after it commits a new jobs.json.
+  # Necessary because that workflow commits with GITHUB_TOKEN, and GitHub
+  # does not let a GITHUB_TOKEN push trigger another workflow — so the push
+  # trigger above never fires for the bot's commits.
+  workflow_call: {}
+
   workflow_dispatch:
     inputs:
       dry_run:
