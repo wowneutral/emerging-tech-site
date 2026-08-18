@@ -73,5 +73,22 @@ jobs:
   deploy:
     needs: fetch
     if: needs.fetch.outputs.changed == 'true'
+
+    # THIS BLOCK IS WHY THE WORKFLOW WOULD NOT START.
+    #
+    # A called workflow runs with the CALLING JOB's permissions, and the
+    # chain can only maintain or reduce them — never elevate. The
+    # workflow-level `permissions: {}` above means this job defaults to
+    # nothing, deploy.yml asks for `contents: read` to check itself out,
+    # and asking for read when you have been granted none is an
+    # elevation. GitHub rejects that when it validates the file, before a
+    # single job starts, so the run fails at startup rather than failing
+    # a step — which is why the logs were empty and the notification said
+    # "no jobs were run".
+    #
+    # It has to be at least what deploy.yml declares. Not more.
+    permissions:
+      contents: read
+
     uses: ./.github/workflows/deploy.yml
     secrets: inherit

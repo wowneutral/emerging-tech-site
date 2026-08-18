@@ -61,6 +61,22 @@ jobs:
           # where any later step can read it. Nothing here needs it.
           persist-credentials: false
 
+          # The branch tip, NOT the default github.sha.
+          #
+          # This one would have been very hard to spot in the wild. When
+          # fetch-jobs.yml calls this workflow, the github context is
+          # inherited from the caller, so github.sha is the commit the
+          # SCHEDULED RUN started from — which is the commit from before
+          # the fetch job committed the new jobs.json a minute earlier.
+          # Checking that out would upload the previous jobs.json, so the
+          # deploy would run green, report success, and change nothing on
+          # the server: exactly the silent staleness this automation was
+          # added to prevent, now with a passing tick next to it.
+          #
+          # github.ref is refs/heads/main for all three triggers, so on a
+          # normal push this still deploys what was just pushed.
+          ref: ${{ github.ref }}
+
       - name: Sync over FTPS
         uses: SamKirkland/FTP-Deploy-Action@3a9c65ae0fc12ac924ccef8afc26941cc43aad0b # v4.4.0
         with:
