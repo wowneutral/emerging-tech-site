@@ -1,14 +1,5 @@
 [
   {
-    "id": "job_20261001123338_SPHBN35VV8OLCUJZ",
-    "title": "Capture Solutions Director",
-    "city": "Washington",
-    "state": "DC",
-    "department": "",
-    "employment_type": "",
-    "url": "https://emergingtech.applytojob.com/apply/5tfkUB2jH4"
-  },
-  {
     "id": "job_20260924143948_ICFWIDZY5GQSN5WT",
     "title": "Data Center Relocation Specialist",
     "city": "Orlando",
@@ -34,5 +25,14 @@
     "department": "",
     "employment_type": "",
     "url": "https://emergingtech.applytojob.com/apply/weo4XOSgaB"
+  },
+  {
+    "id": "job_20261106143954_YGK9PZAU5YLWIZLH",
+    "title": "Senior Proposal Solution Architect",
+    "city": "Washington, DC",
+    "state": "DC",
+    "department": "",
+    "employment_type": "",
+    "url": "https://emergingtech.applytojob.com/apply/zliBixIC27"
   }
 ]
