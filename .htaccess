@@ -85,6 +85,19 @@ ErrorDocument 404 /404.html
   # retrying a page that is never coming back.
   RewriteRule ^(api|admin|_astro|_private|vendor)(/|$) - [G,L]
 
+  # --- Live jobs ---------------------------------------------------------
+  # /jobs.json is answered by jobs.php, which reads JazzHR's public feed
+  # with a 10-minute cache, so a role posted or closed in JazzHR shows here
+  # within minutes instead of waiting for the GitHub schedule. The committed
+  # jobs.json is still kept fresh by the sync and is jobs.php's fallback.
+  RewriteRule ^jobs\.json$ jobs.php [L]
+
+  # --- Stray copy from the old deploy path --------------------------------
+  # Deploys from August to November uploaded a full duplicate of the site to
+  # public_html/domains/emergingtech.co/public_html/. Gone, for visitors and
+  # crawlers, until someone with Hostinger file access deletes that folder.
+  RewriteRule ^domains(/|$) - [G,L]
+
   # --- Internships folded into Careers -----------------------------------
   # [NE] stops Apache escaping the # into %23.
   RewriteRule ^internships/?$      /careers#internships  [R=301,NE,L]
