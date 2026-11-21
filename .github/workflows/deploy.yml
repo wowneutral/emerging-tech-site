@@ -89,10 +89,14 @@ jobs:
           # Plain "ftp" would send the password in clear text.
           protocol: ftps
 
-          # Path as the FTP account sees it after login. FileZilla lands at /
-          # with domains/ beneath it, so the document root is this. If the dry
-          # run reports it cannot find the directory, this is the line to fix.
-          server-dir: ./domains/emergingtech.co/public_html/
+          # The FTP account logs in INSIDE public_html, so the document root is
+          # the login directory itself. This used to be
+          # ./domains/emergingtech.co/public_html/, which every deploy from
+          # August to November quietly created as a nested copy at
+          # public_html/domains/emergingtech.co/public_html/ while the live site
+          # stayed on a manual upload from 14 September. Check after any change:
+          # https://emergingtech.co/jobs.json must match the repo's jobs.json.
+          server-dir: ./
 
           dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
 
