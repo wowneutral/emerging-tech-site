@@ -6,6 +6,7 @@
  * Output: the same JSON array the site's old static jobs.json used:
  *   [{ id, title, city, state, department, employment_type, url }, ...]
  * so the existing Current Openings page keeps working unchanged.
+ * .htaccess routes /jobs.json here; the jobs.json file itself is the fallback.
  *
  * Cached for 10 minutes. If JazzHR is unreachable, the last good list is served
  * instead of an empty page.
@@ -71,14 +72,14 @@ function parse_feed(string $xml): ?array {
             'url' => $url,
         ];
     }
+    usort($jobs, fn($a, $b) => strcasecmp($a['title'], $b['title']));
     return $jobs;
 }
 
 function send(array $jobs, string $state, int $age): void {
     header('Content-Type: application/json; charset=utf-8');
-    header('Cache-Control: public, max-age=300');
-    header('X-Jobs-Source: jazzhr-feed; ' . $state . '; age=' . $age);
-    header('Access-Control-Allow-Origin: https://emergingtech.co');
+    header('Cache-Control: no-cache, no-store, must-revalidate');
+    header('X-Jobs-Source: ' . $state . '; age=' . $age);
     echo json_encode($jobs, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     exit;
 }
@@ -98,8 +99,11 @@ if (is_array($jobs)) {
     send($jobs, 'fresh', 0);
 }
 
-// JazzHR down or the feed changed shape: keep showing the last good list.
+// JazzHR down or the feed changed shape: keep showing the last good list,
+// then the jobs.json the hourly GitHub sync commits, before ever showing none.
 if (is_array($cached)) send($cached, 'stale', $age);
+$static = json_decode((string) @file_get_contents(__DIR__ . '/jobs.json'), true);
+if (is_array($static)) send($static, 'static-fallback', -1);
 
 http_response_code(503);
 header('Content-Type: application/json; charset=utf-8');
