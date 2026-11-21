@@ -29,6 +29,11 @@
 
 ErrorDocument 404 /404.html
 
+# The stray duplicate under /domains/ carries its own .htaccess, which turns
+# off the rewrite rules inherited from here, so it is closed with mod_alias,
+# which subfolders cannot opt out of. Remove once the folder is deleted.
+RedirectMatch 410 ^/domains/
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
